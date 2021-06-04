@@ -16,6 +16,10 @@
   outline: none;
 }
 
+.widControls.ctrls {
+  display: none;
+}
+
 ul, li {
   font-size: 0;
 }
@@ -156,10 +160,10 @@ a.disabled, .cmd.disabled {
   position: absolute;
   bottom: 0px;
   width: 100%;
-  background-image: linear-gradient(to bottom,#3c3c3c 0,#222 100%);
-  background-repeat: repeat-x;
+  /*background-image: linear-gradient(to bottom,#3c3c3c 0,#222 100%);*/
+  /*background-repeat: repeat-x;*/
   padding: 3px;
-  background-color: #3c3c3c;
+  background-color: #192b54;
   text-align: center;
 }
 .toolbar ul, .toolbar li {
