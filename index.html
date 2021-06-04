@@ -123,16 +123,51 @@
         </li>
        
       </ul>
+
+      <div class="flip-book-container solid-container"></div>
       
           
 
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" src="dist/js/app.min.js?v=1"></script>
+    <script src="dist/js/3d-flip-book/js/libs/html2canvas.min.js"></script>
+    <script src="dist/js/3d-flip-book/js/libs/three.min.js"></script>
+    <script src="dist/js/3d-flip-book/js/libs/pdf.min.js"></script>
+    <script src="dist/js/3d-flip-book/js/dist/3dflipbook.min.js"></script>
+
+    
+
     <script>
+
+      const catalogue_url = 'https://nyr-catalogue-wp.yarrington.app/wp-json/app/v1/catalogues';
+      var pages = [];
 
       (function($) {
 
         $(document).ready(function(){
+
+
+          $.get(catalogue_url, function(data) {
+
+            const catalogue = data[0];
+            const all_catalogues = data;
+
+            // Organise Pages
+            for (var i = catalogue.items.length - 1; i >= 0; i--) {
+              var item = catalogue.items[i];
+
+              if(typeof pages[item.page] == 'undefined') {
+                pages[item.page] = [];
+              }
+
+              pages[item.page].push(item);
+            }
+
+            // Build Flipbook
+            $('.solid-container').FlipBook({pdf: catalogue.pdf_file});
+
+          });
+
           $('.sidenav').sidenav();
           $('.tooltipped').tooltip();
         });
