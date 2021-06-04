@@ -1,0 +1,73 @@
+html,
+body {
+	padding: 0;
+	background: #1f376c;
+
+	@media screen and (min-width: 900px) {
+
+		nav {
+			width: 64px;
+			height: 100vh;
+
+			li {
+				width: 100%;
+
+				a {
+					padding: 0;
+				}
+			}
+		}
+
+	}
+
+	nav {
+		
+		background-color: #192b54;
+		box-shadow: none;
+
+		li {
+			text-align: center;
+
+			a {
+
+				span {
+					vertical-align: sub;
+				}
+
+				&.sidenav-trigger {
+					display: block;
+					margin: 0;
+					width: 100%;
+				}
+			}
+		}
+	}
+
+	ul.sidenav {
+		li {
+			header {
+				text-align: center;
+				font-weight: bold;
+				font-size: 12px;
+				text-transform: uppercase;
+			}
+			div.card {
+				p {
+					line-height: 1.5;
+				}
+
+				div.card-action {
+					padding: 5px 15px;
+
+					a {
+						text-align: center;
+						width: 49%;
+					    display: inline-block;
+					    margin-right: 0 !important;
+					    color: #1f376c !important;
+					}
+				}
+			}
+		}
+	}
+}
