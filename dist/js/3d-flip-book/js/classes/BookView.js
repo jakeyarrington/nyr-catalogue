@@ -129,17 +129,17 @@ export default class BookView extends View {
 
   getTemplate() {
     return {
-      html: 'templates/default-book-view.html',
+      html: 'dist/js/3d-flip-book/templates/default-book-view.html',
       styles: [
-        'css/black-book-view.css'
+        'dist/js/3d-flip-book/css/black-book-view.css'
       ],
       links: [
         {
           rel: 'stylesheet',
-          href: 'css/font-awesome.min.css'
+          href: 'dist/js/3d-flip-book/css/font-awesome.min.css'
         }
       ],
-      script: 'js/default-book-view.js'
+      script: 'dist/js/3d-flip-book/js/default-book-view.js'
     };
   }
 
