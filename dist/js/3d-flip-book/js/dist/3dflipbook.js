@@ -2760,8 +2760,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-_libs.PDFJS.GlobalWorkerOptions.workerSrc = (window.PDFJS_LOCALE ? PDFJS_LOCALE : __webpack_require__.i({"pdfJsWorker":"dist/js/3d-flip-book/js/libs/js/pdf.worker.js","pdfJsCMapUrl":"dist/js/3d-flip-book/cmaps/"})).pdfJsWorker;
-_libs.PDFJS.cMapUrl = (window.PDFJS_LOCALE ? PDFJS_LOCALE : __webpack_require__.i({"pdfJsWorker":"dist/js/3d-flip-book/js/libs/js/pdf.worker.js","pdfJsCMapUrl":"dist/js/3d-flip-book/cmaps/"})).pdfJsCMapUrl;
+_libs.PDFJS.GlobalWorkerOptions.workerSrc = (window.PDFJS_LOCALE ? PDFJS_LOCALE : __webpack_require__.i({"pdfJsWorker":"dist/js/3d-flip-book/js/libs/pdf.worker.js","pdfJsCMapUrl":"dist/js/3d-flip-book/cmaps/"})).pdfJsWorker;
+_libs.PDFJS.cMapUrl = (window.PDFJS_LOCALE ? PDFJS_LOCALE : __webpack_require__.i({"pdfJsWorker":"dist/js/3d-flip-book/js/libs/pdf.worker.js","pdfJsCMapUrl":"dist/js/3d-flip-book/cmaps/"})).pdfJsCMapUrl;
 _libs.PDFJS.cMapPacked = true;
 _libs.PDFJS.disableAutoFetch = true;
 _libs.PDFJS.disableStream = true;
