@@ -6433,7 +6433,7 @@ var BookView = function (_View) {
 
   BookView.prototype.getTemplate = function getTemplate() {
     return {
-      html: 'templates/default-book-view.html',
+      html: 'dist/js/3d-flip-book/templates/default-book-view.html',
       styles: ['dist/js/3d-flip-book/css/black-book-view.css'],
       links: [{
         rel: 'stylesheet',
