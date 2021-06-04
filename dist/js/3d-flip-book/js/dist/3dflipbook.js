@@ -6434,12 +6434,12 @@ var BookView = function (_View) {
   BookView.prototype.getTemplate = function getTemplate() {
     return {
       html: 'templates/default-book-view.html',
-      styles: ['css/black-book-view.css'],
+      styles: ['dist/js/3d-flip-book/css/black-book-view.css'],
       links: [{
         rel: 'stylesheet',
-        href: 'css/font-awesome.min.css'
+        href: 'dist/js/3d-flip-book/css/font-awesome.min.css'
       }],
-      script: 'js/default-book-view.js'
+      script: 'dist/js/3d-flip-book/js/default-book-view.js'
     };
   };
 
