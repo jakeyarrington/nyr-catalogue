@@ -146,6 +146,8 @@
       var pages = [];
       var page_index = 0;
       var app = angular.module('nyr', []);
+      
+      const basket_sidebar = document.getElementById('basket_sidebar');
 
       var basketController = app.controller('basket', ['$scope', 'catalogues', function($scope, catalogues) {
 
@@ -264,6 +266,9 @@
 
       });
 
+      $('.sidenav').sidenav();
+      $('.tooltipped').tooltip();
+
       (function($) {
 
         return;
@@ -274,7 +279,7 @@
 
             const catalogue = data[0];
             const all_catalogues = data;
-            const basket_sidebar = document.getElementById('basket_sidebar');
+            
 
             // Organise Pages
             for (var i = catalogue.items.length - 1; i >= 0; i--) {
@@ -321,8 +326,7 @@
 
           });
 
-          $('.sidenav').sidenav();
-          $('.tooltipped').tooltip();
+          
 
         });
 
