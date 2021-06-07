@@ -10,7 +10,11 @@
     <title>Neal's Yard Catalogue</title>
   </head>
 
-  <body>
+  <body ng-app="nyr">
+
+    <div class="progress loading-page">
+        <div class="indeterminate"></div>
+    </div>
 
       <nav>
         <div class="nav-wrapper">
@@ -39,7 +43,7 @@
       </div>
       </nav>
 
-      <ul id="slide-out" class="sidenav">
+      <ul id="basket_sidebar" class="sidenav" ng-controller="basket">
         <li>
           <header>
             13 Items on Page
@@ -124,7 +128,7 @@
        
       </ul>
 
-      <div class="flip-book-container solid-container"></div>
+      <div class="flip-book-container solid-container" ng-controller="flipbook"></div>
       
           
 
@@ -138,12 +142,131 @@
     
 
     <script>
-
-      const catalogue_url = 'https://nyr-catalogue-wp.yarrington.app/wp-json/app/v1/catalogues';
+      
       var pages = [];
+      var page_index = 0;
+      var app = angular.module('nyr', []);
+
+      var basketController = app.controller('basket', ['$scope', 'catalogues', function($scope, catalogues) {
+
+        catalogues.http.then((e) => {
+            /* Set Data */
+            catalogues.set(e);
+
+            console.log(catalogues.get());
+        })
+
+      }]);
+
+      var flipBookController = app.controller('flipbook', ['$scope', 'catalogues', function($scope, catalogues) {
+
+        $scope.page_index = 0;
+
+        catalogues.http.then((e) => {
+            /* Set Data */
+            catalogues.set(e);
+
+            /* Init Flipbook */
+            $scope.flipbook = $('.solid-container').FlipBook({pdf: encodeURI(catalogues.get().pdf_file)});
+
+            /* Setup loop for Page Change */
+            setInterval(function() {
+
+              if(typeof $scope.flipbook.book == 'undefined') {
+                return;
+              } else {
+                $('.loading-page').remove();
+              }
+
+              $scope.this_page_index = $scope.flipbook.book.getPage()+1;
+              if($scope.this_page_index !== $scope.page_index) {
+                $scope.page_index = $scope.this_page_index;
+
+                console.log('Page Index', $scope.page_index);
+
+                if(typeof catalogues.pages.data[$scope.page_index] !== 'undefined') {
+                  var length = catalogues.pages.data[$scope.page_index].length;
+                  M.toast({
+                    html: ('There '+ (length == 1 ? 'is' : 'are') +' % item'+ (length == 1 ? '' : 's') +' to view <button class="btn-flat toast-action" onclick="M.Sidenav.getInstance(basket_sidebar).open()">View</button>').replace('%', length),
+                    displayLength: 5000,
+
+                  });
+                }
+
+              }
+
+            }, 100);
+
+        })
+
+      }])
+
+      basketController.factory('catalogues', function() {
+
+        var http = new Promise((resolve, reject) => {
+          $.ajax({
+            url: 'https://nyr-catalogue-wp.yarrington.app/wp-json/app/v1/catalogues',
+            type: 'GET',
+            success: function (data) {
+              resolve(data)
+            },
+            error: function (error) {
+              reject(error)
+            },
+          });
+        });
+
+        var response = {
+            http: http,
+            data: null,
+            loaded: false,
+            pages: {
+                data: [],
+                map: function() {
+                    var $this = response;
+                    var catalogue = $this.get();
+                    for (var i = catalogue.items.length - 1; i >= 0; i--) {
+                        var item = catalogue.items[i];
+                        if(typeof $this.pages.data[item.page]) {
+                            $this.pages.data[item.page] = [];
+                        }
+
+                        $this.pages.data[item.page].push(item);
+                    }
+                }
+            },
+            set: function(data) {
+                var $this = response;
+
+                if(this.loaded) {
+                    return this;
+                }
+
+                this.data = data;
+                this.loaded = true;
+                this.pages.map();
+                this.http = {
+                    then: function() {
+                        $this.data.cached = true;
+                        return $this.data;
+                    }
+                };
+
+                return this;
+            },
+            get: function(index) {
+                var $this = response;
+                return $this.data[index ? index : 0];
+            }
+        };
+
+        return response;
+
+      });
 
       (function($) {
 
+        return;
         $(document).ready(function(){
 
 
@@ -151,6 +274,7 @@
 
             const catalogue = data[0];
             const all_catalogues = data;
+            const basket_sidebar = document.getElementById('basket_sidebar');
 
             // Organise Pages
             for (var i = catalogue.items.length - 1; i >= 0; i--) {
@@ -164,12 +288,42 @@
             }
 
             // Build Flipbook
-            $('.solid-container').FlipBook({pdf: encodeURI(catalogue.pdf_file)});
+            const flipbook = $('.solid-container').FlipBook({pdf: encodeURI(catalogue.pdf_file)});
+
+            setInterval(function() {
+
+              if(typeof flipbook !== 'object' || typeof flipbook.book == 'undefined') {
+                return;
+              } else {
+                $('.loading-page').remove();
+              }
+
+              var this_page_index = flipbook.book.getPage()+1;
+              if(this_page_index !== page_index) {
+                page_index = this_page_index;
+
+                console.log('Page Index', page_index);
+
+                if(typeof pages[page_index] !== 'undefined') {
+                  console.log(pages[page_index]);
+
+                  var length = pages[page_index].length;
+                  M.toast({
+                    html: ('There '+ (length == 1 ? 'is' : 'are') +' % item'+ (length == 1 ? '' : 's') +' to view <button class="btn-flat toast-action" onclick="M.Sidenav.getInstance(basket_sidebar).open()">View</button>').replace('%', length),
+                    displayLength: 5000,
+
+                  });
+                }
+
+              }
+
+            }, 100);
 
           });
 
           $('.sidenav').sidenav();
           $('.tooltipped').tooltip();
+
         });
 
       })(jQuery);

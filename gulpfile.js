@@ -44,6 +44,7 @@ gulp.task('webserver', function() {
 // Then rebuild the js and css files
 
 gulp.task('watch', function(){
+    connect.server();
   gulp.watch(['src/scss/*.scss'], gulp.series('css')); // Watch and run sass on changes
   gulp.watch('src/js/*.js', gulp.series('scripts')); // Watch and run javascripts on changes
   gulp.src('assets/*')

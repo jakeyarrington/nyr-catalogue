@@ -74,6 +74,23 @@ body {
 		}
 	}
 
+	.loading-page {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 300px;
+
+		&.progress {
+			background-color: #192b54;
+
+			.indeterminate:before,
+			.indeterminate:after {
+				background-color: rgba(255,255,255,1);
+			}
+		}
+	}
+
 	.solid-container {
 		height: 100vh;
 		width: 100%;
