@@ -199,7 +199,7 @@
                     return this;
                 }
 
-                this.data = data;
+                this.data = typeof data == 'string' ? JSON.parse(data) : data;
                 this.loaded = true;
                 this.pages.map();
                 this.http = {
