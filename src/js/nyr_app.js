@@ -27,7 +27,7 @@
                 var region = typeof $scope.consultant.region !== 'undefined' ? $scope.consultant.region : 'uk';
 
                 /* Store Data */
-                catalogues.set(e);
+                catalogues.set(e, consultant);
 
                 catalogues.region = region;
 
@@ -189,17 +189,18 @@
                 map: function() {
                     var $this = response;
                     var catalogue = $this.get();
-                    $this.pages.data = catalogue[$this.region + '_items'];
+                    var items = catalogue[$this.region + '_items'];
+                    $this.pages.data = items;
                 }
             },
-            set: function(data) {
+            set: function(data, consultant) {
                 var $this = response;
 
                 if (this.loaded) {
                     return this;
                 }
 
-                this.data = typeof data == 'string' ? JSON.parse(data) : data;
+                this.data = typeof data == 'string' ? JSON.parse((consultant ? data.replace('/corp/', '/' + consultant.data.slug + '/') : data)) : data;
                 this.loaded = true;
                 this.pages.map();
                 this.http = {
