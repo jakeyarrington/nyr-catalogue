@@ -11,6 +11,7 @@
     var appController = app.controller('app', ['$scope', 'catalogues', 'consultant', '$timeout', function($scope, catalogues, consultant, $timeout) {
 
         $scope.page_index = 0;
+        window.scope = $scope;
 
         consultant.http.then((e) => {
 
@@ -65,8 +66,6 @@
                         });
 
                         console.log('Page Index', $scope.page_index);
-
-                        window.c = catalogues;
 
                         if (typeof catalogues.pages.data[$scope.page_index] !== 'undefined') {
 
