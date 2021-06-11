@@ -10,7 +10,7 @@
     <title>Neal's Yard Catalogue</title>
   </head>
 
-  <body ng-app="nyr">
+  <body ng-app="nyr" ng-controller="app">
 
     <div class="progress loading-page">
         <div class="indeterminate"></div>
@@ -43,7 +43,7 @@
       </div>
       </nav>
 
-      <ul id="basket_sidebar" class="sidenav" ng-controller="basket">
+      <ul id="basket_sidebar" class="sidenav">
         <li>
           <header>
             <span ng-bind="catalogue.pages.data[catalogue.active_page].length"></span> Item(s) on Page <span ng-bind="catalogue.active_page"></span>
@@ -76,9 +76,9 @@
        
       </ul>
 
-      <div class="flip-book-container solid-container" ng-controller="flipbook"></div>
+      <div class="flip-book-container solid-container"></div>
 
-      <div ng-controller="videomodal">
+      <div>
           <div id="video_modal" class="modal">
             <div class="modal-content">
               <!-- <h4 ng-bind="catalogue.modal.name">Modal Header</h4> -->
@@ -100,192 +100,6 @@
     <script src="dist/js/3d-flip-book/js/libs/three.min.js"></script>
     <script src="dist/js/3d-flip-book/js/libs/pdf.min.js"></script>
     <script src="dist/js/3d-flip-book/js/dist/3dflipbook.js"></script>
-
-    
-
-    <script>
-      
-      var pages = [];
-      var page_index = 0;
-      var app = angular.module('nyr', []);
-
-    app.filter('safeHtml', function ($sce) {
-        return function (val) {
-            return $sce.trustAsHtml(val);
-        };
-    });
-
-      const basket_sidebar = document.getElementById('basket_sidebar');
-
-      var basketController = app.controller('basket', ['$scope', 'catalogues', '$timeout', function($scope, catalogues, $timeout) {
-
-        catalogues.http.then((e) => {
-            /* Set Data */
-            catalogues.set(e);
-
-            console.log(catalogues.get());
-            
-            $timeout(function() {
-                $scope.catalogue = catalogues;
-                $scope.$apply();
-            });
-
-            $scope.open_video_modal = function($item) {
-                $timeout(function() {
-                    catalogues.modal = $item;
-                    console.log($item);
-                    $scope.$apply();
-                });
-            }
-            
-        })
-
-      }]);
-
-      var videoModalController = app.controller('videomodal', ['$scope', 'catalogues', '$timeout', function($scope, catalogues, $timeout) {
-
-            catalogues.http.then((e) => {
-                /* Set Data */
-                catalogues.set(e);
-
-                $timeout(function() {
-                    $scope.catalogue = catalogues;
-                    $scope.$apply();
-                    console.log($scope.catalogue);
-                });
-
-
-            });
-
-      }]);
-
-      var flipBookController = app.controller('flipbook', ['$scope', 'catalogues', '$timeout', function($scope, catalogues, $timeout) {
-
-        $scope.page_index = 0;
-
-        catalogues.http.then((e) => {
-            /* Set Data */
-            catalogues.set(e);
-
-            /* Init Flipbook */
-            $scope.flipbook = $('.solid-container').FlipBook({pdf: encodeURI(catalogues.get().pdf_file)});
-
-            /* Setup loop for Page Change */
-            setInterval(function() {
-
-              if(typeof $scope.flipbook.book == 'undefined') {
-                return;
-              } else {
-                $('.loading-page').remove();
-              }
-
-              $scope.this_page_index = $scope.flipbook.book.getPage()+1;
-              if($scope.this_page_index !== $scope.page_index) {
-                $scope.page_index = $scope.this_page_index;
-
-                $timeout(function() {
-                    catalogues.active_page = $scope.this_page_index;
-                    $scope.$apply();
-                });
-
-                console.log('Page Index', $scope.page_index);
-
-                if(typeof catalogues.pages.data[$scope.page_index] !== 'undefined') {
-
-                  $scope.active_items = catalogues.pages.data[$scope.page_index];
-                  var length = catalogues.pages.data[$scope.page_index].length;
-                  
-                  M.toast({
-                    html: ('There '+ (length == 1 ? 'is' : 'are') +' % item'+ (length == 1 ? '' : 's') +' to view <button class="btn-flat toast-action" onclick="M.Sidenav.getInstance(basket_sidebar).open()">View</button>').replace('%', length),
-                    displayLength: 5000,
-
-                  });
-                }
-
-              }
-
-            }, 100);
-
-        })
-
-      }]);
-
-      basketController.factory('catalogues', function() {
-
-        var http = new Promise((resolve, reject) => {
-          $.ajax({
-            url: 'https://objects.yarringtoncontent.co.uk/nyr/catalogue/catalogue.json',
-            type: 'GET',
-            success: function (data) {
-              resolve(data)
-            },
-            error: function (error) {
-              reject(error)
-            },
-          });
-        });
-
-        var response = {
-            http: http,
-            data: null,
-            loaded: false,
-            active_page: 0,
-            modal: [],
-            pages: {
-                data: [],
-                map: function() {
-                    var $this = response;
-                    var catalogue = $this.get();
-                    for (var i = catalogue.items.length - 1; i >= 0; i--) {
-                        var item = catalogue.items[i];
-                        if(typeof $this.pages.data[item.page] == 'undefined') {
-                            $this.pages.data[item.page] = [];
-                        }
-
-                        $this.pages.data[item.page].push(item);
-                    }
-                }
-            },
-            set: function(data) {
-                var $this = response;
-
-                if(this.loaded) {
-                    return this;
-                }
-
-                this.data = data;
-                this.loaded = true;
-                this.pages.map();
-                this.http = {
-                    then: function() {
-                        $this.data.cached = true;
-                        return $this.data;
-                    }
-                };
-
-                return this;
-            },
-            get: function(index) {
-                var $this = response;
-                return $this.data[index ? index : 0];
-            }
-        };
-
-        return response;
-
-      });
-
-        (function($) {
-            $(document).ready(function(){
-                $('.sidenav').sidenav();
-                $('.tooltipped').tooltip();
-                $('.modal').modal();
-            });
-        })(jQuery);
-
-      
-          
-    </script>
 
   </body>
 </html>
