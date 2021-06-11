@@ -54,20 +54,21 @@
             <div class="col s12">
               <div class="card">
                 <div class="card-image">
-                  <img ng-src="{{item.cover}}">
+                  <img style="width:50%;margin:0 auto;" ng-src="{{item.item.cover}}">
                   
                 </div>
                 <div class="card-content">
-                  <h6><span ng-bind="item.name">Card Title</span></h6>
-                  <p ng-bind="item.description"></p>
+                  <h6><strong><span ng-bind="item.item.name">Card Title</span></strong></h6>
+                  <p ng-bind="item.price"></p>
+                  <p class="trim-info" ng-bind-html="item.item.summary | safeHtml"></p>
                 </div>
-                <div class="card-action" ng-if="!item.video">
-                  <a ng-href="{{item.link}}" target="_blank" ng-if="item.link">Purchase</a>
-                  <a href="#" ng-if="item.favourite">Favourite</a>
+                <div class="card-action" ng-if="item.type == 'product'">
+                  <a ng-href="{{item.item.link}}" target="_blank" ng-if="item.item.link">Purchase</a>
+                  <a href="#" ng-if="item.item.favourite">Favourite</a>
                 </div>
-                <div class="card-action" ng-if="item.video">
-                  <a ng-href="{{item.link}}" target="_blank" ng-if="item.link">Visit</a>
-                  <a class="modal-trigger" href="#video_modal" ng-if="item.video" ng-click="open_video_modal(item)">Watch</a>
+                <div class="card-action" ng-if="item.type == 'video'">
+                  <a ng-href="{{item.item.link}}" target="_blank" ng-if="item.item.link">Visit</a>
+                  <a class="modal-trigger" href="#video_modal" ng-if="item.item.video" ng-click="open_video_modal(item)">Watch</a>
                 </div>
               </div>
             </div>

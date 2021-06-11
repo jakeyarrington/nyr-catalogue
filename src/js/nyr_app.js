@@ -2,13 +2,9 @@
 
     var pages = [];
     var page_index = 0;
-    var app = angular.module('nyr', []);
+    var app = angular.module('nyr', ['ngSanitize']);
 
-    app.filter('safeHtml', function($sce) {
-        return function(val) {
-            return $sce.trustAsHtml(val);
-        };
-    });
+    const cdn_url = location.href.indexOf('localhost') > -1 ? 'http://localhost:8080/mockdata/' : 'https://objects.yarringtoncontent.co.uk/nyr/catalogue/';
 
     const basket_sidebar = document.getElementById('basket_sidebar');
 
@@ -22,7 +18,6 @@
             consultant.set(e);  
 
             $scope.consultant = consultant.get();
-            console.log($scope.consultant);
 
             catalogues.http.then((e) => {
 
@@ -48,7 +43,7 @@
 
                 /* Init Flipbook */
                 $scope.flipbook = $('.solid-container').FlipBook({
-                    pdf: 'https://objects.yarringtoncontent.co.uk/nyr/catalogue/' + ($scope.catalogue[0][region + '_pdf_file'])
+                    pdf: cdn_url + (catalogues.get()[region + '_pdf_file'])
                 });
 
                 /* Setup loop for Page Change */
@@ -70,6 +65,8 @@
                         });
 
                         console.log('Page Index', $scope.page_index);
+
+                        window.c = catalogues;
 
                         if (typeof catalogues.pages.data[$scope.page_index] !== 'undefined') {
 
@@ -168,7 +165,7 @@
 
         var http = new Promise((resolve, reject) => {
             $.ajax({
-                url: 'https://objects.yarringtoncontent.co.uk/nyr/catalogue/catalogue.json',
+                url: cdn_url + 'catalogue.json',
                 type: 'GET',
                 success: function(data) {
                     resolve(data)
@@ -221,6 +218,12 @@
 
         return response;
 
+    });
+
+    app.filter('safeHtml', function($sce) {
+        return function(val) {
+            return $sce.trustAsHtml(val);
+        };
     });
 
     $(document).ready(function() {
