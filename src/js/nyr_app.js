@@ -12,6 +12,8 @@
 
         $scope.page_index = 0;
         window.scope = $scope;
+        window.catalogues = catalogues;
+        window.consultant = consultant;
 
         consultant.http.then((e) => {
 
@@ -139,7 +141,7 @@
                     return this;
                 }
 
-                this.data = data;
+                this.data = typeof data == 'string' ? JSON.parse(data) : data;
                 this.loaded = true;
                 this.http = {
                     then: function() {
