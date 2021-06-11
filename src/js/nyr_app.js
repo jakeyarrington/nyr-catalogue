@@ -26,8 +26,12 @@
 
             catalogues.http.then((e) => {
 
+                var region = typeof $scope.consultant.region !== 'undefined' ? $scope.consultant.region : 'uk';
+
                 /* Store Data */
                 catalogues.set(e);
+
+                catalogues.region = region;
 
                 $timeout(function() {
                     $scope.catalogue = catalogues;
@@ -41,8 +45,6 @@
                         $scope.$apply();
                     });
                 };
-
-                var region = typeof $scope.consultant.region !== 'undefined' ? $scope.consultant.region : 'uk';
 
                 /* Init Flipbook */
                 $scope.flipbook = $('.solid-container').FlipBook({
@@ -183,19 +185,13 @@
             loaded: false,
             active_page: 0,
             modal: [],
+            region: 'uk',
             pages: {
                 data: [],
                 map: function() {
                     var $this = response;
                     var catalogue = $this.get();
-                    for (var i = catalogue.items.length - 1; i >= 0; i--) {
-                        var item = catalogue.items[i];
-                        if (typeof $this.pages.data[item.page] == 'undefined') {
-                            $this.pages.data[item.page] = [];
-                        }
-
-                        $this.pages.data[item.page].push(item);
-                    }
+                    $this.pages.data = catalogue[$this.region + '_items'];
                 }
             },
             set: function(data) {
