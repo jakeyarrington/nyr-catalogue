@@ -48,7 +48,7 @@
 
                 /* Init Flipbook */
                 $scope.flipbook = $('.solid-container').FlipBook({
-                    pdf: 'https://objects.yarringtoncontent.co.uk/nyr/catalogue/' + (catalogues.get()[region + '_pdf_file'])
+                    pdf: 'https://objects.yarringtoncontent.co.uk/nyr/catalogue/' + ($scope.catalogue[region + '_pdf_file'])
                 });
 
                 /* Setup loop for Page Change */
