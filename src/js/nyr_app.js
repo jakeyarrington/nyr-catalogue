@@ -307,6 +307,7 @@
                 if(typeof consultant == 'object' && typeof consultant.data.slug == 'string') {
                     data = data.replace(/\/corp\//g, '/' + consultant.data.slug + '/');
                     data = data.replace(/\\\/corp\\\//g, '/' + consultant.data.slug + '/');
+                    data = data.replace(/\/corp/g, '/' + consultant.data.slug);
                     console.log('branded data');
                 }
 
