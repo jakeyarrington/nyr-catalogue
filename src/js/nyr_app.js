@@ -4,9 +4,12 @@
     var page_index = 0;
     var app = angular.module('nyr', ['ngSanitize']);
 
-    const cdn_url = location.href.indexOf('localhost') > -1 ? 'http://localhost:8080/mockdata/' : 'https://yarrington-objects.fra1.cdn.digitaloceanspaces.com/nyr/catalogue/';
+    const is_local = location.href.indexOf('localhost') > -1;
+    const cdn_url = is_local ? 'http://localhost:8080/mockdata/' : 'https://yarrington-objects.fra1.cdn.digitaloceanspaces.com/nyr/catalogue/';
 
     const basket_sidebar = document.getElementById('basket_sidebar');
+    const favourites_sidebar = document.getElementById('favourites_sidebar');
+    const options_modal = document.getElementById('options');
 
     var appController = app.controller('app', ['$scope', 'catalogues', 'consultant', '$timeout', function($scope, catalogues, consultant, $timeout) {
 
@@ -14,6 +17,64 @@
         window.scope = $scope;
         window.catalogues = catalogues;
         window.consultant = consultant;
+
+        $scope.favourite = {
+            $data: {},
+            $count: 0,
+            update: function($key, $state) {
+                var that = this;
+                var key = $key;
+                if(!isNaN($state)) {
+                    localStorage.setItem(key, $state);
+                }
+
+                if($state < 1) {
+                    localStorage.removeItem(key);
+                }
+
+                $timeout(function() {
+                    that.get_all();
+                    $scope.$apply();
+                });
+                
+
+                return localStorage.getItem($key);
+            },
+            get_all: function() {
+
+                var that = this;
+
+                this.$data = {};
+                this.$count = 0;
+                var ls_keys = Object.keys(localStorage);
+
+                for (var i = ls_keys.length - 1; i >= 0; i--) {
+                    var key = ls_keys[i];
+                    if(key.substring(0, 4) == 'nyr_') {
+                        that.$data[key] = parseInt(localStorage.getItem(key));
+                        that.$count++;
+                    }
+                }
+
+                $timeout(function() {
+                    $scope.$apply();
+                });
+            },
+            get: function($key) {
+                return this.update($key);
+            },
+            set: function($key, $value) {
+                M.toast({
+                    html: ('You have ' + ($value == 1 ? 'favourited' : 'unfavourited') + ' ' + catalogues.pages.data.items[$key].item.name + ' <button class="btn-flat toast-action" onclick="M.Sidenav.getInstance(favourites_sidebar).open()">View</button>').replace('%', length),
+                    displayLength: 5000,
+                });
+                return this.update($key, $value);
+            },
+            remove: function($key) {
+                this.update($key, -1);
+            }
+
+        }
 
         consultant.http.then((e) => {
 
@@ -27,29 +88,61 @@
                 var region = typeof $scope.consultant.region !== 'undefined' ? $scope.consultant.region : 'uk';
 
                 /* Store Data */
+                catalogues.region = region;
                 catalogues.set(e, consultant);
 
-                catalogues.region = region;
+                
 
                 $timeout(function() {
                     $scope.catalogue = catalogues;
+                    $scope.consultant = consultant;
                     $scope.$apply();
                 });
 
                 $scope.open_video_modal = function($item) {
                     $timeout(function() {
                         catalogues.modal = $item;
-                        console.log($item);
                         $scope.$apply();
                     });
                 };
 
+
+
                 /* Init Flipbook */
+                $scope.pdf_url = cdn_url + (catalogues.get()[region + '_pdf_file']);
                 $scope.flipbook = $('.solid-container').FlipBook({
-                    pdf: cdn_url + (catalogues.get()[region + '_pdf_file'])
+                    pdf: $scope.pdf_url
+                });
+
+                $timeout(function() {
+                    $scope.favourite.get_all();
+                    $scope.$apply();
+                });
+
+                function bindIFrameMousemove(iframe){
+                    iframe.contentWindow.addEventListener('mousemove', function(event) {
+                        var clRect = iframe.getBoundingClientRect();
+                        var evt = new CustomEvent('mousemove', {bubbles: true, cancelable: false});
+
+                        evt.clientX = event.clientX + clRect.left;
+                        evt.clientY = event.clientY + clRect.top;
+
+                        iframe.dispatchEvent(evt);
+                    });
+                };
+
+                bindIFrameMousemove($('.solid-container iframe')[0]);
+
+                $('body').on('mousemove', function(e) {
+                    if(e.clientY <= 15) {
+                        M.Modal.getInstance(options_modal).open();
+                    }
                 });
 
                 /* Setup loop for Page Change */
+                setInterval(function() {
+                    // $scope.favourite.get_all();
+                }, 1000);
                 setInterval(function() {
 
                     if (typeof $scope.flipbook.book == 'undefined') {
@@ -69,15 +162,19 @@
 
                         console.log('Page Index', $scope.page_index);
 
-                        if (typeof catalogues.pages.data[$scope.page_index] !== 'undefined') {
+                        /* We're on the last page */
+                        if($scope.page_index == $scope.flipbook.book.getBookPages()) {
+                            M.Modal.getInstance(options_modal).open();
+                        }
 
-                            $scope.active_items = catalogues.pages.data[$scope.page_index];
-                            var length = catalogues.pages.data[$scope.page_index].length;
+                        if (typeof catalogues.pages.data.order[$scope.page_index] !== 'undefined') {
+
+                            $scope.active_items = catalogues.pages.data.order[$scope.page_index];
+                            var length = catalogues.pages.data.order[$scope.page_index].length;
 
                             M.toast({
                                 html: ('There ' + (length == 1 ? 'is' : 'are') + ' % item' + (length == 1 ? '' : 's') + ' to view <button class="btn-flat toast-action" onclick="M.Sidenav.getInstance(basket_sidebar).open()">View</button>').replace('%', length),
                                 displayLength: 5000,
-
                             });
                         }
 
@@ -96,7 +193,7 @@
 
     appController.factory('consultant', function() {
 
-        var ct_slug = location.pathname;
+        var ct_slug = is_local ? '/shropshireorganic' : location.pathname;
         var ct_config = false;
         
         // Remove slash
@@ -189,6 +286,7 @@
                 map: function() {
                     var $this = response;
                     var catalogue = $this.get();
+                    console.log($this.region);
                     var items = catalogue[$this.region + '_items'];
                     $this.pages.data = items;
                 }
@@ -200,7 +298,15 @@
                     return this;
                 }
 
-                this.data = typeof data == 'string' ? JSON.parse((consultant ? data.replace('/corp/', '/' + consultant.data.slug + '/') : data)) : data;
+                if(typeof data !== 'string') {
+                    data = JSON.stringify(data);
+                }
+
+                if(typeof consultant == 'object' && typeof consultant.data.slug == 'string') {
+                    data = data.replace(/\/corp\//g, '/' + consultant.data.slug + '/');
+                }
+
+                this.data = JSON.parse(data);
                 this.loaded = true;
                 this.pages.map();
                 this.http = {
