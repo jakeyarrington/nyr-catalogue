@@ -308,7 +308,7 @@
                     data = data.replace(/\/corp\//gm, '/' + consultant.data.slug + '/');
                     data = data.replace(/\\\/corp\\\//gm, '/' + consultant.data.slug + '/');
                     data = data.replace(/\/corp/gm, '/' + consultant.data.slug);
-                    data = data.replace(/\/corp\\\//gm, '/' + consultant.data.slug);
+                    data = data.replace(/\/corp\\\//gm, '/' + consultant.data.slug + '/');
                     console.log('branded data');
                     console.log(consultant.data);
                 }
