@@ -302,8 +302,11 @@
                     data = JSON.stringify(data);
                 }
 
+                console.log(data);
+
                 if(typeof consultant == 'object' && typeof consultant.data.slug == 'string') {
                     data = data.replace(/\/corp\//g, '/' + consultant.data.slug + '/');
+                    console.log('branded data');
                 }
 
                 this.data = JSON.parse(data);
