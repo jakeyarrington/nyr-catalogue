@@ -309,6 +309,7 @@
                     data = data.replace(/\\\/corp\\\//g, '/' + consultant.data.slug + '/');
                     data = data.replace(/\/corp/g, '/' + consultant.data.slug);
                     console.log('branded data');
+                    console.log(consultant.data);
                 }
 
                 this.data = JSON.parse(data);
