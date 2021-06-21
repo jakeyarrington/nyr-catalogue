@@ -85,7 +85,7 @@
             $scope.consultant = consultant.get();
 
             if(location.search.indexOf('forward') > -1) {
-                return header.location = 'https://' + $scope.consultant.region + '.nyrorganic.com/shop/' + $scope.consultant.slug;
+                return location.href = 'https://' + $scope.consultant.region + '.nyrorganic.com/shop/' + $scope.consultant.slug;
             }
             
 
