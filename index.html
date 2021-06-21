@@ -66,6 +66,16 @@
           <a target="_blank" ng-show="consultant.data.social.pinterest" ng-href="{{consultant.data.social.pinterest}}" class="waves-effect waves-light btn">Pinterest</a>
           <a target="_blank" ng-show="consultant.data.social.twitter" ng-href="{{consultant.data.social.twitter}}" class="waves-effect waves-light btn">Twitter</a>
         </p>
+        <p>
+          <div class="collection">
+            <a ng-show="favourite.$count" href="#" ng-click="mail_favourites()" class="collection-item">Email my Favourites to <span ng-bind="consultant.data.name.first_name"></span></a>
+            <a href="#!" ng-show="can_install_app" ng-click="install_app()" class="collection-item">Install <span ng-bind="consultant.data.name.first_name"></span>'s App</a>
+             <a ng-href="{{'https://uk.nyrorganic.com/shop/' + consultant.data.slug}}" class="collection-item">View <span ng-bind="consultant.data.name.first_name"></span>'s NYR Organic Shop</a>
+            <a ng-href="{{pdf_url}}" class="collection-item">Download this Smart Catalogue</a>
+            <a ng-href="{{'https://uk.nyrorganic.com/shop/'+consultant.data.slug+'/area/become-a-consultant/'}}" class="collection-item">Become a Consultant</a>
+            <a ng-href="{{'https://uk.nyrorganic.com/shop/'+consultant.data.slug+'/area/have-a-party/'}}" class="collection-item">Host an Event</a>
+          </div>
+      </div>
       </div>
       <div class="modal-footer">
         <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
