@@ -187,11 +187,11 @@
                 });
 
                 /* Setup loop for Page Change */
-                setInterval(function() {
+                setTimeout(function() {
                     // $scope.favourite.get_all();
                     if(window.can_install_app) {
                         M.toast({
-                            html: ('Install ' + $scope.consultant.data.name.first_name + '\'s NYR Organic App? <button class="btn-flat toast-action" onclick="install_app()">Install</button>'),
+                            html: ('Install ' + $scope.consultant.data.name.first_name + '\'s App? <button class="btn-flat toast-action" onclick="install_app()">Install</button>'),
                             displayLength: 30000,
                         });
                     }
