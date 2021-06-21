@@ -109,8 +109,8 @@
             
             if(can_install_app) {
                 M.toast({
-                    html: ('Install ' + $scope.consultant.name.first_name + '\'s NYR Organic App? <button class="btn-flat toast-action" onclick="install_app()">Install</button>').replace('%', length),
-                    displayLength: 5000,
+                    html: ('Install ' + $scope.consultant.name.first_name + '\'s NYR Organic App? <button class="btn-flat toast-action" onclick="install_app()">Install</button>'),
+                    displayLength: 30000,
                 });
             }
 
