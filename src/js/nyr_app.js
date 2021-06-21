@@ -83,16 +83,11 @@
             consultant.set(e);  
 
             $scope.consultant = consultant.get();
-            
-            if ('serviceWorker' in navigator) {
-              navigator.serviceWorker.register(base_url + '/pwa-sw.js').then(function(registration) {
-                console.log('Service worker registration succeeded:', registration);
-              }, /*catch*/ function(error) {
-                console.log('Service worker registration failed:', error);
-              });
-            } else {
-              console.log('Service workers are not supported.');
+
+            if(location.search.indexOf('forward') > -1) {
+                return header.location = 'https://' + $scope.consultant.region + '.nyrorganic.com/shop/' + $scope.consultant.slug;
             }
+            
 
             catalogues.http.then((e) => {
 
@@ -249,7 +244,9 @@
             ct_slug = ct_slug.split('/')[0];
         }
 
+
         $('head').append('<link rel="manifest" href="https://nyr-catalogue-wp.yarrington.app/wp-json/app/v1/consultant_manifest?id='+ct_slug+'"/>');
+
 
         var http = new Promise((resolve, reject) => {
             $.ajax({
