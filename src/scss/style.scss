@@ -9,10 +9,11 @@ body {
 				text-align: center;
 				ul {
 					display: inline-block;
-					
+
 					li {
-						a span {
-							line-height: 63px !important;
+						a span,
+						a i {
+							line-height: 56px !important;
 						}
 					}
 				}
