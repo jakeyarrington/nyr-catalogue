@@ -13,11 +13,17 @@
     const options_modal = document.getElementById('options');
 
     var deferredPrompt;
+    var can_install_app = false;
 
     window.addEventListener('beforeinstallprompt', (e) => {
       deferredPrompt = e;
-      console.log('beforeinstallprompt event was fired.');
+      can_install_app = true;
     });
+
+    function install_app() {
+        deferredPrompt.prompt();
+        outcome= deferredPrompt.userChoice;
+    }
 
     var appController = app.controller('app', ['$scope', 'catalogues', 'consultant', '$timeout', function($scope, catalogues, consultant, $timeout) {
 
@@ -27,8 +33,7 @@
         window.consultant = consultant;
 
         $scope.install_app = function() {
-            deferredPrompt.prompt();
-            outcome= deferredPrompt.userChoice;
+            install_app();
         };
 
 
@@ -101,6 +106,13 @@
                 return location.href = 'https://' + $scope.consultant.region + '.nyrorganic.com/shop/' + $scope.consultant.slug;
             }
             
+            if(can_install_app) {
+                M.toast({
+                    html: ('Install ' + $scope.consultant.name.first_name + '\'s NYR Organic App? <button class="btn-flat toast-action" onclick="install_app()">Install</button>').replace('%', length),
+                    displayLength: 5000,
+                });
+            }
+
 
             catalogues.http.then((e) => {
 
