@@ -12,6 +12,15 @@
     const favourites_sidebar = document.getElementById('favourites_sidebar');
     const options_modal = document.getElementById('options');
 
+    var deferredPrompt;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      showInstallPromotion();
+      console.log('beforeinstallprompt event was fired.');
+    });
+
     var appController = app.controller('app', ['$scope', 'catalogues', 'consultant', '$timeout', function($scope, catalogues, consultant, $timeout) {
 
         $scope.page_index = 0;
@@ -20,8 +29,10 @@
         window.consultant = consultant;
 
         $scope.install_app = function() {
-            event = new Event('beforeinstallprompt');
-            window.dispatchEvent(event);
+            hideInstallPromotion();
+            deferredPrompt.prompt();
+            outcome= deferredPrompt.userChoice;
+            deferredPrompt = null;
         };
 
 

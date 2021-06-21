@@ -65,8 +65,8 @@ gulp.task('webserver', function() {
 
 gulp.task('watch', function(){
     connect.server();
-  gulp.watch(['src/scss/*.scss'], gulp.series('css', 'inline')); // Watch and run sass on changes
-  gulp.watch('src/js/*.js', gulp.series('scripts', 'inline')); // Watch and run javascripts on changes
+  gulp.watch(['src/scss/*.scss'], gulp.series('css')); // Watch and run sass on changes
+  gulp.watch('src/js/*.js', gulp.series('scripts')); // Watch and run javascripts on changes
   gulp.src('assets/*')
     .pipe(notify('An asset has changed'));
 });
