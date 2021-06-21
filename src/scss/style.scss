@@ -3,6 +3,23 @@ body {
 	padding: 0;
 	background: #1f376c;
 
+	@media screen and (max-width: 900px) {
+		nav {
+			div.nav-wrapper {
+				text-align: center;
+				ul {
+					display: inline-block;
+					
+					li {
+						a span {
+							line-height: 63px !important;
+						}
+					}
+				}
+			}
+		}
+	}
+
 	@media screen and (min-width: 900px) {
 
 		nav {
