@@ -18,12 +18,12 @@
         <p>Before you go, here are some additional options to choose from.</p>
         <p>
           <div class="collection">
-            <a href="#!" class="collection-item">Email my Favourites to <span ng-bind="consultant.data.name.first_name"></span></a>
+            <a ng-show="favourite.$count" href="#" ng-click="mail_favourites()" class="collection-item">Email my Favourites to <span ng-bind="consultant.data.name.first_name"></span></a>
             <a href="#!" class="collection-item">Install <span ng-bind="consultant.data.name.first_name"></span>'s App</a>
              <a ng-href="{{'https://uk.nyrorganic.com/shop/' + consultant.data.slug}}" class="collection-item">View <span ng-bind="consultant.data.name.first_name"></span>'s NYR Organic Shop</a>
             <a ng-href="{{pdf_url}}" class="collection-item">Download this Smart Catalogue</a>
-            <a ng-href="{{'mailto:'+consultant.data.email+'?subject=I%20am%20interested%20in%20joining%20NYR%20Organic&body=Dear%20'+consultant.data.name.first_name+',%0APlease%20can%20you%20contact%20me%20as%20I%20am%20interested%20in%20joining%20NYR%20Organic.%0AMy%20contact%20details:%0A[add%20details]%0A%0AThanks%0A[add%20name]'}}" class="collection-item">Become a Consultant</a>
-            <a ng-href="{{'mailto:'+consultant.data.email+'?subject=I%20am%20interested%20in%20Hosting%20an%20NYR%20Organic%20event&body=Dear%20'+consultant.data.name.first_name+',%0APlease%20can%20you%20contact%20me%20as%20I%20am%20interested%20in%20Hosting%20an%20NYR%20Organic%20event.%0AMy%20contact%20details:%0A[add%20details]%0A%0AThanks%0A[add%20name]'}}" class="collection-item">Host an Event</a>
+            <a ng-href="{{'https://uk.nyrorganic.com/shop/'+consultant.data.slug+'/area/become-a-consultant/'}}" class="collection-item">Become a Consultant</a>
+            <a ng-href="{{'https://uk.nyrorganic.com/shop/'+consultant.data.slug+'/area/have-a-party/'}}" class="collection-item">Host an Event</a>
           </div>
       </div>
       <div class="modal-footer">
@@ -118,6 +118,10 @@
                   <p ng-bind="catalogue.pages.data.items[item].price"></p>
                   <p class="trim-info" ng-bind-html="catalogue.pages.data.items[item].item.summary | safeHtml"></p>
                 </div>
+                <div class="card-action center-align" ng-if="catalogue.pages.data.items[item].item.categories">
+                    <p><em>View similar products under</em></p>
+                    <div class="chip" ng-repeat="cat in catalogue.pages.data.items[item].item.categories" ng-bind="cat.name"></div>
+                  </div>
                 <div class="card-action" ng-if="catalogue.pages.data.items[item].type == 'product'">
                   <a ng-href="{{catalogue.pages.data.items[item].item.link}}" target="_blank" ng-if="catalogue.pages.data.items[item].item.link">Purchase</a>
                   <a ng-bind="favourite.$data[catalogue.pages.data.items[item].id] ? 'Unfavourite' : 'Favourite'" ng-if="catalogue.pages.data.items[item].item.favourite" ng-click="favourite.set(catalogue.pages.data.items[item].id, (favourite.$data[catalogue.pages.data.items[item].id] ? 0 : 1))" href="#">Favourite</a>
@@ -148,7 +152,7 @@
                   <p>You can email this list of your favourite products to <span ng-bind="consultant.data.name.first_name"></span> who can process them as an order.</p>
                 </div>
                 <div class="card-action">
-                  <a href="#" style="width:100%">Send</a>
+                  <a href="#" ng-click="mail_favourites()" style="width:100%">Send</a>
                 </div>
               </div>
               <div class="card" ng-repeat="(item, state) in favourite.$data" ng-if="state">

@@ -83,6 +83,39 @@
 
             $scope.consultant = consultant.get();
 
+            var manifest = {
+                dir: 'ltr',
+                lang: 'en',
+                name: $scope.consultant.name.full + '\'s NYR Shop',
+                short_name: $scope.consultant.slug,
+                scope: '/',
+                display: 'standalone',
+                start_url: location.href,
+                background_color: '#FFFFFF',
+                theme_color: 'transparent',
+                description: '',
+                orientation: 'natural',
+                icons: [
+                    {
+                        src: '/assets/img/icon@128.png',
+                        size: '128x128',
+                        type: 'image/png'
+                    },
+                    {
+                        src: '/assets/img/icon@256.png',
+                        size: '256x256',
+                        type: 'image/png'
+                    },
+                    {
+                        src: '/assets/img/icon@114.png',
+                        size: '114x114',
+                        type: 'image/png'
+                    }
+                ]
+            };
+
+            $('head').append('<link rel="manifest" href="data:application/manifest+json,'+encodeURIComponent(JSON.stringify(manifest))+'" />');
+
             catalogues.http.then((e) => {
 
                 var region = typeof $scope.consultant.region !== 'undefined' ? $scope.consultant.region : 'uk';
@@ -106,6 +139,27 @@
                     });
                 };
 
+                $scope.mail_favourites = function() {
+                    var link = 'mailto:' + $scope.consultant.data.email;
+                    link += '?subject=My%20Favourites%20List&cc=&bcc=&body=';
+                    var body = 'Hi ' + $scope.consultant.data.name.first_name + ', I am interested in purchasing the following products.';
+                    body += "\n\n";
+                    var favourite_keys = Object.keys($scope.favourite.$data);
+                    for (var i = favourite_keys.length - 1; i >= 0; i--) {
+                        var key = favourite_keys[i];
+                        var product = $scope.catalogue.pages.data.items[key];
+                        body += '- ' + product.item.name + ' (' + product.price + ')';
+                        body += "\n";
+                    }
+
+                    body += "\n";
+                    body += 'Kind regards,';
+                    body += "\n";
+
+                    body = encodeURI(body);
+
+                    location.href = link + body;
+                }
 
 
                 /* Init Flipbook */
@@ -195,6 +249,11 @@
 
         var ct_slug = is_local ? '/shropshireorganic' : location.pathname;
         var ct_config = false;
+
+        if(ct_slug.indexOf('#') > -1) {
+            var split = ct_slug.split('#');
+            ct_slug = split[0];
+        }
         
         // Remove slash
         if(ct_slug.substring(0,1) == '/') {
@@ -302,7 +361,6 @@
                     data = JSON.stringify(data);
                 }
 
-                console.log(data);
 
                 if(typeof consultant == 'object' && typeof consultant.data.slug == 'string') {
                     data = data.replace(/\/corp\//gm, '/' + consultant.data.slug + '/');
@@ -345,6 +403,7 @@
         $('.sidenav').sidenav();
         $('.tooltipped').tooltip();
         $('.modal').modal();
+        $('.chips').chips();
     });
 
 })(jQuery);
