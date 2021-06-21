@@ -24,7 +24,7 @@
         <p>
           <div class="collection">
             <a ng-show="favourite.$count" href="#" ng-click="mail_favourites()" class="collection-item">Email my Favourites to <span ng-bind="consultant.data.name.first_name"></span></a>
-            <a href="#!" class="collection-item">Install <span ng-bind="consultant.data.name.first_name"></span>'s App</a>
+            <a href="#!" ng-click="install_app()" class="collection-item">Install <span ng-bind="consultant.data.name.first_name"></span>'s App</a>
              <a ng-href="{{'https://uk.nyrorganic.com/shop/' + consultant.data.slug}}" class="collection-item">View <span ng-bind="consultant.data.name.first_name"></span>'s NYR Organic Shop</a>
             <a ng-href="{{pdf_url}}" class="collection-item">Download this Smart Catalogue</a>
             <a ng-href="{{'https://uk.nyrorganic.com/shop/'+consultant.data.slug+'/area/become-a-consultant/'}}" class="collection-item">Become a Consultant</a>
