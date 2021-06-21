@@ -18,6 +18,7 @@
     window.addEventListener('beforeinstallprompt', (e) => {
       deferredPrompt = e;
       can_install_app = true;
+      console.log(e, can_install_app);
     });
 
     function install_app() {

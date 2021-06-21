@@ -18,7 +18,7 @@ gulp.task('scripts', function() {
   // pipe the js through concat, console log stripping, uglification and then store
   return gulp.src(js_src)
       .pipe(concat('app.min.js')) // concat all files in the src
-      .pipe(striplog())
+      // .pipe(striplog())
       // .pipe(uglify())
       .pipe(gulp.dest(js_dest)) // save the file
       .on('error', gutil.log); 
