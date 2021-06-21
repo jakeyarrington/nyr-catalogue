@@ -17,7 +17,6 @@
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
-      showInstallPromotion();
       console.log('beforeinstallprompt event was fired.');
     });
 
@@ -29,10 +28,8 @@
         window.consultant = consultant;
 
         $scope.install_app = function() {
-            hideInstallPromotion();
             deferredPrompt.prompt();
             outcome= deferredPrompt.userChoice;
-            deferredPrompt = null;
         };
 
 
