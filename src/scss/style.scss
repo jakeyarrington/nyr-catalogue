@@ -3,23 +3,7 @@ body {
 	padding: 0;
 	background: #1f376c;
 
-	@media screen and (max-width: 900px) {
-		nav {
-			div.nav-wrapper {
-				text-align: center;
-				ul {
-					display: inline-block;
 
-					li {
-						a span,
-						a i {
-							line-height: 56px !important;
-						}
-					}
-				}
-			}
-		}
-	}
 
 	@media screen and (min-width: 900px) {
 
@@ -90,6 +74,14 @@ body {
 			div.card {
 				p {
 					line-height: 1.5;
+				}
+
+				div.card-image {
+					&.video {
+						> img {
+							width: 100% !important;
+						}
+					}
 				}
 
 				div.card-action {
