@@ -13,11 +13,11 @@
     const options_modal = document.getElementById('options');
 
     var deferredPrompt;
-    var can_install_app = false;
+    window.can_install_app = false;
 
     window.addEventListener('beforeinstallprompt', (e) => {
       deferredPrompt = e;
-      can_install_app = true;
+      window.can_install_app = true;
       console.log(e, can_install_app);
     });
 
@@ -125,13 +125,6 @@
                     $scope.$apply();
                 });
 
-                if(can_install_app) {
-                    M.toast({
-                        html: ('Install ' + $scope.consultant.data.name.first_name + '\'s NYR Organic App? <button class="btn-flat toast-action" onclick="install_app()">Install</button>'),
-                        displayLength: 30000,
-                    });
-                }
-
                 $scope.open_video_modal = function($item) {
                     $timeout(function() {
                         catalogues.modal = $item;
@@ -196,6 +189,12 @@
                 /* Setup loop for Page Change */
                 setInterval(function() {
                     // $scope.favourite.get_all();
+                    if(window.can_install_app) {
+                        M.toast({
+                            html: ('Install ' + $scope.consultant.data.name.first_name + '\'s NYR Organic App? <button class="btn-flat toast-action" onclick="install_app()">Install</button>'),
+                            displayLength: 30000,
+                        });
+                    }
                 }, 1000);
                 setInterval(function() {
 
