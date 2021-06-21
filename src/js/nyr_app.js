@@ -1,3 +1,10 @@
+
+var deferredPrompt;
+function install_app() {
+    deferredPrompt.prompt();
+    outcome= deferredPrompt.userChoice;
+}
+
 (function($) {
 
     var pages = [];
@@ -12,7 +19,7 @@
     const favourites_sidebar = document.getElementById('favourites_sidebar');
     const options_modal = document.getElementById('options');
 
-    var deferredPrompt;
+    
     window.can_install_app = false;
 
     window.addEventListener('beforeinstallprompt', (e) => {
@@ -21,10 +28,6 @@
       console.log(e, can_install_app);
     });
 
-    function install_app() {
-        deferredPrompt.prompt();
-        outcome= deferredPrompt.userChoice;
-    }
 
     var appController = app.controller('app', ['$scope', 'catalogues', 'consultant', '$timeout', function($scope, catalogues, consultant, $timeout) {
 
