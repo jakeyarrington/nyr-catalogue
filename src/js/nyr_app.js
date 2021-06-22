@@ -121,7 +121,7 @@ function install_app() {
                 catalogues.region = region;
                 catalogues.set(e, consultant);
 
-                
+                $scope.catalogue_url = location.href;
 
                 $timeout(function() {
                     $scope.catalogue = catalogues;
