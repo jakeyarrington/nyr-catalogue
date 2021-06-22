@@ -1,7 +1,7 @@
 
-var deferredPrompt;
+window.deferredPrompt;
 function install_app() {
-    deferredPrompt.prompt();
+    window.deferredPrompt.prompt();
     outcome= deferredPrompt.userChoice;
 }
 
@@ -23,7 +23,7 @@ function install_app() {
     window.can_install_app = false;
 
     window.addEventListener('beforeinstallprompt', (e) => {
-      deferredPrompt = e;
+      window.deferredPrompt = e;
       window.can_install_app = true;
       console.log(e, can_install_app);
     });
