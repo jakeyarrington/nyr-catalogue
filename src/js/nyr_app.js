@@ -108,7 +108,7 @@ function install_app() {
             $scope.consultant = consultant.get();
 
             if(location.search.indexOf('forward') > -1) {
-                return location.href = 'https://' + $scope.consultant.region + '.nyrorganic.com/shop/' + $scope.consultant.slug;
+                //return location.href = 'https://' + $scope.consultant.region + '.nyrorganic.com/shop/' + $scope.consultant.slug;
             }
             
 
