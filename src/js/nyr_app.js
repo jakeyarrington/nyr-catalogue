@@ -1,15 +1,5 @@
-console.info('init app');
 
 window.deferredPrompt;
-window.can_install_app = false;
-
-
-window.addEventListener('beforeinstallprompt', (e) => {
-  window.deferredPrompt = e;
-  window.can_install_app = true;
-  console.log(e, can_install_app);
-});
-
 function install_app() {
     window.deferredPrompt.prompt();
     outcome= deferredPrompt.userChoice;
@@ -30,7 +20,14 @@ function install_app() {
     const options_modal = document.getElementById('options');
 
     
-    
+    window.can_install_app = false;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        window.deferredPrompt = e;
+        window.can_install_app = true;
+        console.log(e, can_install_app);
+    });
 
 
     var appController = app.controller('app', ['$scope', 'catalogues', 'consultant', '$timeout', function($scope, catalogues, consultant, $timeout) {
