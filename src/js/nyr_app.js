@@ -10,6 +10,7 @@ function install_app() {
     var pages = [];
     var page_index = 0;
     var app = angular.module('nyr', ['ngSanitize']);
+    var seen_exit_intent = false;
 
     const is_local = location.href.indexOf('192.168') > -1 || location.href.indexOf('localhost') > -1;
     const cdn_url = is_local ? 'http://192.168.0.88:8080/mockdata/' : 'https://yarrington-objects.fra1.cdn.digitaloceanspaces.com/nyr/catalogue/';
@@ -185,8 +186,9 @@ function install_app() {
                 bindIFrameMousemove($('.solid-container iframe')[0]);
 
                 $('body').on('mousemove', function(e) {
-                    if(e.clientY <= 15) {
+                    if(e.clientY <= 15 && !seen_exit_intent) {
                         M.Modal.getInstance(options_modal).open();
+                        seen_exit_intent = true;
                     }
                 });
 
@@ -265,10 +267,17 @@ function install_app() {
             ct_slug = ct_slug.substring(1, ct_slug.length);
         }
 
+
         // Check if configurator
-        if(ct_slug.indexOf('/configure') > -1) {
+        if(location.search.indexOf('?configure=1') > -1) {
             ct_config = true;
-            ct_slug = ct_slug.replace('/configure', '');
+            M.toast({
+                html: ('Launching Configurator, please wait..'),
+                displayLength: 2000,
+                completeCallback: function() {
+                    return location.href = 'https://nyr-catalogue-wp.yarrington.app/configurator/?id=' + ct_slug;
+                }
+            });
         }
 
         // Check for any segments
