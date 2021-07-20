@@ -148,14 +148,8 @@ function install_app() {
                     });
                     $timeout(function() {
 
-                        if(typeof redirect) {
-                            M.toast({
-                                html: 'Redirecting to Corportate NYR',
-                                displayLength: 3000,
-                                completeCallback: function() {
-                                    location.href = '/corp';
-                                }
-                            });
+                        if(redirect == true) {
+                            location.href = '/corp';
                         }
 
                     }, 5000);
@@ -189,7 +183,7 @@ function install_app() {
             get_consultant_data.then(
                 (data) => {
                     $timeout(function() {
-
+                        console.log(data);
                         if(!data.success) {
                             M.Modal.getInstance($('#configurator')).close();
                             M.toast({
@@ -251,7 +245,7 @@ function install_app() {
                 html: ('Launching Configurator, please wait..'),
                     displayLength: 1000,
                     completeCallback: function() {
-                        $scope.launch_configurator();
+                        $scope.launch_configurator(false);
                     }
                 });
                 
@@ -392,8 +386,14 @@ function install_app() {
             });
 
         }, (e) => {
+            if(!e.success) {
+                return M.toast({
+                    html: ('This consultant is not yet setup on NYR Catalogue, launching configurator...'),
+                    displayLength: 2000
+                });
+            }
             M.toast({
-                html: ('This consultant is not yet setup on NYR Catalogue, launching configurator...'),
+                html: ('Consultant does not exist on NYR Organic'),
                 displayLength: 2000
             });
             
@@ -412,7 +412,7 @@ function install_app() {
 
     appController.factory('consultant', function() {
 
-        var ct_slug = is_local ? '/shirleydavies' : location.pathname;
+        var ct_slug = is_local ? '/shropshireorganic' : location.pathname;
         var ct_config = false;
 
         if(ct_slug.indexOf('#') > -1) {
@@ -445,6 +445,10 @@ function install_app() {
         // Check for any segments
         if(ct_slug.indexOf('/') > -1) {
             ct_slug = ct_slug.split('/')[0];
+        }
+
+        if(ct_slug.length < 1) {
+            ct_slug = 'corp';
         }
 
 
