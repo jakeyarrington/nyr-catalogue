@@ -64,11 +64,15 @@ function install_app() {
             {code: ''}
         ];
 
+        $scope.saving_party_codes = false;
+
         $scope.save_party_codes = function() {
              M.toast({
                 html: ('Saving Party Links, please wait...'),
                     displayLength: 1000,
             });
+
+            $scope.saving_party_codes = true;
 
             $.ajax({
                 url: api_url + 'party_links',
@@ -81,7 +85,10 @@ function install_app() {
             .done(function(e) {
                 console.log(e);
                 $timeout(function() {
-                    $scope.consultant_party_codes = [];
+                    $scope.consultant_party_codes = [
+                        {code: ''}
+                    ];
+                    $scope.$apply();
                 });
                 // M.Modal.getInstance($('#configurator')).close();
                 M.toast({
@@ -93,6 +100,11 @@ function install_app() {
                 M.toast({
                     html: 'An error occurred! Please try again',
                     displayLength: 2000,
+                });
+            })
+            .always(function() {
+                $timeout(function() {
+                    $scope.saving_party_codes = true;
                 });
             });
         }

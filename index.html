@@ -193,6 +193,11 @@
                   <button class="btn waves-effect waves-light" ng-click="add_party_code()" type="button">Add Another Party Code</button>
                   <button class="btn waves-effect waves-light" ng-click="save_party_codes()" type="button">Save</button>
                 </div>
+                <div class="col s12 center-align" ng-show='saving_party_codes'>
+                  <div class="progress">
+                      <div class="indeterminate"></div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
