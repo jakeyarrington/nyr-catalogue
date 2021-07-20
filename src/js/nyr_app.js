@@ -166,8 +166,10 @@ function install_app() {
 
             var get_consultant_data = new Promise((resolve, reject) => {
 
+                var slug = typeof consultant.data.slug !== 'undefined' ? consultant.data.slug : consultant.url_slug;
+
                 $.ajax({
-                    url: api_url + 'configurator?id=' + consultant.data.slug,
+                    url: api_url + 'configurator?id=' + slug,
                     type: 'GET',
                     success: function(data) {
                         M.toast({
