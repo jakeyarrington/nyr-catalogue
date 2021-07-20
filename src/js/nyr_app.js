@@ -191,10 +191,7 @@ function install_app() {
                         console.log(data);
                         if(!data.success) {
                             M.Modal.getInstance($('#configurator')).close();
-                            M.toast({
-                            html: ('Could not find Consultant!'),
-                                displayLength: 2000,
-                            });
+                            location.href = '/corp';
                         } else {
 
                         M.toast({
@@ -202,7 +199,7 @@ function install_app() {
                             displayLength: 2000
                         });
                         M.Modal.getInstance($('#configurator')).open();
-                        
+
 
                         seen_exit_intent = true;
 
@@ -211,7 +208,7 @@ function install_app() {
                         $scope.consultant_query = {
                             first_name: data.data.fname,
                             last_name: data.data.lname,
-                            slug: consultant.data.slug,
+                            slug: consultant.url_slug,
                             loading: false,
                             id: data.data.id,
                             email: data.data.email,
