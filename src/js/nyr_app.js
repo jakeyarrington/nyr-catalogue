@@ -123,7 +123,7 @@ function install_app() {
 
         }
 
-        $scope.launch_configurator = function() {
+        $scope.launch_configurator = function(redirect) {
             $scope.consultant_query.loading = true;
 
             M.Modal.getInstance($('#configurator')).open();
@@ -146,6 +146,19 @@ function install_app() {
                         html: (e.msg),
                         displayLength: 6000,
                     });
+                    $timeout(function() {
+
+                        if(typeof redirect) {
+                            M.toast({
+                                html: 'Redirecting to Corportate NYR',
+                                displayLength: 3000,
+                                completeCallback: function() {
+                                    location.href = '/corp';
+                                }
+                            });
+                        }
+
+                    }, 5000);
                 })
                 .fail(function() {
                     M.toast({
@@ -388,7 +401,7 @@ function install_app() {
                 slug: consultant.url_slug
             };
 
-            $scope.launch_configurator();
+            $scope.launch_configurator(true);
 
         });
 
