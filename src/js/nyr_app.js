@@ -572,7 +572,6 @@ function install_app() {
                 map: function() {
                     var $this = response;
                     var catalogue = $this.get();
-                    console.log($this.region);
                     var items = catalogue[$this.region + '_items'];
                     $this.pages.data = items;
                 }
@@ -594,9 +593,36 @@ function install_app() {
                     data = data.replace(/\\\/corp\\\//gm, '/' + consultant.data.slug + '/');
                     data = data.replace(/\/corp/gm, '/' + consultant.data.slug);
                     data = data.replace(/\/corp\\\//gm, '/' + consultant.data.slug + '/');
+
+                    /*
+                     * Check if there is a Party URL
+                     */
+                    if(location.search.indexOf('?party') > -1) {
+                        var party_code = location.search.replace('?party=', '');
+                        if(party_code.indexOf('&') > -1) {
+                            party_code = $.trim(party_code.split('&')[0]);
+
+                            if(typeof consultant.data == 'object' && typeof consultant.data.party_links == 'object') {
+                                if(typeof consultant.data.party_links[party_code] !== 'undefined') {
+                                    var party = consultant.data.party_links[party_code];
+                                    if(party.name) {
+                                        M.toast({
+                                            html: ('You have joined ' + party.name + '\'s Party'),
+                                            displayLength: 2000
+                                        });
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
 
                 this.data = JSON.parse(data);
+
+                if(typeof party !== 'undefined') {
+                    this.party = party;
+                }
+                
                 this.loaded = true;
                 this.pages.map();
                 this.http = {
