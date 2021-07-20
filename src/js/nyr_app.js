@@ -126,7 +126,7 @@ function install_app() {
         $scope.launch_configurator = function(redirect) {
             $scope.consultant_query.loading = true;
 
-            M.Modal.getInstance($('#configurator')).open();
+            
 
             $scope.save_configurator = function() {
 
@@ -170,6 +170,7 @@ function install_app() {
                     url: api_url + 'configurator?id=' + consultant.data.slug,
                     type: 'GET',
                     success: function(data) {
+                        M.Modal.getInstance($('#configurator')).open();
                         console.log(data);
                         resolve(data)
                     },
@@ -390,10 +391,6 @@ function install_app() {
                     html: ('This consultant is not yet setup on NYR Catalogue, launching configurator...'),
                     displayLength: 2000
                 });
-
-                consultant.data = {
-                    slug: consultant.url_slug
-                };
 
                 $scope.launch_configurator(true);
 
