@@ -12,7 +12,8 @@ function install_app() {
     var app = angular.module('nyr', ['ngSanitize']);
     var seen_exit_intent = false;
 
-    const is_local = false; //location.href.indexOf('192.168') > -1 || location.href.indexOf('localhost') > -1;
+    const is_local = location.href.indexOf('192.168') > -1 || location.href.indexOf('localhost') > -1;
+    const api_url = 'https://nyr-catalogue-wp.yarrington.app/wp-json/app/v1/';
     const cdn_url = is_local ? 'http://192.168.0.88:8080/mockdata/' : 'https://yarrington-objects.fra1.cdn.digitaloceanspaces.com/nyr/catalogue/';
     const base_url = location.protocol + '//' + location.host;
 
@@ -41,6 +42,27 @@ function install_app() {
         $scope.install_app = function() {
             install_app();
         };
+
+        $scope.consultant_query = {
+            loading: false,
+            id: '',
+            first_name: '',
+            last_name: '',
+            email: '',
+            phone: '',
+            url: '',
+            region: 'uk',
+            app_launch: 'catalogue',
+            twitter: '',
+            facebook: '',
+            instagram: '',
+            linkedin: '',
+            pinterest: ''
+        };
+
+        $scope.close_modal = function($id) {
+            M.Modal.getInstance($($id)).close();
+        }
 
 
         $scope.favourite = {
@@ -107,11 +129,115 @@ function install_app() {
             consultant.set(e);  
 
             $scope.consultant = consultant.get();
+                
+            /**
+             * Consultant has been loaded 
+             */
 
-            if(location.search.indexOf('forward') > -1) {
-                //return location.href = 'https://' + $scope.consultant.region + '.nyrorganic.com/shop/' + $scope.consultant.slug;
+            if(consultant.configurator) {
+
+                $scope.consultant_query.loading = true;
+
+                $scope.save_configurator = function() {
+
+                    M.toast({
+                    html: ('Saving Configuration, please wait...'),
+                        displayLength: 1000,
+                    });
+
+                    $.ajax({
+                        url: api_url + 'configurator',
+                        type: 'POST',
+                        data: $scope.consultant_query,
+                    })
+                    .done(function(e) {
+                        M.Modal.getInstance($('#configurator')).close();
+                        M.toast({
+                            html: (e.msg),
+                            displayLength: 6000,
+                        });
+                    })
+                    .fail(function() {
+                        M.toast({
+                            html: 'An error occurred! Please try again',
+                            displayLength: 2000,
+                        });
+                    });
+                    
+
+                };
+ 
+                var get_consultant_data = new Promise((resolve, reject) => {
+
+                    M.toast({
+                    html: ('Launching Configurator, please wait..'),
+                        displayLength: 1000,
+                        completeCallback: function() {
+                            M.Modal.getInstance($('#configurator')).open();
+                        }
+                    });
+                    $.ajax({
+                        url: api_url + 'configurator?id=' + consultant.data.slug,
+                        type: 'GET',
+                        success: function(data) {
+                            console.log(data);
+                            resolve(data)
+                        },
+                        error: function(error) {
+                            reject(error)
+                        },
+                    });
+
+                });
+
+                get_consultant_data.then(
+                    (data) => {
+                        $timeout(function() {
+
+                            if(!data.success) {
+                                M.Modal.getInstance($('#configurator')).close();
+                                M.toast({
+                                html: ('Could not find Consultant!'),
+                                    displayLength: 2000,
+                                });
+                            } else {
+
+                            seen_exit_intent = true;
+
+                            var region = data.data.id.substring(0,2).toLowerCase();
+
+                            $scope.consultant_query = {
+                                first_name: data.data.fname,
+                                last_name: data.data.lname,
+                                slug: consultant.data.slug,
+                                loading: false,
+                                id: data.data.id,
+                                email: data.data.email,
+                                phone: data.data.phone,
+                                region: region,
+                                url: 'https://' + $scope.consultant_query.region + '.nyrorganic.com/shop/' + consultant.data.slug,
+                                app_launch: 'catalogue',
+                                twitter: data.data.twitter ? data.data.twitter : '',
+                                facebook: data.data.facebook ? data.data.facebook : '',
+                                instagram: '',
+                                linkedin: '',
+                                pinterest: ''
+                            };
+                        }
+
+                            $scope.$apply();
+                        });
+                    },
+                    (data) => {
+                        console.log(data);
+                        M.Modal.getInstance($('#configurator')).close();
+                        M.toast({
+                        html: ('Could not find Consultant!'),
+                            displayLength: 2000,
+                        });
+                    }
+                );
             }
-            
 
 
             catalogues.http.then((e) => {
@@ -270,14 +396,18 @@ function install_app() {
 
         // Check if configurator
         if(location.search.indexOf('?configure=1') > -1) {
-            ct_config = true;
-            M.toast({
-                html: ('Launching Configurator, please wait..'),
-                displayLength: 2000,
-                completeCallback: function() {
-                    return location.href = 'https://nyr-catalogue-wp.yarrington.app/configurator/?id=' + ct_slug;
-                }
-            });
+
+            if(ct_slug == 'corp') {
+
+                M.toast({
+                    html: ('You cannot configure the Corporate shop!'),
+                    displayLength: 2000
+                });
+
+            } else {
+                ct_config = true;
+            }
+
         }
 
         // Check for any segments
@@ -385,8 +515,6 @@ function install_app() {
                     data = data.replace(/\\\/corp\\\//gm, '/' + consultant.data.slug + '/');
                     data = data.replace(/\/corp/gm, '/' + consultant.data.slug);
                     data = data.replace(/\/corp\\\//gm, '/' + consultant.data.slug + '/');
-                    console.log('branded data');
-                    console.log(consultant.data);
                 }
 
                 this.data = JSON.parse(data);
@@ -422,6 +550,7 @@ function install_app() {
         $('.tooltipped').tooltip();
         $('.modal').modal();
         $('.chips').chips();
+        $('select').formSelect();
     });
 
 })(jQuery);
