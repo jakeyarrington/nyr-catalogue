@@ -49,116 +49,156 @@
     </div>
 
     <div id="configurator" class="modal">
-      <div class="modal-content center-align">
-        <div class="row">
-          <div class="col s12">
-            <h4>Configure Catalogue</h4>
-            <p>Configure your NYR Organic Smart Catalogue by entering your information below. This information is used to link customers to your shop, social media accounts and to contact you.</p>
-          </div>
-        </div>
+
+      <div class="row">
         <div>
-          <div class="progress" ng-show="consultant_query.loading">
-              <div class="indeterminate"></div>
-          </div>
-          <div class="row" ng-show="!consultant_query.loading">
-            <form class="col s12">
-              <div class="row">
-                <div class="input-field col s6">
-                  <input ng-model="consultant_query.first_name" placeholder="Ellie" id="first_name" type="text" class="validate">
-                  <label for="first_name">First Name</label>
-                </div>
-                <div class="input-field col s6">
-                  <input ng-model="consultant_query.last_name" placeholder="Smith" id="last_name" type="text" class="validate">
-                  <label for="last_name">Last Name</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="input-field col s12">
-                  <input ng-model="consultant_query.email" id="email" placeholder="ellie.smith@gmail.com" type="email" class="validate">
-                  <label for="email">Email</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="input-field col s12">
-                  <input ng-model="consultant_query.url" id="url" placeholder="https://uk.nyrorganic.com/shop/elliesmith" type="url" class="validate">
-                  <label for="url">Your NYR Organic URL</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="input-field col s12">
-                  <input ng-model="consultant_query.phone" id="phone" placeholder="07957931543" type="text" class="validate">
-                  <label for="phone">Your Telephone Number</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="input-field col s12">
-                  <select ng-model="consultant_query.region">
-                    <option value="uk">UK/IE</option>
-                    <option value="us">US</option>
-                  </select>
-                  <label>Country</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="input-field col s12">
-                  <select ng-model="consultant_query.app_launch">
-                    <option value="catalogue">My NYR Catalogue</option>
-                    <option value="shop">My NYR Shop</option>
-                  </select>
-                  <label>App Launch</label>
-                  <p class="left-align"><small>When a customer downloads and open your app on desktop and mobile, where would you like them to be taken to?</small></p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="input-field col s12">
-                  <input ng-model="consultant_query.twitter" id="twitter" placeholder="https://twitter.com/elliesmith" type="url" class="validate">
-                  <label for="phone">Your Twitter URL</label>
-                  <p class="left-align"><small>Enter your Twitter @handle or full URL, leave blank if you don't have one.</small></p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="input-field col s12">
-                  <input ng-model="consultant_query.facebook" id="facebook" placeholder="https://facebook.com/elliesmith" type="url" class="validate">
-                  <label for="phone">Your Facebook URL</label>
-                  <p class="left-align"><small>Enter your Facebook URL, leave blank if you don't have one.</small></p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="input-field col s12">
-                  <input ng-model="consultant_query.instagram" id="instagram" placeholder="https://instagram.com/elliesmith" type="url" class="validate">
-                  <label for="phone">Your Instagram URL</label>
-                  <p class="left-align"><small>Enter your Instagram URL, leave blank if you don't have one.</small></p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="input-field col s12">
-                  <input ng-model="consultant_query.linkedin" id="linkedin" placeholder="https://linkedin.com/in/elliesmith" type="url" class="validate">
-                  <label for="phone">Your LinkedIn URL</label>
-                  <p class="left-align"><small>Enter your LinkedIn URL, leave blank if you don't have one.</small></p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="input-field col s12">
-                  <input ng-model="consultant_query.pinterest" id="pinterest" placeholder="https://pinterest.com/elliesmith" type="url" class="validate">
-                  <label for="phone">Your Pinterest URL</label>
-                  <p class="left-align"><small>Enter your Pinterest URL, leave blank if you don't have one.</small></p>
-                </div>
-              </div>
-            </form>
+          <ul class="tabs">
+            <li class="tab col s6"><a class="active" href="#config">Configure Profile</a></li>
+            <li class="tab col s6"><a href="#party">Configure Party Links</a></li>
+          </ul>
         </div>
-      </div>
-      <div class="modal-footer">
-        <div class="row" ng-show="!consultant_query.loading">
-          <div class="col s12 right-align">
-            <button class="btn waves-effect waves-light" ng-click="save_configurator()" type="button">Save
-              <i class="material-icons right">save</i>
-            </button>
-            <button ng-click="close_modal('#configurator')" class="btn waves-effect waves-light" type="button">Cancel</button>
+        <div id="config" class="col s12">
+          <div class="modal-content center-align">
+            <div class="row">
+              <div class="col s12">
+                <h4>Configure Catalogue</h4>
+                <p>Configure your NYR Organic Smart Catalogue by entering your information below. This information is used to link customers to your shop, social media accounts and to contact you.</p>
+              </div>
+            </div>
+            <div>
+              <div class="progress" ng-show="consultant_query.loading">
+                  <div class="indeterminate"></div>
+              </div>
+              <div class="row" ng-show="!consultant_query.loading">
+                <form class="col s12">
+                  <div class="row">
+                    <div class="input-field col s6">
+                      <input ng-model="consultant_query.first_name" placeholder="Ellie" id="first_name" type="text" class="validate">
+                      <label for="first_name">First Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                      <input ng-model="consultant_query.last_name" placeholder="Smith" id="last_name" type="text" class="validate">
+                      <label for="last_name">Last Name</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input ng-model="consultant_query.email" id="email" placeholder="ellie.smith@gmail.com" type="email" class="validate">
+                      <label for="email">Email</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input ng-model="consultant_query.url" id="url" placeholder="https://uk.nyrorganic.com/shop/elliesmith" type="url" class="validate">
+                      <label for="url">Your NYR Organic URL</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input ng-model="consultant_query.phone" id="phone" placeholder="07957931543" type="text" class="validate">
+                      <label for="phone">Your Telephone Number</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <select ng-model="consultant_query.region">
+                        <option value="uk">UK/IE</option>
+                        <option value="us">US</option>
+                      </select>
+                      <label>Country</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <select ng-model="consultant_query.app_launch">
+                        <option value="catalogue">My NYR Catalogue</option>
+                        <option value="shop">My NYR Shop</option>
+                      </select>
+                      <label>App Launch</label>
+                      <p class="left-align"><small>When a customer downloads and open your app on desktop and mobile, where would you like them to be taken to?</small></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input ng-model="consultant_query.twitter" id="twitter" placeholder="https://twitter.com/elliesmith" type="url" class="validate">
+                      <label for="phone">Your Twitter URL</label>
+                      <p class="left-align"><small>Enter your Twitter @handle or full URL, leave blank if you don't have one.</small></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input ng-model="consultant_query.facebook" id="facebook" placeholder="https://facebook.com/elliesmith" type="url" class="validate">
+                      <label for="phone">Your Facebook URL</label>
+                      <p class="left-align"><small>Enter your Facebook URL, leave blank if you don't have one.</small></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input ng-model="consultant_query.instagram" id="instagram" placeholder="https://instagram.com/elliesmith" type="url" class="validate">
+                      <label for="phone">Your Instagram URL</label>
+                      <p class="left-align"><small>Enter your Instagram URL, leave blank if you don't have one.</small></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input ng-model="consultant_query.linkedin" id="linkedin" placeholder="https://linkedin.com/in/elliesmith" type="url" class="validate">
+                      <label for="phone">Your LinkedIn URL</label>
+                      <p class="left-align"><small>Enter your LinkedIn URL, leave blank if you don't have one.</small></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input ng-model="consultant_query.pinterest" id="pinterest" placeholder="https://pinterest.com/elliesmith" type="url" class="validate">
+                      <label for="phone">Your Pinterest URL</label>
+                      <p class="left-align"><small>Enter your Pinterest URL, leave blank if you don't have one.</small></p>
+                    </div>
+                  </div>
+                </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="row" ng-show="!consultant_query.loading">
+              <div class="col s12 right-align">
+                <button class="btn waves-effect waves-light" ng-click="save_configurator()" type="button">Save
+                  <i class="material-icons right">save</i>
+                </button>
+                <button ng-click="close_modal('#configurator')" class="btn waves-effect waves-light" type="button">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        <div id="party" class="col s12">
+          <div class="modal-content center-align">
+            <div class="row">
+              <div class="col s12">
+                <h4>Configure Party Links</h4>
+                <p>You can configure Party Links to automatically associate products to a Consultants party on check-out.</p>
+                <div class="row">
+                  <form class="col s12">
+                    <div class="row" ng-repeat="(i, code) in consultant_party_codes">
+                      <div class="input-field col s12">
+                        <input ng-model="consultant_party_codes[i].code" placeholder="W001923564" type="text" class="validate">
+                        <label for="phone">Party Code</label>
+                        <p class="left-align"><small>Enter your unique Party Code.</small></p>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <div class="row" ng-show="!consultant_query.loading">
+                <div class="col s12 right-align">
+                  <button class="btn waves-effect waves-light" ng-click="add_party_code()" type="button">Add Another Party Code</button>
+                  <button class="btn waves-effect waves-light" type="button">Save</button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
     <div id="share" class="modal">
       <div class="modal-content center-align">
