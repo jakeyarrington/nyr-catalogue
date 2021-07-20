@@ -471,7 +471,7 @@ function install_app() {
                     try {
                         reject(error);
                     } catch(e) {
-                        reject(e);
+                        reject(error);
                     }
                 },
             });
