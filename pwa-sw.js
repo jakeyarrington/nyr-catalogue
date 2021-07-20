@@ -4,7 +4,7 @@ self.addEventListener('fetch', function(event) {
       caches.match(event.request).then(function(response) {
           console.log(ext);
           if(ext == 'json') {
-            return fetch(event.request);
+            cache.delete(event.request);
           }
           return response || fetch(event.request);
       })
