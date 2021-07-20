@@ -5,6 +5,7 @@ self.addEventListener('fetch', function(event) {
           console.log(ext);
           if(ext == 'json') {
             cache.delete(event.request);
+            return fetch(event.request);
           }
           return response || fetch(event.request);
       })
