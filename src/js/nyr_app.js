@@ -107,6 +107,8 @@ function install_app() {
                 $url = $url + glue + 'bid=' + catalogue.party.bid + '&po=' + catalogue.party.id; 
             }
 
+            console.log('catalogue', catalogue);
+
             return $url;
         }
 
@@ -620,7 +622,7 @@ function install_app() {
                                 if(typeof consultant.data.party_links[party_code] !== 'undefined') {
                                     var party = consultant.data.party_links[party_code];
                                     party.id = party_code;
-                                    
+
                                     if(party.name) {
                                         M.toast({
                                             html: ('You have joined ' + party.name + '\'s Party'),
