@@ -387,6 +387,7 @@ function install_app() {
 
         }, (e) => {
             if(!e.success) {
+                console.log(e);
                 return M.toast({
                     html: ('This consultant is not yet setup on NYR Catalogue, launching configurator...'),
                     displayLength: 2000
@@ -397,7 +398,7 @@ function install_app() {
                 };
 
                 $scope.launch_configurator(true);
-                
+
             } else {
                 M.toast({
                     html: ('Consultant does not exist on NYR Organic'),
