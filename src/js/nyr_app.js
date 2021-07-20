@@ -452,14 +452,13 @@ function install_app() {
         }
 
 
-        $('head').append('<link rel="manifest" href="' + cdn_url + 'consultant/' + ct_slug + '_manifest.json"/>');
-
 
         var http = new Promise((resolve, reject) => {
             $.ajax({
                 url: cdn_url + 'consultant/' + ct_slug + '.json',
                 type: 'GET',
                 success: function(data) {
+                     $('head').append('<link rel="manifest" href="' + cdn_url + 'consultant/' + ct_slug + '_manifest.json"/>');
                     resolve(data)
                 },
                 error: function(error) {
