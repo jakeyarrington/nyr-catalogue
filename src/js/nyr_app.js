@@ -97,20 +97,6 @@ function install_app() {
             });
         }
 
-        $scope.prep_product_url = function($url) {
-            if(typeof catalogue == 'object' && catalogue.party !== null) {
-                var glue = '?';
-                if($url.indexOf(glue) > -1) {
-                    glue = '&';
-                }
-
-                $url = $url + glue + 'bid=' + catalogue.party.bid + '&po=' + catalogue.party.id; 
-            }
-
-            console.log('catalogue', catalogue);
-
-            return $url;
-        }
 
         $scope.add_party_code = function() {
             $scope.consultant_party_codes.push({
@@ -343,6 +329,19 @@ function install_app() {
                         $scope.$apply();
                     });
                 };
+
+                $scope.prep_product_url = function($url) {
+                    if(typeof $scope.catalogue == 'object' && $scope.catalogue.party !== null) {
+                        var glue = '?';
+                        if($url.indexOf(glue) > -1) {
+                            glue = '&';
+                        }
+
+                        $url = $url + glue + 'bid=' + catalogue.party.bid + '&po=' + catalogue.party.id; 
+                    }
+
+                    return $url;
+                }
 
                 $scope.mail_favourites = function() {
                     var link = 'mailto:' + $scope.consultant.data.email;
