@@ -172,12 +172,6 @@ function install_app() {
                     url: api_url + 'configurator?id=' + slug,
                     type: 'GET',
                     success: function(data) {
-                        M.toast({
-                            html: ('This consultant is not yet setup on NYR Catalogue, launching configurator...'),
-                            displayLength: 2000
-                        });
-                        M.Modal.getInstance($('#configurator')).open();
-                        console.log(data);
                         resolve(data)
                     },
                     error: function(error) {
@@ -202,6 +196,13 @@ function install_app() {
                                 displayLength: 2000,
                             });
                         } else {
+
+                        M.toast({
+                            html: ('This consultant is not yet setup on NYR Catalogue, launching configurator...'),
+                            displayLength: 2000
+                        });
+                        M.Modal.getInstance($('#configurator')).open();
+                        
 
                         seen_exit_intent = true;
 
