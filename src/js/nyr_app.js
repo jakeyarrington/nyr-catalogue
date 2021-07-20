@@ -214,7 +214,7 @@ function install_app() {
                             email: data.data.email,
                             phone: data.data.phone,
                             region: region,
-                            url: 'https://' + $scope.consultant_query.region + '.nyrorganic.com/shop/' + consultant.data.slug,
+                            url: 'https://' + $scope.consultant_query.region + '.nyrorganic.com/shop/' + consultant.url_slug,
                             app_launch: 'catalogue',
                             twitter: data.data.twitter ? data.data.twitter : '',
                             facebook: data.data.facebook ? data.data.facebook : '',
