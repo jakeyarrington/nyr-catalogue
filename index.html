@@ -256,7 +256,7 @@
                   <p ng-bind="catalogue.pages.data.items[item].price"></p>
                   <p class="trim-info" ng-bind-html="catalogue.pages.data.items[item].item.summary | safeHtml"></p>
                 </div>
-                <div class="card-action center-align" ng-if="catalogue.pages.data.items[item].item.categories">
+                <div class="card-action center-align" ng-if="catalogue.pages.data.items[item].item.categories && 0">
                     <p><em>View similar products under</em></p>
                     <div class="chip" ng-repeat="cat in catalogue.pages.data.items[item].item.categories" ng-bind="cat.name"></div>
                   </div>
