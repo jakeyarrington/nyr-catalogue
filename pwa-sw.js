@@ -3,7 +3,7 @@ self.addEventListener('fetch', function(event) {
   event.respondWith(
       caches.match(event.request).then(function(response) {
           if(ext.indexOf('json') > -1) {
-            return false;
+            return fetch(event.request);
           }
           return response || fetch(event.request);
       })
