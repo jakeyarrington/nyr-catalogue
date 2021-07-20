@@ -337,7 +337,7 @@ function install_app() {
                             glue = '&';
                         }
 
-                        $url = $url + glue + 'bid=' + catalogue.party.bid + '&po=' + catalogue.party.id; 
+                        $url = $url + glue + 'bid=' + catalogue.party.bid + '&po=' + $scope.catalogue.party.id; 
                     }
 
                     return $url;
