@@ -563,6 +563,7 @@ function install_app() {
         var response = {
             http: http,
             data: null,
+            party: null,
             loaded: false,
             active_page: 0,
             modal: [],
@@ -622,7 +623,7 @@ function install_app() {
                 if(typeof party !== 'undefined') {
                     this.party = party;
                 }
-                
+
                 this.loaded = true;
                 this.pages.map();
                 this.http = {
