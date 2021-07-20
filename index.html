@@ -176,11 +176,11 @@
                 <p>You can configure Party Links to automatically associate products to a Consultants party on check-out.</p>
                 <div class="row">
                   <form class="col s12">
-                    <div class="row" ng-repeat="(i, code) in consultant_party_codes">
-                      <div class="input-field col s12">
-                        <input ng-model="consultant_party_codes[i].code" placeholder="W001923564" type="text" class="validate">
-                        <label for="phone">Party Code</label>
-                        <p class="left-align"><small>Enter your unique Party Code.</small></p>
+                    <div class="row">
+                      <div class="input-field col s12" ng-repeat="(i, code) in consultant_party_codes">
+                        <input required="required" ng-model="consultant_party_codes[i].code" placeholder="W001923564" type="text" class="validate">
+                        <label for="phone active">Party Code</label>
+                        <p class="left-align"><small>Enter your unique Party Code, please ensure the party is active and has not expired.</small></p>
                       </div>
                     </div>
                   </form>
@@ -191,7 +191,7 @@
               <div class="row" ng-show="!consultant_query.loading">
                 <div class="col s12 right-align">
                   <button class="btn waves-effect waves-light" ng-click="add_party_code()" type="button">Add Another Party Code</button>
-                  <button class="btn waves-effect waves-light" type="button">Save</button>
+                  <button class="btn waves-effect waves-light" ng-click="save_party_codes()" type="button">Save</button>
                 </div>
               </div>
             </div>

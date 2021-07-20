@@ -64,10 +64,46 @@ function install_app() {
             {code: ''}
         ];
 
+        $scope.save_party_codes = function() {
+             M.toast({
+                html: ('Saving Party Links, please wait...'),
+                    displayLength: 1000,
+            });
+
+            $.ajax({
+                url: api_url + 'party_links',
+                type: 'POST',
+                data: {
+                    codes: $scope.consultant_party_codes,
+                    slug: consultant.data.slug
+                },
+            })
+            .done(function(e) {
+                console.log(e);
+                $timeout(function() {
+                    $scope.consultant_party_codes = [];
+                });
+                // M.Modal.getInstance($('#configurator')).close();
+                M.toast({
+                    html: (e.msg),
+                    displayLength: 6000,
+                });
+            })
+            .fail(function() {
+                M.toast({
+                    html: 'An error occurred! Please try again',
+                    displayLength: 2000,
+                });
+            });
+        }
+
         $scope.add_party_code = function() {
             $scope.consultant_party_codes.push({
                 code: ''
             });
+            $timeout(function() {
+                M.updateTextFields();
+            }, 500);
         };
 
         $scope.close_modal = function($id) {
