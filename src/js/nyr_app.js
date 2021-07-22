@@ -364,7 +364,7 @@ function install_app() {
                     for (var i = favourite_keys.length - 1; i >= 0; i--) {
                         var key = favourite_keys[i];
                         var product = $scope.catalogue.pages.data.items[key];
-                        body += '- ' + product.item.name + ' (' + product.price + ')';
+                        body += '- ' + encodeURI(product.item.name) + ' (' + encodeURI(product.price) + ')';
                         body += "\n";
                     }
 
