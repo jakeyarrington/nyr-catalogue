@@ -43,6 +43,12 @@ function install_app() {
             install_app();
         };
 
+        $scope.htmlencode = function($str) {
+            return $str.replace(/[\u00A0-\u9999<>\&]/gim, function(i) {
+              return '&#' + i.charCodeAt(0) + ';';
+            });
+        }
+
         $scope.consultant_query = {
             loading: false,
             id: '',
@@ -364,7 +370,7 @@ function install_app() {
                     for (var i = favourite_keys.length - 1; i >= 0; i--) {
                         var key = favourite_keys[i];
                         var product = $scope.catalogue.pages.data.items[key];
-                        body += '- ' + encodeURI(product.item.name) + ' (' + encodeURI(product.price) + ')';
+                        body += '- ' + $scope.htmlencode(product.item.name) + ' (' + $scope.htmlencode(product.price) + ')';
                         body += "\n";
                     }
 
