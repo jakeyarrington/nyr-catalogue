@@ -461,6 +461,7 @@ function install_app() {
                                 console.log('on page ' + ($scope.page_index), catalogues.pages.data.order[$scope.page_index]);
                                 console.log('on page ' + ($scope.page_index+1), catalogues.pages.data.order[$scope.page_index+1]);
                                 for (var i = catalogues.pages.data.order[$scope.page_index+1] - 1; i >= 0; i--) {
+                                    console.log(catalogues.pages.data.order[$scope.page_index+1][i]);
                                     $scope.active_items.push(catalogues.pages.data.order[$scope.page_index+1][i]);
                                 }
                             }
