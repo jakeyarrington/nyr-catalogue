@@ -477,9 +477,6 @@ function install_app() {
                             });
                         });
 
-                            
-                        }
-
                     }
 
                 }, 100);
