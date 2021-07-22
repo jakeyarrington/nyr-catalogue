@@ -465,12 +465,18 @@ function install_app() {
                                 }
                             }
 
-                            var length = $scope.active_items.length;
+                            $timeout(function() {
+                                $scope.$apply();
+                                
+                                var length = $scope.active_items.length;
 
-                            M.toast({
-                                html: ('There ' + (length == 1 ? 'is' : 'are') + ' % item' + (length == 1 ? '' : 's') + ' to view <button class="btn-flat toast-action" onclick="M.Sidenav.getInstance(basket_sidebar).open()">View</button>').replace('%', length),
-                                displayLength: 5000,
+                                M.toast({
+                                    html: ('There ' + (length == 1 ? 'is' : 'are') + ' % item' + (length == 1 ? '' : 's') + ' to view <button class="btn-flat toast-action" onclick="M.Sidenav.getInstance(basket_sidebar).open()">View</button>').replace('%', length),
+                                    displayLength: 5000,
+                                });
                             });
+
+                            
                         }
 
                     }
