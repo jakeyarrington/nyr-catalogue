@@ -454,7 +454,7 @@ function install_app() {
 
                         if (typeof catalogues.pages.data.order[$scope.page_index] !== 'undefined') {
 
-                            $scope.active_items = catalogues.pages.data.order[$scope.page_index];
+                            $scope.active_items = angular.copy(catalogues.pages.data.order[$scope.page_index]);
 
                             /* is sequence of 2 */
                             if($scope.page_index % 2 == 0 && typeof catalogues.pages.data.order[$scope.page_index+1] !== 'undefined' && !$scope.flipbook.ctrl.state.singlePage) {
@@ -467,7 +467,7 @@ function install_app() {
 
                             $timeout(function() {
                                 $scope.$apply();
-                                
+
                                 var length = $scope.active_items.length;
 
                                 M.toast({
