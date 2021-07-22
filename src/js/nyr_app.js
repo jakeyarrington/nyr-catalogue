@@ -647,6 +647,7 @@ function install_app() {
                                         },
                                     })
                                     .done(function(e) {
+                                        console.log(e);
                                         if(e.success) {
                                             party.bid = e.data.bid;
                                             $that.party.bid = e.data.bid;
