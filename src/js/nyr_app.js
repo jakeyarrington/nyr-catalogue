@@ -452,28 +452,30 @@ function install_app() {
                             M.Modal.getInstance(options_modal).open();
                         }
 
+                        $scope.active_items = [];
+
                         if (typeof catalogues.pages.data.order[$scope.page_index] !== 'undefined') {
 
                             $scope.active_items = angular.copy(catalogues.pages.data.order[$scope.page_index]);
 
+                        }
 
+                        $timeout(function() {
 
-                            $timeout(function() {
+                            /* is sequence of 2 */
+                            if($scope.page_index % 2 == 0 && typeof catalogues.pages.data.order[$scope.page_index+1] !== 'undefined' && !$scope.flipbook.ctrl.state.singlePage) {
+                                $scope.active_items = $scope.active_items.concat(catalogues.pages.data.order[$scope.page_index+1]);
+                            }
 
-                                /* is sequence of 2 */
-                                if($scope.page_index % 2 == 0 && typeof catalogues.pages.data.order[$scope.page_index+1] !== 'undefined' && !$scope.flipbook.ctrl.state.singlePage) {
-                                    $scope.active_items = $scope.active_items.concat(catalogues.pages.data.order[$scope.page_index+1]);
-                                }
+                            $scope.$apply();
 
-                                $scope.$apply();
+                            var length = $scope.active_items.length;
 
-                                var length = $scope.active_items.length;
-
-                                M.toast({
-                                    html: ('There ' + (length == 1 ? 'is' : 'are') + ' % item' + (length == 1 ? '' : 's') + ' to view <button class="btn-flat toast-action" onclick="M.Sidenav.getInstance(basket_sidebar).open()">View</button>').replace('%', length),
-                                    displayLength: 5000,
-                                });
+                            M.toast({
+                                html: ('There ' + (length == 1 ? 'is' : 'are') + ' % item' + (length == 1 ? '' : 's') + ' to view <button class="btn-flat toast-action" onclick="M.Sidenav.getInstance(basket_sidebar).open()">View</button>').replace('%', length),
+                                displayLength: 5000,
                             });
+                        });
 
                             
                         }
