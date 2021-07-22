@@ -289,7 +289,7 @@
           <p class="center-align" ng-show="!catalogue.pages.data.order[catalogue.active_page]">There are no items to display.</p>
         </li>
         <li>
-           <div class="row" ng-id="{{catalogue.pages.data.items[item].id}}" ng-repeat="(key, item) in catalogue.pages.data.order[catalogue.active_page]">
+           <div class="row" ng-id="{{catalogue.pages.data.items[item].id}}" ng-repeat="(key, item) in catalogue.pages.data.order[catalogue.active_page] track by $index">
             <div class="col s12">
               <div class="card">
                 <div class="card-image" ng-class="catalogue.pages.data.items[item].type">
