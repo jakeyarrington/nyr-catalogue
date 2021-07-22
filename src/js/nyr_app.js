@@ -634,6 +634,36 @@ function install_app() {
                                 var party = consultant.data.party_links[party_code];
                                 party.id = party_code;
 
+                                delete party.bid;
+
+                                var party_session = localStorage.getItem(party.id);
+                                if(party_session == null) {
+                                    $.ajax({
+                                        url: api_url + 'get_party_bid',
+                                        type: 'POST',
+                                        data: {
+                                            slug: consultant.data.slug,
+                                            code: party.id
+                                        },
+                                    })
+                                    .done(function(e) {
+                                        if(e.success) {
+                                            party.bid = e.data.bid;
+                                            $that.party.bid = e.data.bid;
+                                            localStorage.setItem($that.party.id, e.data.bid);
+                                        }
+                                    })
+                                    .fail(function() {
+                                        M.toast({
+                                            html: ('An error occured joining Party'),
+                                            displayLength: 2000
+                                        });
+                                    });
+                                    
+                                } else {
+                                    party.bid = party_session;
+                                }
+
                                 if(party.name) {
                                     M.toast({
                                         html: ('You have joined ' + party.name + '\'s Party'),
