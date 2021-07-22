@@ -370,7 +370,7 @@ function install_app() {
                     for (var i = favourite_keys.length - 1; i >= 0; i--) {
                         var key = favourite_keys[i];
                         var product = $scope.catalogue.pages.data.items[key];
-                        body += '- ' + escape(product.item.name) + ' (' + escape(product.price) + ')';
+                        body += '- ' + escape(product.item.name).replace(/\%20/g, '+') + ' (' + escape(product.price).replace(/\%20/g, '+')  + ')';
                         body += "\n";
                     }
 
