@@ -53,8 +53,8 @@
       <div class="row">
         <div>
           <ul class="tabs">
-            <li class="tab col s6"><a class="active" href="#config">Configure Profile</a></li>
-            <li class="tab col s6"><a href="#party">Configure Party Links</a></li>
+            <li class="tab col s6" ng-class="hide_party_links ? 's12' : 's6'"><a class="active" href="#config">Configure Profile</a></li>
+            <li class="tab col s6" ng-show="!hide_party_links"><a href="#party">Configure Party Links</a></li>
           </ul>
         </div>
         <div id="config" class="col s12">
@@ -79,6 +79,13 @@
                     <div class="input-field col s6">
                       <input ng-model="consultant_query.last_name" placeholder="Smith" id="last_name" type="text" class="validate">
                       <label for="last_name">Last Name</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <textarea ng-model="consultant_query.welcome_message" class="materialize-textarea"></textarea>
+                      <label for="email">Welcome Message</label>
+                      <p class="left-align"><small>Add a Welcome message to be displayed to your customers when they first launch your NYR Organic Smart Catalogue.</small></p>
                     </div>
                   </div>
                   <div class="row">

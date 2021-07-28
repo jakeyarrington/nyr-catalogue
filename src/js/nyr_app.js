@@ -63,8 +63,11 @@ function install_app() {
             facebook: '',
             instagram: '',
             linkedin: '',
-            pinterest: ''
+            pinterest: '',
+            welcome_message: ''
         };
+
+        $scope.hide_party_links = false;
 
         $scope.consultant_party_codes = [
             {code: ''}
@@ -503,7 +506,7 @@ function install_app() {
             });
 
         }, (e) => {
-            
+                $scope.hide_party_links = true;
                 $scope.launch_configurator(true);
         });
 
