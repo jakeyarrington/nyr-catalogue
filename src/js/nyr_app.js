@@ -370,7 +370,7 @@ function install_app() {
                     for (var i = favourite_keys.length - 1; i >= 0; i--) {
                         var key = favourite_keys[i];
                         var product = $scope.catalogue.pages.data.items[key];
-                        body += '- ' + escape(product.item.name).replace(/\%20/g, ' ') + ' (' + escape(product.price).replace(/\%20/g, ' ')  + ')';
+                        body += '- ' + escape(product.item.name).replace(/\%20/g, ' ').replace(/\%A3/g, '').replace(/\%26/g, 'and') + ' (' + (product.price) + ')';
                         body += "\n";
                     }
 
@@ -387,7 +387,20 @@ function install_app() {
                 /* Init Flipbook */
                 $scope.pdf_url = cdn_url + (catalogues.get()[region + '_pdf_file']);
                 $scope.flipbook = $('.solid-container').FlipBook({
-                    pdf: $scope.pdf_url
+                    pdf: $scope.pdf_url,
+                    ready: function(scene) {
+                        var height = window.innerHeight;
+                        var m_top = 0;
+                        if(window.innerWidth < 900) {
+                            m_top = $('nav').height();
+                            height -= m_top;
+                        }
+
+                        $('.solid-container iframe').css({
+                            'height': height,
+                            'margin-top': m_top
+                        });
+                    }
                 });
 
                 $timeout(function() {
