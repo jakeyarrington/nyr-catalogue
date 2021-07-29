@@ -3,9 +3,25 @@ body {
 	padding: 0;
 	background: #1f376c;
 
+	.btn,
+	.btn-large,
+	.btn-small {
+		box-shadow: none;
+		background-color: #192b54;
 
+		&:hover,
+		&:focus,
+		&:active {
+			box-shadow: none;
+			background-color: #1f376c;
+		}
+	}
 
-	@media screen and (min-width: 900px) {
+	.collection a.collection-item {
+		color: #333;
+	}
+
+	@media screen and (min-width: 901px) {
 
 		nav {
 			width: 64px;
@@ -22,6 +38,24 @@ body {
 
 	}
 
+	@media screen and (max-width: 900px) {
+		body {
+			nav {
+				div.nav-wrapper {
+					ul {
+						li {
+							a {
+								span.tooltip {
+									top: 8px;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
 	nav {
 		
 		background-color: #192b54;
@@ -30,19 +64,69 @@ body {
 		top:0;
 		left:0;
 
-		li {
+		div.nav-wrapper {
 			text-align: center;
 
-			a {
+			ul {
+				display: inline-block;
+				li {
+					text-align: center;
 
-				span {
-					vertical-align: sub;
-				}
+					a {
 
-				&.sidenav-trigger {
-					display: block;
-					margin: 0;
-					width: 100%;
+						span {
+							vertical-align: sub;
+
+							&.tooltip {
+						    	text-align: center;
+								position: absolute;
+								right: 8px;
+								background: #fff;
+								height: auto;
+								display: inline;
+								line-height: 7px;
+								font-size: 10px;
+								color: #192b54;
+								min-width: 18px;
+								padding: 5px;
+								border-radius: 10px;
+								vertical-align: middle;
+								font-weight: 700;
+								top: 15px;
+								box-shadow: 0px 2px 3px rgba(0,0,0,0.7);
+						    }
+						}
+
+						&.sidenav-trigger {
+							display: block;
+							margin: 0;
+							width: 100%;
+						}
+
+						img {
+							vertical-align: middle;
+
+							&[alt="NYR Organic"] {
+								max-width: 38px;
+							}
+
+							&[alt="Available Items"] {
+								max-width: 30px; 
+							}
+
+							&[alt="Share Catalogue"] {
+								max-width: 24px;
+							}
+
+							&[alt="Your Favourites"] {
+								max-width: 22px;
+							}
+
+							&[alt="Contact Consultant"] {
+								max-width: 31px;
+							}
+						}
+					}
 				}
 			}
 		}
@@ -86,6 +170,12 @@ body {
 
 				div.card-action {
 					padding: 5px 15px;
+
+					&.video {
+						a {
+							width: 100%;
+						}
+					}
 
 					a {
 						text-align: center;

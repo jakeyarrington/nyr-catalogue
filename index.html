@@ -7,7 +7,16 @@
     <link rel="stylesheet" href="/dist/css/app.min.css">
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Neal's Yard Catalogue</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/assets/favicon/safari-pinned-tab.svg" color="#20376c">
+    <link rel="shortcut icon" href="/assets/favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="/assets/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#20376c">
+    <title>NYR Smart Catalogue</title>
     <script>
       if(location.href[location.href.length-1] == '/' && location.pathname !== '/') {
         location.href = location.href.substring(0, location.href.length-1);
@@ -23,6 +32,15 @@
       } else {
         console.log('Service workers are not supported.');
       }
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2G2VHHXVY0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-2G2VHHXVY0');
     </script>
   </head>
 
@@ -245,18 +263,24 @@
 
     <div id="contact" class="modal">
       <div class="modal-content center-align">
-        <img width="150" ng-src="{{'https://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=' + catalogue_url}}">
-        <h4>Contact <span ng-bind="consultant.data.name.full"></span></h4>
-        <p>Here are the ways you can get in touch with <span ng-bind="consultant.data.name.first_name"></span> directly.</p>
-        <p>
-          <a target="_blank" ng-show="consultant.data.email" ng-href="{{'mailto:' + consultant.data.email}}" class="waves-effect waves-light btn">Email</a>
-          <a target="_blank" ng-show="consultant.data.phone" ng-href="{{'tel:' + consultant.data.phone}}" class="waves-effect waves-light btn">Telephone</a>
-          <a target="_blank" ng-show="consultant.data.social.facebook" ng-href="{{consultant.data.social.facebook}}" class="waves-effect waves-light btn">Facebook</a>
-          <a target="_blank" ng-show="consultant.data.social.instagram" ng-href="{{consultant.data.social.instagram}}" class="waves-effect waves-light btn">Instagram</a>
-          <a target="_blank" ng-show="consultant.data.social.linkedin" ng-href="{{consultant.data.social.linkedin}}" class="waves-effect waves-light btn">LinkedIn</a>
-          <a target="_blank" ng-show="consultant.data.social.pinterest" ng-href="{{consultant.data.social.pinterest}}" class="waves-effect waves-light btn">Pinterest</a>
-          <a target="_blank" ng-show="consultant.data.social.twitter" ng-href="{{consultant.data.social.twitter}}" class="waves-effect waves-light btn">Twitter</a>
-        </p>
+        <div class="row">
+          <div class="col">
+            <img width="150" ng-src="{{'https://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=' + catalogue_url}}">
+          </div>
+          <div class="col s8 left-align">
+            <h5 ng-bind="consultant.data.name.full"></h5>
+            <a style="color:#aaa" ng-href="{{'https://nyrcatalogue.com/' + consultant.data.slug}}" ng-bind="'https://nyrcatalogue.com/' + consultant.data.slug"></a>
+            <p>
+              <a target="_blank" ng-show="consultant.data.email" ng-href="{{'mailto:' + consultant.data.email}}" class="waves-effect waves-light btn">Email</a>
+              <a target="_blank" ng-show="consultant.data.phone" ng-href="{{'tel:' + consultant.data.phone}}" class="waves-effect waves-light btn">Telephone</a>
+              <a target="_blank" ng-show="consultant.data.social.facebook" ng-href="{{consultant.data.social.facebook}}" class="waves-effect waves-light btn">Facebook</a>
+              <a target="_blank" ng-show="consultant.data.social.instagram" ng-href="{{consultant.data.social.instagram}}" class="waves-effect waves-light btn">Instagram</a>
+              <a target="_blank" ng-show="consultant.data.social.linkedin" ng-href="{{consultant.data.social.linkedin}}" class="waves-effect waves-light btn">LinkedIn</a>
+              <a target="_blank" ng-show="consultant.data.social.pinterest" ng-href="{{consultant.data.social.pinterest}}" class="waves-effect waves-light btn">Pinterest</a>
+              <a target="_blank" ng-show="consultant.data.social.twitter" ng-href="{{consultant.data.social.twitter}}" class="waves-effect waves-light btn">Twitter</a>
+            </p>
+          </div>
+        </div>
           <div class="collection">
             <a ng-show="favourite.$count" href="#" ng-click="mail_favourites()" class="collection-item">Email my Favourites to <span ng-bind="consultant.data.name.first_name"></span></a>
             <a href="#!" ng-show="can_install_app" ng-click="install_app()" class="collection-item">Install <span ng-bind="consultant.data.name.first_name"></span>'s App</a>
@@ -279,23 +303,30 @@
         <div class="nav-wrapper">
         <ul id="nav-mobile">
           <li>
+            <a ng-href="{{'https://uk.nyrorganic.com/shop/' + consultant.data.slug}}" target="_blank" data-position="right" class="tooltipped" data-tooltip="{{'Go to '+ (consultant.data.name.first_name ? consultant.data.name.first_name + '\'s ' : '') +'NYR Organic Shop'}}">
+              <img src="assets/img/Logo.svg" alt="NYR Organic">
+            </a>
+          </li>
+          <li>
             <a href="#" data-target="basket_sidebar" class="sidenav-trigger tooltipped" data-position="right" data-tooltip="Available Items">
-              <i class="material-icons">shopping_basket</i>
+              <span ng-if="active_items.length" class="tooltip" ng-bind="active_items.length"></span>
+              <img src="assets/img/Book.png" alt="Available Items">
             </a>
           </li>
           <li>
             <a href="#share" class="modal-trigger tooltipped" data-position="right" data-tooltip="Share Catalogue">
-              <span class="material-icons">share</span>
+              <img src="assets/img/Share.png" alt="Share Catalogue">
             </a>
           </li>
           <li>
             <a href="#" data-target="favourites_sidebar" class="sidenav-trigger tooltipped" data-position="right" data-tooltip="Your Favourites">
-              <span class="material-icons">star</span>
+              <span ng-if="favourite.$count" class="tooltip" ng-bind="favourite.$count"></span>
+              <img src="assets/img/Favourites.png" alt="Your Favourites">
             </a>
           </li>
           <li>
             <a href="#contact" class="modal-trigger tooltipped" data-position="right" data-tooltip="Contact Consultant">
-              <span class="material-icons">contact_phone</span>
+              <img src="assets/img/Contact.png" alt="Contact Consultant">
             </a>
           </li>
         </ul>
@@ -319,19 +350,18 @@
                 </div>
                 <div class="card-content">
                   <h6><strong><span ng-bind="catalogue.pages.data.items[item].item.name">Card Title</span></strong></h6>
-                  <p ng-bind="catalogue.pages.data.items[item].price"></p>
+                  <p ng-if="catalogue.pages.data.items[item].type !== 'product'" ng-bind="catalogue.pages.data.items[item].price"></p>
                   <p class="trim-info" ng-bind-html="catalogue.pages.data.items[item].item.summary | safeHtml"></p>
                 </div>
                 <div class="card-action center-align" ng-if="catalogue.pages.data.items[item].item.categories && 0">
                     <p><em>View similar products under</em></p>
                     <div class="chip" ng-repeat="cat in catalogue.pages.data.items[item].item.categories" ng-bind="cat.name"></div>
                   </div>
-                <div class="card-action" ng-if="catalogue.pages.data.items[item].type == 'product'">
+                <div class="card-action product" ng-if="catalogue.pages.data.items[item].type == 'product'">
                   <a ng-href="{{prep_product_url(catalogue.pages.data.items[item].item.link)}}" target="_blank" ng-if="catalogue.pages.data.items[item].item.link">Purchase</a>
                   <a ng-bind="favourite.$data[catalogue.pages.data.items[item].id] ? 'Unfavourite' : 'Favourite'" ng-if="catalogue.pages.data.items[item].item.favourite" ng-click="favourite.set(catalogue.pages.data.items[item].id, (favourite.$data[catalogue.pages.data.items[item].id] ? 0 : 1))" href="#">Favourite</a>
                 </div>
-                <div class="card-action" ng-if="catalogue.pages.data.items[item].type == 'video'">
-                  <a ng-href="{{catalogue.pages.data.items[item].item.link}}" target="_blank" ng-if="catalogue.pages.data.items[item].item.link">Visit</a>
+                <div class="card-action video" ng-if="catalogue.pages.data.items[item].type == 'video'">
                   <a class="modal-trigger" href="#video_modal" ng-if="catalogue.pages.data.items[item].item.video" ng-click="open_video_modal(catalogue.pages.data.items[item])">Watch</a>
                 </div>
               </div>

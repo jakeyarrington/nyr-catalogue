@@ -393,6 +393,11 @@ function install_app() {
                 $scope.pdf_url = cdn_url + (catalogues.get()[region + '_pdf_file']);
                 $scope.flipbook = $('.solid-container').FlipBook({
                     pdf: $scope.pdf_url,
+                    template: {
+                        sounds: {
+                            startFlip: 'dist/js/3d-flip-book/sounds/flip.mp3'
+                        }
+                    },
                     ready: function(scene) {
                         var height = window.innerHeight;
                         var m_top = 0;
@@ -462,8 +467,6 @@ function install_app() {
                             catalogues.active_page = $scope.this_page_index;
                             $scope.$apply();
                         });
-
-                        console.log('Page Index', $scope.page_index);
 
                         /* We're on the last page */
                         if($scope.page_index == $scope.flipbook.book.getBookPages()) {
@@ -752,7 +755,11 @@ function install_app() {
     });
 
     $(document).ready(function() {
-        $('.sidenav').sidenav();
+        $('.sidenav').sidenav({
+            onOpenStart: function() {
+                $('.sidenav')[0].scrollTop = 0;
+            }
+        });
         $('.tooltipped').tooltip();
         $('.modal').modal();
         $('.chips').chips();
