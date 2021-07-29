@@ -64,7 +64,9 @@ function install_app() {
             instagram: '',
             linkedin: '',
             pinterest: '',
-            welcome_message: ''
+            welcome_message: '',
+            whatsapp: '',
+            newsletter: ''
         };
 
         $scope.hide_party_links = false;
@@ -517,7 +519,7 @@ function install_app() {
 
     appController.factory('consultant', function() {
 
-        var ct_slug = is_local ? '/shropshireorganic' : location.pathname;
+        var ct_slug = is_local ? '/corp' : location.pathname;
         var ct_config = false;
 
         if(ct_slug.indexOf('#') > -1) {
