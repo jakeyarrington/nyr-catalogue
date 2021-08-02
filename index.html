@@ -349,33 +349,41 @@
       <ul id="basket_sidebar" class="sidenav">
         <li>
           <header ng-hide="!active_items">
-            <span ng-bind="active_items.length"></span> Item(s) on Page <span ng-bind="catalogue.active_page"></span>
+            <span ng-bind="active_items.length"></span> Item(s) on Page <span ng-bind="catalogue.active_page"></span> 
+            <div ng-show="active_items.length">
+              <a class='dropdown-trigger btn btn-small' href='#' data-target='filters'>Sort Items</a>
+              <!-- Dropdown Structure -->
+              <ul id='filters' class='dropdown-content'>
+                <li><a ng-click="sort_items('az')" href="#!">A-Z</a></li>
+                <li><a ng-click="sort_items('za')" href="#!">Z-A</a></li>
+              </ul>
+            </div>
           </header>
           <p class="center-align" ng-show="!active_items">There are no items to display.</p>
         </li>
         <li>
-           <div class="row" ng-id="{{catalogue.pages.data.items[item].id}}" ng-repeat="(key, item) in active_items track by $index">
+           <div class="row" ng-id="{{item.id}}" ng-repeat="(key, item) in active_items track by $index">
             <div class="col s12">
               <div class="card">
-                <div class="card-image" ng-class="catalogue.pages.data.items[item].type">
-                  <img style="width:50%;margin:0 auto;" ng-src="{{catalogue.pages.data.items[item].item.cover}}">
+                <div class="card-image" ng-class="item.type">
+                  <img style="width:50%;margin:0 auto;" ng-src="{{item.item.cover}}">
                   
                 </div>
                 <div class="card-content">
-                  <h6><strong><span ng-bind="catalogue.pages.data.items[item].item.name">Card Title</span></strong></h6>
-                  <p ng-if="catalogue.pages.data.items[item].type == 'product'" ng-bind="catalogue.pages.data.items[item].price"></p>
-                  <p class="trim-info" ng-bind-html="catalogue.pages.data.items[item].item.summary | safeHtml"></p>
+                  <h6><strong><span ng-bind="item.item.name">Card Title</span></strong></h6>
+                  <p ng-if="item.type == 'product'" ng-bind="item.price"></p>
+                  <p class="trim-info" ng-bind-html="item.item.summary | safeHtml"></p>
                 </div>
-                <div class="card-action center-align" ng-if="catalogue.pages.data.items[item].item.categories && 0">
+                <div class="card-action center-align" ng-if="item.item.categories && 0">
                     <p><em>View similar products under</em></p>
-                    <div class="chip" ng-repeat="cat in catalogue.pages.data.items[item].item.categories" ng-bind="cat.name"></div>
+                    <div class="chip" ng-repeat="cat in item.item.categories" ng-bind="cat.name"></div>
                   </div>
-                <div class="card-action product" ng-if="catalogue.pages.data.items[item].type == 'product'">
-                  <a ng-href="{{prep_product_url(catalogue.pages.data.items[item].item.link)}}" target="_blank" ng-if="catalogue.pages.data.items[item].item.link">Purchase</a>
-                  <a ng-bind="favourite.$data[catalogue.pages.data.items[item].id] ? 'Unfavourite' : 'Favourite'" ng-if="catalogue.pages.data.items[item].item.favourite" ng-click="favourite.set(catalogue.pages.data.items[item].id, (favourite.$data[catalogue.pages.data.items[item].id] ? 0 : 1))" href="#">Favourite</a>
+                <div class="card-action product" ng-if="item.type == 'product'">
+                  <a ng-href="{{prep_product_url(item.item.link)}}" target="_blank" ng-if="item.item.link">Purchase</a>
+                  <a ng-bind="favourite.$data[item.id] ? 'Unfavourite' : 'Favourite'" ng-if="item.item.favourite" ng-click="favourite.set(item.id, (favourite.$data[item.id] ? 0 : 1))" href="#">Favourite</a>
                 </div>
-                <div class="card-action video" ng-if="catalogue.pages.data.items[item].type == 'video'">
-                  <a class="modal-trigger" href="#video_modal" ng-if="catalogue.pages.data.items[item].item.video" ng-click="open_video_modal(catalogue.pages.data.items[item])">Watch</a>
+                <div class="card-action video" ng-if="item.type == 'video'">
+                  <a class="modal-trigger" href="#video_modal" ng-if="item.item.video" ng-click="open_video_modal(item)">Watch</a>
                 </div>
               </div>
             </div>
