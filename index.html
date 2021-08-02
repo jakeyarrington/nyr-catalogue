@@ -54,8 +54,8 @@
             <a ng-show="favourite.$count" href="#" ng-click="mail_favourites()" class="collection-item">Email my Favourites to <span ng-bind="consultant.data.name.first_name"></span></a>
             <a href="#!" ng-show="can_install_app" ng-click="install_app()" class="collection-item">Install <span ng-bind="consultant.data.name.first_name"></span>'s App</a>
              <a ng-href="{{'https://uk.nyrorganic.com/shop/' + consultant.data.slug}}" class="collection-item">View <span ng-bind="consultant.data.name.first_name"></span>'s NYR Organic Shop</a>
-             <a target="_blank" ng-show="consultant.data.social.whatsapp" ng-href="{{consultant.data.social.whatsapp}}">Join <span ng-bind="consultant.data.name.first_name"></span>'s WhatsApp Group</a>
-              <a target="_blank" ng-show="consultant.data.social.newsletter" ng-href="{{consultant.data.social.newsletter}}">Subscribe to <span ng-bind="consultant.data.name.first_name"></span>'s Newsletter</a>
+             <a target="_blank" ng-show="consultant.data.social.whatsapp" class="collection-item" ng-href="{{consultant.data.social.whatsapp}}">Join <span ng-bind="consultant.data.name.first_name"></span>'s WhatsApp Group</a>
+              <a target="_blank" ng-show="consultant.data.social.newsletter" class="collection-item" ng-href="{{consultant.data.social.newsletter}}">Subscribe to <span ng-bind="consultant.data.name.first_name"></span>'s Newsletter</a>
             <a ng-href="{{pdf_url}}" class="collection-item">Download this Smart Catalogue</a>
             <a ng-href="{{'https://uk.nyrorganic.com/shop/'+consultant.data.slug+'/area/become-a-consultant/'}}" class="collection-item">Become a Consultant</a>
             <a ng-href="{{'https://uk.nyrorganic.com/shop/'+consultant.data.slug+'/area/have-a-party/'}}" class="collection-item">Host an Event</a>
@@ -286,8 +286,8 @@
             <a ng-show="favourite.$count" href="#" ng-click="mail_favourites()" class="collection-item">Email my Favourites to <span ng-bind="consultant.data.name.first_name"></span></a>
             <a href="#!" ng-show="can_install_app" ng-click="install_app()" class="collection-item">Install <span ng-bind="consultant.data.name.first_name"></span>'s App</a>
              <a ng-href="{{'https://uk.nyrorganic.com/shop/' + consultant.data.slug}}" class="collection-item">View <span ng-bind="consultant.data.name.first_name"></span>'s NYR Organic Shop</a>
-             <a target="_blank" ng-show="consultant.data.social.whatsapp" ng-href="{{consultant.data.social.whatsapp}}">Join <span ng-bind="consultant.data.name.first_name"></span>'s WhatsApp Group</a>
-              <a target="_blank" ng-show="consultant.data.social.newsletter" ng-href="{{consultant.data.social.newsletter}}">Subscribe to <span ng-bind="consultant.data.name.first_name"></span>'s Newsletter</a>
+             <a target="_blank" ng-show="consultant.data.social.whatsapp" class="collection-item" ng-href="{{consultant.data.social.whatsapp}}">Join <span ng-bind="consultant.data.name.first_name"></span>'s WhatsApp Group</a>
+              <a target="_blank" ng-show="consultant.data.social.newsletter" class="collection-item" ng-href="{{consultant.data.social.newsletter}}">Subscribe to <span ng-bind="consultant.data.name.first_name"></span>'s Newsletter</a>
             <a ng-href="{{pdf_url}}" class="collection-item">Download this Smart Catalogue</a>
             <a ng-href="{{'https://uk.nyrorganic.com/shop/'+consultant.data.slug+'/area/become-a-consultant/'}}" class="collection-item">Become a Consultant</a>
             <a ng-href="{{'https://uk.nyrorganic.com/shop/'+consultant.data.slug+'/area/have-a-party/'}}" class="collection-item">Host an Event</a>
