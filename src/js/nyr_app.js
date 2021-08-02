@@ -285,8 +285,8 @@ function install_app() {
                             region: region,
                             url: 'https://' + $scope.consultant_query.region + '.nyrorganic.com/shop/' + consultant.url_slug,
                             app_launch: 'catalogue',
-                            twitter: data.data.twitter ? data.data.twitter : '',
-                            facebook: data.data.facebook ? data.data.facebook : '',
+                            twitter: data.data.twitter ? ('https://' + data.data.twitter.replace('https://', '')) : '',
+                            facebook: data.data.facebook ? ('https://' + data.data.facebook.replace('https://', '')) : '',
                             instagram: '',
                             linkedin: '',
                             pinterest: ''
@@ -636,6 +636,7 @@ function install_app() {
             data: null,
             party: null,
             loaded: false,
+            staging: false,
             active_page: 0,
             modal: [],
             region: 'uk',
@@ -740,6 +741,23 @@ function install_app() {
             },
             get: function(index) {
                 var $this = response;
+
+                if(location.host.substring(0,7) == 'staging') {
+                    this.staging = true;
+                    M.toast({
+                        html: ('Staging Environment'),
+                        displayLength: 2000
+                    });
+                }
+
+                for (var i = $this.data.length - 1; i >= 0; i--) {
+                    var item = $this.data[i];
+
+                    if(this.staging && item.environment == 'staging' || !this.staging && item.environment == 'production') {
+                        index = i;
+                    }
+                }
+
                 return $this.data[index ? index : 0];
             }
         };
