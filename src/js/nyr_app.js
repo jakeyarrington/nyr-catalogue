@@ -596,6 +596,18 @@ function install_app() {
                 }
 
                 this.data = typeof data == 'string' ? JSON.parse(data) : data;
+
+                if(typeof this.data.social !== 'undefined') {
+                    var social_keys = Object.keys(this.data.social);
+                    for (var i = social_keys.length - 1; i >= 0; i--) {
+                        var key = social_keys[i];
+
+                        if(this.data.social[key]) {
+                           this.data.social[key] = 'https://' + this.data.social[key].replace('https://', '').replace('http://', ''); 
+                        }
+                    }
+                }
+
                 this.loaded = true;
                 this.http = {
                     then: function() {
