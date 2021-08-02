@@ -742,7 +742,7 @@ function install_app() {
             get: function(index) {
                 var $this = response;
 
-                if(location.host.substring(0,7) == 'staging') {
+                if(location.host.substring(0,7) == 'staging' && !this.staging) {
                     this.staging = true;
                     M.toast({
                         html: ('Staging Environment'),
