@@ -245,6 +245,16 @@
       </div>
     </div>
 
+    <div id="welcome" class="modal">
+      <div class="modal-content center-align">
+        <h4><span ng-bind="consultant.data.name.full"></span>'s Smart Catalogue</h4>
+        <p ng-bind-html="consultant.data.welcome_message | safeHtml"></p>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+      </div>
+    </div>
+
     <div id="share" class="modal">
       <div class="modal-content center-align">
         <h4>Share <span ng-bind="consultant.data.name.full ? consultant.data.name.full + '\'s' : 'this'"></span> Smart Catalogue</h4>
