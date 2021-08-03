@@ -128,8 +128,8 @@
                   <div class="row">
                     <div class="input-field col s12">
                       <select ng-model="consultant_query.region">
-                        <option value="uk">UK/IE</option>
-                        <option value="us">US</option>
+                        <option ng-selected="consultant_query.region == 'uk'" value="uk">UK/IE</option>
+                        <option ng-selected="consultant_query.region == 'us'" value="us">US</option>
                       </select>
                       <label>Country</label>
                     </div>
