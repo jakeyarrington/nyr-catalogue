@@ -324,8 +324,6 @@ function install_app() {
 
                         var region = data.data.id.substring(0,2).toLowerCase();
 
-                        console.log(data, 327);
-
                         $scope.consultant_query = {
                             first_name: data.data.fname,
                             last_name: data.data.lname,
