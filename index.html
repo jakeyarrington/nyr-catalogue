@@ -92,11 +92,11 @@
                 <form class="col s12">
                   <div class="row">
                     <div class="input-field col s6">
-                      <input ng-model="consultant.data.name.first_name ? consultant.data.name.first_name : consultant_query.first_name" placeholder="Ellie" id="first_name" type="text" class="validate">
+                      <input ng-model="consultant_query.first_name" placeholder="Ellie" id="first_name" type="text" class="validate">
                       <label for="first_name">First Name</label>
                     </div>
                     <div class="input-field col s6">
-                      <input ng-model="consultant.data.name.last_name ? consultant.data.name.last_name : consultant_query.last_name" placeholder="Smith" id="last_name" type="text" class="validate">
+                      <input ng-model="consultant_query.last_name" placeholder="Smith" id="last_name" type="text" class="validate">
                       <label for="last_name">Last Name</label>
                     </div>
                   </div>
@@ -109,7 +109,7 @@
                   </div>
                   <div class="row">
                     <div class="input-field col s12">
-                      <input ng-model="consultant.data.email ? consultant.data.email : consultant_query.email" id="email" placeholder="ellie.smith@gmail.com" type="email" class="validate">
+                      <input ng-model="consultant_query.email" id="email" placeholder="ellie.smith@gmail.com" type="email" class="validate">
                       <label for="email">Email</label>
                     </div>
                   </div>
@@ -121,7 +121,7 @@
                   </div>
                   <div class="row">
                     <div class="input-field col s12">
-                      <input ng-model="consultant.data.phone ? consultant.data.phone : consultant_query.phone" id="phone" placeholder="07957931543" type="text" class="validate">
+                      <input ng-model="consultant_query.phone" id="phone" placeholder="07957931543" type="text" class="validate">
                       <label for="phone">Your Telephone Number</label>
                     </div>
                   </div>
@@ -136,7 +136,7 @@
                   </div>
                   <div class="row">
                     <div class="input-field col s12">
-                      <select ng-model="consultant.data.app_launch ? consultant.data.app_launch : consultant_query.app_launch">
+                      <select ng-model="consultant_query.app_launch">
                         <option value="catalogue">My NYR Catalogue</option>
                         <option value="shop">My NYR Shop</option>
                       </select>
@@ -146,49 +146,49 @@
                   </div>
                   <div class="row">
                     <div class="input-field col s12">
-                      <input ng-model="consultant.data.social.twitter ? consultant.data.social.twitter : consultant_query.twitter" id="twitter" placeholder="https://twitter.com/elliesmith" type="url" class="validate">
+                      <input ng-model="consultant_query.twitter" id="twitter" placeholder="https://twitter.com/elliesmith" type="url" class="validate">
                       <label for="phone">Your Twitter URL</label>
                       <p class="left-align"><small>Enter your Twitter full URL, leave blank if you don't have one.</small></p>
                     </div>
                   </div>
                   <div class="row">
                     <div class="input-field col s12">
-                      <input ng-model="consultant.data.social.facebook ? consultant.data.social.facebook : consultant_query.facebook" id="facebook" placeholder="https://facebook.com/elliesmith" type="url" class="validate">
+                      <input ng-model="consultant_query.facebook" id="facebook" placeholder="https://facebook.com/elliesmith" type="url" class="validate">
                       <label for="phone">Your Facebook URL</label>
                       <p class="left-align"><small>Enter your Facebook URL, leave blank if you don't have one.</small></p>
                     </div>
                   </div>
                   <div class="row">
                     <div class="input-field col s12">
-                      <input ng-model="consultant.data.social.instagram ? consultant.data.instagram : consultant_query.instagram" id="instagram" placeholder="https://instagram.com/elliesmith" type="url" class="validate">
+                      <input ng-model="consultant_query.instagram" id="instagram" placeholder="https://instagram.com/elliesmith" type="url" class="validate">
                       <label for="phone">Your Instagram URL</label>
                       <p class="left-align"><small>Enter your Instagram URL, leave blank if you don't have one.</small></p>
                     </div>
                   </div>
                   <div class="row">
                     <div class="input-field col s12">
-                      <input ng-model="consultant.data.social.whatsapp ? consultant.data.social.whatsapp : consultant_query.whatsapp" id="whatsapp" placeholder="https://chat.whatsapp.com/GA3els9w0eE9fwl" type="url" class="validate">
+                      <input ng-model="consultant_query.whatsapp" id="whatsapp" placeholder="https://chat.whatsapp.com/GA3els9w0eE9fwl" type="url" class="validate">
                       <label for="phone">Your WhatsApp Group Link</label>
                       <p class="left-align"><small>Enter your WhatsApp Group Link by opening the Group in WhatsApp, clicking the 3 dots at the top right, selecting Group Info, then under Participants select "Invite via link" and copy the link and paste it above. Leave blank if you don't have one.</small></p>
                     </div>
                   </div>
                   <div class="row">
                     <div class="input-field col s12">
-                      <input ng-model="consultant.data.social.newsletter ? consultant.data.social.newsletter : consultant_query.newsletter" id="newsletter" placeholder="https://elliesmith.mynewsletter.com/signup" type="url" class="validate">
+                      <input ng-model="consultant_query.newsletter" id="newsletter" placeholder="https://elliesmith.mynewsletter.com/signup" type="url" class="validate">
                       <label for="phone">Your Newsletter Signup Link</label>
                       <p class="left-align"><small>Enter your Newsletter sign up link or leave blank if you don't have one.</small></p>
                     </div>
                   </div>
                   <div class="row">
                     <div class="input-field col s12">
-                      <input ng-model="consultant.data.social.linkedin ? consultant.data.social.linkedin : consultant_query.linkedin" id="linkedin" placeholder="https://linkedin.com/in/elliesmith" type="url" class="validate">
+                      <input ng-model="consultant_query.linkedin" id="linkedin" placeholder="https://linkedin.com/in/elliesmith" type="url" class="validate">
                       <label for="phone">Your LinkedIn URL</label>
                       <p class="left-align"><small>Enter your LinkedIn URL, leave blank if you don't have one.</small></p>
                     </div>
                   </div>
                   <div class="row">
                     <div class="input-field col s12">
-                      <input ng-model="consultant.data.social.pinterest ? consultant.data.social.pinterest : consultant_query.pinterest" id="pinterest" placeholder="https://pinterest.com/elliesmith" type="url" class="validate">
+                      <input ng-model="consultant_query.pinterest" id="pinterest" placeholder="https://pinterest.com/elliesmith" type="url" class="validate">
                       <label for="phone">Your Pinterest URL</label>
                       <p class="left-align"><small>Enter your Pinterest URL, leave blank if you don't have one.</small></p>
                     </div>
