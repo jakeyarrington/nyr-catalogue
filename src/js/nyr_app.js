@@ -590,7 +590,7 @@ function install_app() {
 
 
         // Check if configurator
-        if(location.search.indexOf('?configure=1') > -1) {
+        if(location.search.indexOf('?configure=1') > -1 || location.host.substring(0,9) == 'configure') {
 
             if(ct_slug == 'corp') {
 
@@ -604,6 +604,7 @@ function install_app() {
             }
 
         }
+
 
         // Check for any segments
         if(ct_slug.indexOf('/') > -1) {
@@ -668,7 +669,7 @@ function install_app() {
                  * Toggle Welcome Message
                  */
 
-                if(typeof this.data.welcome_message !== 'undefined' && this.data.welcome_message) {
+                if(typeof this.data.welcome_message !== 'undefined' && this.data.welcome_message && !this.configurator) {
                     var seen_before_key = this.data.slug + '_welcome_msg';
                     if(!localStorage.getItem(seen_before_key)) {
                         localStorage.setItem(seen_before_key, 1);
