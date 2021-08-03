@@ -309,6 +309,7 @@ function install_app() {
                     $timeout(function() {
                         if(!data.success) {
                             M.Modal.getInstance($('#configurator')).close();
+
                             location.href = '/';
                         } else {
 
@@ -322,6 +323,8 @@ function install_app() {
                         seen_exit_intent = true;
 
                         var region = data.data.id.substring(0,2).toLowerCase();
+
+                        console.log(data, 327);
 
                         $scope.consultant_query = {
                             first_name: data.data.fname,
