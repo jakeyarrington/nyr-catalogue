@@ -331,7 +331,7 @@ function install_app() {
                             id: data.data.id,
                             email: data.data.email,
                             phone: data.data.phone ? data.data.phone : '',
-                            region: data.data.id.substring(0,2).toLowerCase(),
+                            region: region,
                             url: 'https://' + data.data.id.substring(0,2).toLowerCase() + '.nyrorganic.com/shop/' + consultant.url_slug,
                             app_launch: 'catalogue',
                             twitter: data.data.twitter ? ('https://' + data.data.twitter.replace('https://', '')) : '',
@@ -343,7 +343,7 @@ function install_app() {
                     }
 
                         $scope.$apply();
-                        console.log(M.FormSelect.getInstance($('select[ng-model="consultant_query.region"]')).getSelectedValues());
+                        $('select').formSelect();
                     });
                 },
                 (data) => {
