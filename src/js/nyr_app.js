@@ -343,7 +343,7 @@ function install_app() {
                     }
 
                         $scope.$apply();
-                        M.FormSelect.getInstance($('select[ng-model="consultant_query.region"]')).getSelectedValues();
+                        console.log(M.FormSelect.getInstance($('select[ng-model="consultant_query.region"]')).getSelectedValues());
                     });
                 },
                 (data) => {
