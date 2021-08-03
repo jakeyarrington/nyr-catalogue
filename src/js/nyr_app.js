@@ -415,7 +415,7 @@ function install_app() {
                         M.Modal.getInstance($('#configurator')).open();
 
 
-                        seen_exit_intent = true;
+                        $scope.seen_exit_intent = true;
 
                         var region = data.data.id.substring(0,2).toLowerCase();
 
@@ -587,9 +587,9 @@ function install_app() {
                 bindIFrameMousemove($('.solid-container iframe')[0]);
 
                 $('body').on('mousemove', function(e) {
-                    if(e.clientY <= 15 && (e.clientX < (window.innerWidth/3)) && !seen_exit_intent) {
+                    if(e.clientY <= 15 && (e.clientX < (window.innerWidth/3)) && !$scope.seen_exit_intent) {
                         M.Modal.getInstance(options_modal).open();
-                        seen_exit_intent = true;
+                        $scope.seen_exit_intent = true;
                     }
                 });
 
