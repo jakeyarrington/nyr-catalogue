@@ -338,7 +338,7 @@ function install_app() {
         }
 
         $scope.goto_consultant_home = function() {
-            return location.href = base_url.replace('configure.','') + '/' + consultant.data.slug;
+            return location.href = base_url.replace('configure.','') + '/' + $scope.consultant_query.slug;
         };
 
         $scope.launch_configurator = function(redirect) {
