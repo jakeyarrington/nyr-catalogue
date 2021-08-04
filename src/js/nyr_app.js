@@ -21,6 +21,8 @@ function install_app() {
     const favourites_sidebar = document.getElementById('favourites_sidebar');
     const options_modal = document.getElementById('options');
 
+    const params = new URLSearchParams(location.search);
+
     
     window.can_install_app = false;
 
@@ -564,6 +566,13 @@ function install_app() {
 
                 var region = typeof $scope.consultant.region !== 'undefined' ? $scope.consultant.region : 'uk';
 
+                /* Overwrite Region on URL Param */
+                if(params.get('region') !== null) {
+                    var new_region = params.get('region').toLowerCase();
+                    region = $.inArray(new_region, ['uk','us']) > -1 ? new_region : region;
+
+                }
+
                 /* Store Data */
                 catalogues.region = region;
                 catalogues.set(e, consultant);
@@ -573,6 +582,22 @@ function install_app() {
                 $timeout(function() {
                     $scope.catalogue = catalogues;
                     $scope.consultant = consultant;
+                    $scope.consultant.data.region = region;
+
+                    var consultant_keys = Object.keys($scope.consultant.data);
+                    for (var i = consultant_keys.length - 1; i >= 0; i--) {
+                        var key = consultant_keys[i];
+
+                        if(key == 'welcome_message' && !$scope.consultant.data[key]) {
+                            $scope.consultant.data[key] = '';
+                        }
+
+                        if(typeof $scope.consultant.data[key] !== 'object') {
+                            $scope.consultant_query[key] = $scope.consultant.data[key];
+                        }
+
+                    }
+
                     $scope.$apply();
                 });
 
