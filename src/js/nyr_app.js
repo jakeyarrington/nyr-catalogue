@@ -495,8 +495,6 @@ function install_app() {
 
                         var region = data.data.id.substring(0,2).toLowerCase();
 
-                        console.log(data);
-
                         $scope.consultant_query = {
                             first_name: data.data.fname,
                             last_name: data.data.lname,
@@ -514,6 +512,33 @@ function install_app() {
                             linkedin: '',
                             pinterest: ''
                         };
+
+                        /*
+                         * Replace details with JSON data
+                         */
+                        if(typeof $scope.consultant.data == 'object') {
+
+                            var named_keys = Object.keys($scope.consultant.data);
+                            for (var i = named_keys.length - 1; i >= 0; i--) {
+                                var key = named_keys[i];
+                                if(typeof $scope.consultant.data[key] !== 'object') {
+                                    $scope.consultant_query[key] = $scope.consultant.data[key];
+                                }
+                            }
+
+                            var social_keys = Object.keys($scope.consultant.data.social);
+                            for (var i = social_keys.length - 1; i >= 0; i--) {
+                                var key = social_keys[i];
+                                if(typeof $scope.consultant.data.social[key] == 'string') {
+                                    $scope.consultant_query[key] = $scope.consultant.data.social[key];
+                                }
+                            }
+
+                            $scope.consultant_query.first_name = $scope.consultant.data.name.first_name;
+                            $scope.consultant_query.last_name = $scope.consultant.data.name.last_name;
+
+
+                        }
                     }
 
                         $scope.$apply();
