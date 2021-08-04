@@ -418,7 +418,7 @@ function install_app() {
                         if(!data.success) {
                             M.Modal.getInstance($('#configurator')).close();
 
-                            location.href = '/';
+                            // location.href = '/';
                         } else {
 
                         // M.toast({
@@ -431,6 +431,8 @@ function install_app() {
                         $scope.seen_exit_intent = true;
 
                         var region = data.data.id.substring(0,2).toLowerCase();
+
+                        console.log(data);
 
                         $scope.consultant_query = {
                             first_name: data.data.fname,
