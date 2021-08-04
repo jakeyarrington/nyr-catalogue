@@ -978,7 +978,9 @@ function install_app() {
             }
         });
         $('.tooltipped').tooltip();
-        $('.modal').modal();
+        $('.modal').modal({
+            dismissible: false
+        });
         $('.chips').chips();
         $('select').formSelect();
         $('.tabs').tabs();
