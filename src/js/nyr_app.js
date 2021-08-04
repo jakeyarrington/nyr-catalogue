@@ -337,6 +337,10 @@ function install_app() {
 
         }
 
+        $scope.goto_consultant_home = function() {
+            return location.href = base_url.replace('configure.','') + '/' + consultant.data.slug;
+        };
+
         $scope.launch_configurator = function(redirect) {
             $scope.consultant_query.loading = true;
 
@@ -359,6 +363,15 @@ function install_app() {
                     M.toast({
                         html: (e.msg),
                         displayLength: 6000,
+                        completeCallback: function() {
+                            M.toast({
+                                html: 'Exiting Configurator',
+                                displayLength: 3000,
+                                completeCallback: function() {
+                                    $scope.goto_consultant_home();
+                                }
+                            });
+                        }
                     });
                     $timeout(function() {
 
