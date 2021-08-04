@@ -122,10 +122,56 @@ function install_app() {
                 intro: "Here we can see all available products that are displayed within the catalogue page. We can show and hide this sidebar at any time by clicking outside of it."
               },
               {
-                element: $('#basket_sidebar .card')[0],
-                intro: "This is the contact information button and allows you to view the Consultants contact information as well as links to perform other actions."
+                element: $('#basket_sidebar > li:first-child header')[0],
+                intro: "Here we can see the total amount of items to see on this page, we can also choose to sort them alphabetically or reverse alphabetically."
+              },
+              {
+                element: $('#basket_sidebar > li:nth-child(2)')[0],
+                intro: "Each item is displayed as a card, showing the product image, title, description price and links to either favourite or purchase."
+              },
+              {
+                element: $('#basket_sidebar > li:nth-child(2)')[0],
+                intro: "Clicking Purchase on an item will take you directly to the product page on NYR Organic under the consultants replicated site."
+              },
+              {
+                element: $('#basket_sidebar > li:nth-child(2)')[0],
+                intro: "Favouriting an item adds it to your Favourites list, let's go ahead and favourite this one."
+              },
+              {
+                element: $('#toast-container')[0],
+                intro: "You will receive a notification at the top right telling you that an item has been added or removed from your Favourites"
+              },
+              {
+                element: $('a[data-target="favourites_sidebar"]')[0],
+                intro: "This button is where all of the items you have favourited are kept, you can see that the total number of favourites are displayed above the icon. Let's open your favourites now."
+              },
+              {
+                element: $('#favourites_sidebar')[0],
+                intro: "This is your Favourites list, here we list all of the items you have favourited."
+              },
+              {
+                element: $('#favourites_sidebar div[ng-show="favourite.$count"]')[0],
+                intro: "Your customers can send their favourites directly to you in an email for convenience."
+              },
+              {
+                element: $('#favourites_sidebar li:nth-child(2) div.col.s12')[0],
+                intro: "You can purchase an item directly from within your Favourites list or remove them."
+              },
+              {
+                element: $('a[data-tooltip="Share Catalogue"]')[0],
+                intro: "This is Share Catalogue button, here your customers can share your Smart Catalogue over multiple Social Media platforms."
+              },
+              {
+                element: $('a[data-tooltip="Contact Consultant"]')[0],
+                intro: "This is the Contact Consultant button which lets your customers contact you directly as well as install your app and other useful links."
+              },
+              {
+                intro: "You have now reached the end of the tutorial, you can now setup your own Smart Catalogue or play with the functionality in this one."
               }
             ]
+            })
+            .onexit(function() {
+              M.Modal.getInstance($('#root_setup')).open();
             })
             .onchange(function(targetElement) {  
                 var step = this._currentStep;
@@ -140,6 +186,21 @@ function install_app() {
                 }
                 if(step == 5) {
                     M.Sidenav.getInstance($('#basket_sidebar')).open();
+                }
+                if(step == 10) {
+                    var cat = $scope.catalogue.get();
+                    var items = cat[$scope.consultant.data.region + '_items'].items;
+                    var first_item = Object.keys(items)[0];
+                    $scope.favourite.set(items[first_item].id, 1);
+                }
+                if(step == 11) {
+                    M.Sidenav.getInstance($('#basket_sidebar')).close();
+                }
+                if(step == 12) {
+                    M.Sidenav.getInstance($('#favourites_sidebar')).open();
+                }
+                if(step == 15) {
+                    M.Sidenav.getInstance($('#favourites_sidebar')).close();
                 }
             }).start();
         };
