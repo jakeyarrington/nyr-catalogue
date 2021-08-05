@@ -14,7 +14,7 @@ function install_app() {
 
     const is_local = location.href.indexOf('192.168') > -1 || location.href.indexOf('localhost') > -1;
     const api_url = 'https://nyr-catalogue-wp.yarrington.app/wp-json/app/v1/';
-    const cdn_url = is_local ? 'http://192.168.0.88:8080/mockdata/' : 'https://yarrington-objects.fra1.cdn.digitaloceanspaces.com/nyr/catalogue/';
+    const cdn_url = is_local ? 'http://192.168.1.201:8080/mockdata/' : 'https://yarrington-objects.fra1.cdn.digitaloceanspaces.com/nyr/catalogue/';
     const base_url = location.protocol + '//' + location.host;
 
     const basket_sidebar = document.getElementById('basket_sidebar');
@@ -724,7 +724,7 @@ function install_app() {
                     // $scope.favourite.get_all();
 
                     $scope.can_install_app = window.can_install_app;
-                    if(window.can_install_app && !window.matchMedia('(display-mode: standalone)').matches && $scope.catalogue.party == null) {
+                    if(window.can_install_app && !window.matchMedia('(display-mode: standalone)').matches && $scope.catalogue.party == null && $scope.consultant.data.slug !== 'corp') {
                         M.toast({
                             html: ('Install ' + $scope.consultant.data.name.first_name + '\'s App? <button class="btn-flat toast-action" onclick="install_app()">Install</button>'),
                             displayLength: 30000,
