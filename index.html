@@ -116,7 +116,7 @@
               <div class="row">
               <div class="col s12">
                 <a ng-click="guide('#setup_smart_catalogue')" class="waves-effect waves-light btn">Go Back</a>
-                <a ng-href="{{'https://configure.nyrcatalogue.com/' + my_shop_slug + '/?region=' + my_shop_is_valid.region}}" class="continue waves-effect waves-light btn">Launch Configurator</a>
+                <a ng-href="{{'https://configure.nyrcatalogue.com/' + my_shop_slug + '?region=' + my_shop_is_valid.region}}" class="continue waves-effect waves-light btn">Launch Configurator</a>
               </div>
             </div>
             </div>
@@ -397,29 +397,29 @@
         <ul id="nav-mobile">
           <li>
             <a ng-href="{{'https://uk.nyrorganic.com/shop/' + consultant.data.slug}}" target="_blank" data-position="right" class="tooltipped" data-tooltip="{{'Go to '+ (consultant.data.name.first_name ? consultant.data.name.first_name + '\'s ' : '') +'NYR Organic Shop'}}">
-              <img src="assets/img/Logo.svg" alt="NYR Organic">
+              <img src="/assets/img/Logo.svg" alt="NYR Organic">
             </a>
           </li>
           <li>
             <a href="#" data-target="basket_sidebar" class="sidenav-trigger tooltipped" data-position="right" data-tooltip="Available Items">
               <span ng-if="active_items.length" class="tooltip" ng-bind="active_items.length"></span>
-              <img src="assets/img/Book.png" alt="Available Items">
+              <img src="/assets/img/Book.png" alt="Available Items">
             </a>
           </li>
           <li>
             <a href="#share" class="modal-trigger tooltipped" data-position="right" data-tooltip="Share Catalogue">
-              <img src="assets/img/Share.png" alt="Share Catalogue">
+              <img src="/assets/img/Share.png" alt="Share Catalogue">
             </a>
           </li>
           <li>
             <a href="#" data-target="favourites_sidebar" class="sidenav-trigger tooltipped" data-position="right" data-tooltip="Your Favourites">
               <span ng-if="favourite.$count" class="tooltip" ng-bind="favourite.$count"></span>
-              <img src="assets/img/Favourites.png" alt="Your Favourites">
+              <img src="/assets/img/Favourites.png" alt="Your Favourites">
             </a>
           </li>
           <li>
             <a href="#contact" class="modal-trigger tooltipped" data-position="right" data-tooltip="Contact Consultant">
-              <img src="assets/img/Contact.png" alt="Contact Consultant">
+              <img src="/assets/img/Contact.png" alt="Contact Consultant">
             </a>
           </li>
         </ul>
