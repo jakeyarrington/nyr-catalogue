@@ -411,13 +411,23 @@ function install_app() {
 
         }
 
+        $scope.get_consultant_region = function($add_dot) {
+            var prefix_region = location.host.substring(0,2).toLowerCase();
+
+            if(prefix_region == 'uk' || prefix_region == 'us') {
+                return prefix_region + ($add_dot ? '.' : '');
+            }
+
+            var region = (params.get('region') ? (params.get('region').toLowerCase()) : ($scope.consultant !== undefined ? $scope.consultant.data.region : $scope.consultant_query.region));
+
+            return region ? ($add_dot ? (region + '.') : region) : '';
+        };
+
         $scope.goto_consultant_home = function() {
 
-            var region = params.get('region') ? (params.get('region').toLowerCase()) : ($scope.consultant !== undefined ? $scope.consultant.data.region : $scope.consultant_query.region);
+            var region = $scope.get_consultant_region(true);
             if(!region) {
                 region = '';
-            } else {
-                region = region + '.';
             }
 
             return location.href = base_url.replace('configure.',region) + '/' + $scope.consultant_query.slug;
@@ -891,6 +901,7 @@ function install_app() {
                     try {
                         reject(error);
                     } catch(e) {
+                        console.log('this consultant does not exist');
                         reject(error);
                     }
                 },
