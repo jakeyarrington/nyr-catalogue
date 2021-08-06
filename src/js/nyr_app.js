@@ -520,8 +520,10 @@ function install_app() {
                 (data) => {
                     $timeout(function() {
 
-                        if(typeof $scope.consultant !== undefined && $scope.consultant.data.slug == 'corp') {
-                            return;
+                        if(typeof $scope.consultant !== undefined) {
+                            if($scope.consultant.data.slug == 'corp') {
+                                return;
+                            }
                         } 
 
                         if(!data.success) {
