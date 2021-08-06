@@ -899,6 +899,7 @@ function install_app() {
                 },
                 error: function(error) {
                     try {
+                        console.log('error not exists');
                         reject(error);
                     } catch(e) {
                         console.log('this consultant does not exist');
