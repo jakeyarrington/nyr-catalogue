@@ -14,7 +14,7 @@ function install_app() {
 
     const is_local = location.href.indexOf('192.168') > -1 || location.href.indexOf('localhost') > -1;
     const api_url = 'https://nyr-catalogue-wp.yarrington.app/wp-json/app/v1/';
-    const cdn_url = is_local ? 'http://192.168.1.201:8080/mockdata/' : 'https://yarrington-objects.fra1.cdn.digitaloceanspaces.com/nyr/catalogue/';
+    const cdn_url = is_local ? 'http://192.168.0.88:8080/mockdata/' : 'https://yarrington-objects.fra1.cdn.digitaloceanspaces.com/nyr/catalogue/';
     const base_url = location.protocol + '//' + location.host;
 
     const basket_sidebar = document.getElementById('basket_sidebar');
@@ -54,6 +54,7 @@ function install_app() {
         $scope.my_shop_url = '';
         $scope.my_shop_slug = '';
         $scope.my_shop_region = '';
+        $scope.my_shop_is_valid = false;
         $scope.validate_my_shop_url = function() {
 
             $('#setup_smart_catalogue a.continue').attr('disabled', 'disabled');
@@ -76,7 +77,17 @@ function install_app() {
                     $scope.my_shop_region = url.indexOf('us.') > -1 ? 'us' : 'uk';
                     $scope.my_shop_slug = shop_name;
 
-                    $('#setup_smart_catalogue a.continue').removeAttr('disabled');
+                    $scope.my_shop_is_valid = -1;
+
+                    $scope.get_nyr_profile($scope.my_shop_slug, $scope.my_shop_region, (e) => {
+                        $scope.my_shop_is_valid = e.success ? e.data : -2;
+                        $timeout(() => { $scope.$apply(); });
+                    }, (e) => {
+                        $scope.my_shop_is_valid = -2;
+                        $timeout(() => { $scope.$apply(); });
+                    });
+
+                    //$('#setup_smart_catalogue a.continue').removeAttr('disabled');
                 }
             }
 
@@ -404,6 +415,20 @@ function install_app() {
             return location.href = base_url.replace('configure.','') + '/' + $scope.consultant_query.slug;
         };
 
+        $scope.get_nyr_profile = function($slug, $region, $success, $error) {
+            var url = api_url + 'configurator?id=' + $slug + ($region ? ('&region=' + $region) : '');
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(data) {
+                    $success(data)
+                },
+                error: function(error) {
+                    $error(error)
+                },
+            });
+        };
+
         $scope.launch_configurator = function(redirect) {
             $scope.consultant_query.loading = true;
 
@@ -458,19 +483,17 @@ function install_app() {
 
                 var slug = consultant.data !== null ? consultant.data.slug : consultant.url_slug;
 
-                $.ajax({
-                    url: api_url + 'configurator?id=' + slug,
-                    type: 'GET',
-                    success: function(data) {
-                        resolve(data)
-                    },
-                    error: function(error) {
-                         M.toast({
-                            html: ('Could not find Consultant on NYR Organic'),
-                            displayLength: 2000
-                        });
-                        reject(error)
-                    },
+                $scope.get_nyr_profile(slug, false, (e) => {
+
+                    resolve(e);
+
+                }, (e) => {
+                    M.toast({
+                        html: ('Could not find Consultant on NYR Organic'),
+                        displayLength: 2000
+                    });
+
+                    reject(e);
                 });
 
             });
@@ -516,7 +539,7 @@ function install_app() {
                         /*
                          * Replace details with JSON data
                          */
-                        if(typeof $scope.consultant.data == 'object') {
+                        if($scope.consultant !== undefined && typeof $scope.consultant.data == 'object') {
 
                             var named_keys = Object.keys($scope.consultant.data);
                             for (var i = named_keys.length - 1; i >= 0; i--) {

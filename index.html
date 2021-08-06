@@ -92,8 +92,13 @@
             <label for="first_name">NYR Organic Shop URL</label>
           </div>
           <div class="col s12">
+            <div class="progress" ng-show="my_shop_is_valid == -1">
+                <div class="indeterminate"></div>
+            </div>
+            <p ng-show="my_shop_is_valid == -2">The shop URL you provided is invalid, please try again.</p>
+            <p ng-show="my_shop_is_valid.fname">Great! The shop URL is correct.</p>
             <a ng-click="guide('#root_setup')"class="waves-effect waves-light btn">Go Back</a>
-            <a disabled="disabled" ng-click="guide('#setup_smart_catalogue_confirm')" class="continue waves-effect waves-light btn">Continue</a>
+            <a disabled="disabled" ng-disabled="!my_shop_is_valid || my_shop_is_valid < 0" ng-click="guide('#setup_smart_catalogue_confirm')" class="continue waves-effect waves-light btn">Continue</a>
           </div>
         </div>
       </div>
@@ -111,7 +116,7 @@
               <div class="row">
               <div class="col s12">
                 <a ng-click="guide('#setup_smart_catalogue')" class="waves-effect waves-light btn">Go Back</a>
-                <a ng-href="{{'https://configure.nyrcatalogue.com/' + my_shop_slug}}" class="continue waves-effect waves-light btn">Launch Configurator</a>
+                <a ng-href="{{'https://configure.nyrcatalogue.com/' + my_shop_slug + '/?region=' + my_shop_is_valid.region}}" class="continue waves-effect waves-light btn">Launch Configurator</a>
               </div>
             </div>
             </div>
@@ -479,7 +484,7 @@
                <div ng-show="favourite.$count" class="card">
                 <div class="card-content center-align">
                   <span class="card-title"><strong>Send Your Favourites</strong></span>
-                  <p>You can email this list of your favourite products to <span ng-bind="consultant.data.name.first_name"></span> who can process them as an order.</p>
+                  <p>You can email this list of favourite products directly to your Consultant.</p>
                 </div>
                 <div class="card-action">
                   <a href="#" ng-click="mail_favourites()" style="width:100%">Send</a>
