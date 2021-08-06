@@ -836,6 +836,7 @@ function install_app() {
             });
 
         }, (e) => {
+                console.log('attempting to launch configurator');
                 $scope.hide_party_links = true;
                 $scope.launch_configurator(true);
         });
