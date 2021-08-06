@@ -837,7 +837,7 @@ function install_app() {
 
     appController.factory('consultant', function() {
 
-        var ct_slug = is_local ? '/corp' : location.pathname;
+        var ct_slug = is_local ? '/corp' : location.pathname.toLowerCase();
         var ct_config = false;
 
         if(ct_slug.indexOf('#') > -1) {
