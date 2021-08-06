@@ -520,7 +520,7 @@ function install_app() {
                 (data) => {
                     $timeout(function() {
 
-                        if(typeof $scope.consultant !== undefined) {
+                        if(typeof $scope.consultant !== undefined && typeof $scope.consultant.data == 'object') {
                             if($scope.consultant.data.slug == 'corp') {
                                 return;
                             }
