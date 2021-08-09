@@ -953,6 +953,13 @@ function install_app() {
                 }
 
                 /*
+                 * Set Default Welcome Message
+                 */
+                if(typeof this.data.welcome_message !== 'undefined' && !this.data.welcome_message) {
+                    this.data.welcome_message = 'Hello. Welcome to my catalogue. I hope you enjoy viewing our range of amazing products. Please do let me know if you need any help or advice. I\'d be happy to make any recommendations. Feel free to contact me using any of the options available in the contact panel.';
+                }
+
+                /*
                  * Toggle Welcome Message
                  */
 
