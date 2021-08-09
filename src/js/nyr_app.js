@@ -6,6 +6,7 @@ function install_app() {
 }
 
 if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
+    console.info('Clearing Service Workers to reset Configurator..');
     navigator.serviceWorker.getRegistrations().then(function(registrations) {
         for(let registration of registrations) {
             registration.unregister();
