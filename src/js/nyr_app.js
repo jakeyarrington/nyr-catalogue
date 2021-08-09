@@ -920,8 +920,41 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
                 url: cdn_url + 'consultant/' + ct_slug + '.json',
                 type: 'GET',
                 success: function(data) {
-                    
-                    $('head').append('<link rel="manifest" href="' + cdn_url + 'consultant/' + ct_slug + '_manifest.json"/>');
+
+                    var manifest = {
+                        dir: "ltr",
+                        lang: "en",
+                        name: data.data.name.full + "'s NYR Shop",
+                        short_name: data.data.name.full + "'s NYR Shop",
+                        scope: "https://"+data.data.region+".nyrcatalogue.com/" + data.data.slug,
+                        display: "standalone",
+                        start_url: "https://"+data.data.region+".nyrcatalogue.com/" + data.data.slug,
+                        background_color: "#ffffff",
+                        theme_color: "transparent",
+                        description: "",
+                        orientation: "natural",
+                        icons: [{
+                            src: "https://nyrcatalogue.com/assets/img/icon@128.png",
+                            sizes: "128x128",
+                            type: "image/png"
+                        }, {
+                            src: "https://nyrcatalogue.com/assets/img/icon@256.png",
+                            sizes: "256x256",
+                            type: "image/png"
+                        }, {
+                            src: "https://nyrcatalogue.com/assets/img/icon@144.png",
+                            sizes: "144x144",
+                            type: "image/png"
+                        }],
+                        url: "https://"+data.data.region+".nyrcatalogue.com/" + data.data.slug
+                    };
+
+                    const stringManifest = JSON.stringify(myDynamicManifest);
+                    const blob = new Blob([stringManifest], {type: 'application/javascript'});
+                    const manifestURL = URL.createObjectURL(blob);
+                    document.querySelector('#manifest').setAttribute('href', manifestURL);
+
+                    //$('head').append('<link rel="manifest" href="' + cdn_url + 'consultant/' + ct_slug + '_manifest.json"/>');
                     resolve(data)
                 },
                 error: function(error) {
