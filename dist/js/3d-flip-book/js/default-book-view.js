@@ -1,5 +1,12 @@
 function init(container) {
   var instance;
+  var junction_font = new FontFace('FontAwesome', 'url(/dist/js/3d-flip-book/fonts/fontawesome-webfont.woff2)');
+  junction_font.load().then(function(loaded_face) {
+    document.fonts.add(loaded_face);
+     document.body.style.fontFamily = '"FontAwesome"';
+  }).catch(function(error) {
+    // error occurred
+  });
   if(window.jQuery) {
     var $ = window.jQuery, jDoc = $(container[0].ownerDocument), view = container.find('.view'), canvas = view.find('canvas');
 

@@ -21,14 +21,6 @@ export default class BookController extends Controller {
     this.view = view;
     this.bindActions();
 
-    var junction_font = new FontFace('FontAwesome', 'url(/dist/js/3d-flip-book/fonts/fontawesome-webfont.woff2)');
-    junction_font.load().then(function(loaded_face) {
-      document.fonts.add(loaded_face);
-       document.body.style.fontFamily = '"FontAwesome"';
-    }).catch(function(error) {
-      // error occurred
-    });
-
     this.state = {
       smartPan: !this.actions['cmdSmartPan'].active,
       singlePage: this.isSinglePageAvailable()? this.actions['cmdSinglePage'].active || this.actions['cmdSinglePage'].activeForMobile && this.visual.isMobile(): false,
