@@ -1166,7 +1166,10 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
             }
         });
         $('.tooltipped').tooltip();
-        $('.modal').modal({
+        $('.modal:not(.non-dismiss)').modal({
+            dismissible: true
+        });
+        $('.modal.non-dismiss').modal({
             dismissible: false
         });
         $('.chips').chips();
