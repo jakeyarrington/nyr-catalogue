@@ -845,6 +845,7 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
                                 return;
                             }
 
+                            M.Toast.dismissAll();
                             M.toast({
                                 html: ('There ' + (length == 1 ? 'is' : 'are') + ' % item' + (length == 1 ? '' : 's') + ' to view <button class="btn-flat toast-action" onclick="M.Sidenav.getInstance(basket_sidebar).open()">View</button>').replace('%', length),
                                 displayLength: 5000,
