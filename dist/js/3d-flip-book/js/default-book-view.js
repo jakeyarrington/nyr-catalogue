@@ -2,7 +2,7 @@ function init(container) {
   var instance;
   if(window.jQuery) {
     var $ = window.jQuery, jDoc = $(container[0].ownerDocument), view = container.find('.view'), canvas = view.find('canvas');
-    $('head').append('<script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js" integrity="sha384-EIHISlAOj4zgYieurP0SdoiBYfGJKkgWedPHH4jCzpCXLmzVsw1ouK59MuUtP4a1" crossorigin="anonymous"></script>');
+    view.append('<script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js" integrity="sha384-EIHISlAOj4zgYieurP0SdoiBYfGJKkgWedPHH4jCzpCXLmzVsw1ouK59MuUtP4a1" crossorigin="anonymous"></script>');
     function toggleMenu(e) {
       e.preventDefault();
       e.stopPropagation();
