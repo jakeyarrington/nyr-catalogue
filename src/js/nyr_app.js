@@ -951,7 +951,7 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
                         url: "https://"+parsed_data.region+".nyrcatalogue.com/" + parsed_data.slug
                     };
 
-                    const stringManifest = JSON.stringify(myDynamicManifest);
+                    const stringManifest = JSON.stringify(manifest);
                     const blob = new Blob([stringManifest], {type: 'application/javascript'});
                     const manifestURL = URL.createObjectURL(blob);
                     document.querySelector('#manifest').setAttribute('href', manifestURL);
