@@ -450,7 +450,7 @@ function install_app() {
         $scope.launch_configurator = function(redirect) {
             $scope.consultant_query.loading = true;
 
-            
+            M.updateTextFields();
 
             $scope.save_configurator = function() {
 
@@ -566,6 +566,8 @@ function install_app() {
                             pinterest: ''
                         };
 
+
+
                         /*
                          * Replace details with JSON data
                          */
@@ -596,6 +598,7 @@ function install_app() {
 
                         $scope.$apply();
                         $('select').formSelect();
+                        M.updateTextFields();
                     });
                 },
                 (data) => {
