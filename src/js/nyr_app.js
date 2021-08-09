@@ -921,6 +921,8 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
                 type: 'GET',
                 success: function(data) {
 
+                    console.log(data);
+
                     var manifest = {
                         dir: "ltr",
                         lang: "en",
