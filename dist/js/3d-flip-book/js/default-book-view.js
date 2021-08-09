@@ -5,10 +5,6 @@ function init(container) {
   if(window.jQuery) {
     var $ = window.jQuery, jDoc = $(container[0].ownerDocument), view = container.find('.view'), canvas = view.find('canvas');
 
-    var newStyle = document.createElement('style');
-    newStyle.appendChild(document.createTextNode("@font-face{font-family:'FontAwesome';src:url('/dist/js/3d-flip-book/fonts/fontawesome-webfont.eot?v=4.7.0');src:url('/dist/js/3d-flip-book/fonts/fontawesome-webfont.eot?#iefix&v=4.7.0') format('embedded-opentype'),url('/dist/js/3d-flip-book/fonts/fontawesome-webfont.woff2?v=4.7.0') format('woff2'),url('/dist/js/3d-flip-book/fonts/fontawesome-webfont.woff?v=4.7.0') format('woff'),url('/dist/js/3d-flip-book/fonts/fontawesome-webfont.ttf?v=4.7.0') format('truetype'),url('/dist/js/3d-flip-book/fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular') format('svg')"));
-    container[0].appendChild(newStyle);
-
     function toggleMenu(e) {
       e.preventDefault();
       e.stopPropagation();
