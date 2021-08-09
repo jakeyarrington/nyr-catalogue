@@ -5,6 +5,14 @@ function install_app() {
     outcome= deferredPrompt.userChoice;
 }
 
+if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
+    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        for(let registration of registrations) {
+            registration.unregister();
+        } 
+    });
+}
+
 (function($) {
 
     var pages = [];
