@@ -164,7 +164,7 @@ a.disabled, .cmd.disabled {
   /*background-image: linear-gradient(to bottom,#3c3c3c 0,#222 100%);*/
   /*background-repeat: repeat-x;*/
   padding: 3px;
-  background-color: #1f376c;
+  /*background-color: #1f376c;*/
   text-align: center;
 }
 .toolbar ul, .toolbar li {
