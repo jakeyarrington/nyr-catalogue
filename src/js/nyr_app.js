@@ -921,8 +921,10 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
                 type: 'GET',
                 cache : false,
                 processData: false,
+                crossDomain: true,
                 headers: {
-                  'x-amz-acl': 'public-read'
+                  "accept": "application/json",
+                  "Access-Control-Allow-Origin":"*"
                 },
                 success: function(data) {
 
