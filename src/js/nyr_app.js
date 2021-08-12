@@ -1140,7 +1140,7 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
                                         } else {
                                             if(party.name) {
                                                 M.toast({
-                                                    html: ('party.name + '\'s Party has now expired'),
+                                                    html: (party.name + '\'s Party has now expired'),
                                                     displayLength: 6000
                                                 });
                                             }
