@@ -916,6 +916,7 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
 
 
         var http = new Promise((resolve, reject) => {
+            console.log('Getting', cdn_url + '/consultant/' + ct_slug + (ct_slug == 'corp' ? '' : ('.' + $scope.get_consultant_region(false))) + '.json');
             $.ajax({
                 url: cdn_url + '/consultant/' + ct_slug + (ct_slug == 'corp' ? '' : ('.' + $scope.get_consultant_region(false))) + '.json',
                 type: 'GET',
