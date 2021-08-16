@@ -916,11 +916,11 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
             ct_slug = 'corp';
         }
 
-
+        var region = params.get('region') ? params.get('region') : ($.inArray(location.host.substring(0,2), ['uk','us']) > -1 ? location.host.substring(0,2) : 'uk');
 
         var http = new Promise((resolve, reject) => {
             $.ajax({
-                url: cdn_url + '/consultant/' + ct_slug + (ct_slug == 'corp' ? '' : ('.' + $scope.get_consultant_region(false))) + '.json',
+                url: cdn_url + '/consultant/' + ct_slug + (ct_slug == 'corp' ? '' : ('.' + region)) + '.json',
                 type: 'GET',
                 cache : false,
                 processData: false,
