@@ -863,6 +863,7 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
             });
 
         }, (e) => {
+                console.log(e);
                 console.log('attempting to launch configurator');
                 $scope.hide_party_links = true;
                 $scope.launch_configurator(true);
