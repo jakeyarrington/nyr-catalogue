@@ -60,6 +60,18 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
             });
         }
 
+        $scope.get_consultant_region = function($add_dot) {
+            var prefix_region = location.host.substring(0,2).toLowerCase();
+
+            if(prefix_region == 'uk' || prefix_region == 'us') {
+                return prefix_region + ($add_dot ? '.' : '');
+            }
+
+            var region = (params.get('region') ? (params.get('region').toLowerCase()) : ($scope.consultant !== undefined ? $scope.consultant.data.region : $scope.consultant_query.region));
+
+            return region ? ($add_dot ? (region + '.') : region) : '';
+        };
+
         $scope.my_shop_url = '';
         $scope.my_shop_slug = '';
         $scope.my_shop_region = '';
@@ -420,17 +432,7 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
 
         }
 
-        $scope.get_consultant_region = function($add_dot) {
-            var prefix_region = location.host.substring(0,2).toLowerCase();
-
-            if(prefix_region == 'uk' || prefix_region == 'us') {
-                return prefix_region + ($add_dot ? '.' : '');
-            }
-
-            var region = (params.get('region') ? (params.get('region').toLowerCase()) : ($scope.consultant !== undefined ? $scope.consultant.data.region : $scope.consultant_query.region));
-
-            return region ? ($add_dot ? (region + '.') : region) : '';
-        };
+        
 
         $scope.goto_consultant_home = function() {
 
@@ -916,7 +918,6 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
 
 
         var http = new Promise((resolve, reject) => {
-            console.log('Getting', cdn_url + '/consultant/' + ct_slug + (ct_slug == 'corp' ? '' : ('.' + $scope.get_consultant_region(false))) + '.json');
             $.ajax({
                 url: cdn_url + '/consultant/' + ct_slug + (ct_slug == 'corp' ? '' : ('.' + $scope.get_consultant_region(false))) + '.json',
                 type: 'GET',
