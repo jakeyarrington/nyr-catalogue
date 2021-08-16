@@ -663,7 +663,7 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
                 if($.inArray(location.host.substring(0,2), ['uk','us']) > -1) {
                     region = location.host.substring(0,2);
                 }
-                
+
                 /* Overwrite Region on URL Param */
                 if(params.get('region') !== null) {
                     var new_region = params.get('region').toLowerCase();
@@ -872,7 +872,9 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
                 console.log(e);
                 console.log('attempting to launch configurator');
                 $scope.hide_party_links = true;
-                $scope.launch_configurator(true);
+                M.Toast.dismissAll();
+                M.Modal.getInstance($('#consultant_not_setup')).open();
+                //$scope.launch_configurator(true);
         });
 
         

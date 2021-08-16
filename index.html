@@ -343,6 +343,14 @@
       </div>
     </div>
 
+    <div id="consultant_not_setup" class="modal">
+      <div class="modal-content center-align">
+        <h4>This Smart Catalogue is not Setup.</h4>
+        <p>It looks like this consultant has not setup their Smart Catalogue.</p>
+        <p class="uk-text-small uk-text-muted">If you are <span ng-bind="consultant_query.first_name" class="uk-text-capitalize"></span> <span ng-bind="consultant_query.last_name" class="uk-text-capitalize"></span>, you can setup your Smart Catalogue by clicking <a href="https://configure.nyrcatalogue.com/{{consultant_query.slug}}?region={{consultant_query.region}}">here</a>.</p>
+      </div>
+    </div>
+
     <div id="share" class="modal">
       <div class="modal-content center-align">
         <h4>Share <span ng-bind="consultant.data.name.full ? consultant.data.name.full + '\'s' : 'this'"></span> Smart Catalogue</h4>
