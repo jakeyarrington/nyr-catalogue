@@ -926,7 +926,7 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
                 processData: false,
                 success: function(data) {
 
-                    var parsed_data = JSON.parse(data);
+                    var parsed_data = typeof data == 'object' ? data : JSON.parse(data);
 
                     var manifest = {
                         dir: "ltr",
