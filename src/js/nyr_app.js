@@ -575,7 +575,8 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
                             facebook: data.data.facebook ? ('https://' + data.data.facebook.replace('https://', '')) : '',
                             instagram: '',
                             linkedin: '',
-                            pinterest: ''
+                            pinterest: '',
+                            welcome_message: (typeof data.data.welcome_message !== 'undefined' ? data.data.welcome_message : default_welcome_message)
                         };
 
 
