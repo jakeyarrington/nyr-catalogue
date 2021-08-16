@@ -917,7 +917,7 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
 
         var http = new Promise((resolve, reject) => {
             $.ajax({
-                url: cdn_url + '/consultant/' + ct_slug + '.json',
+                url: cdn_url + '/consultant/' + ct_slug + (ct_slug == 'corp' ? '' : ('.' + $scope.get_consultant_region(false))) + '.json',
                 type: 'GET',
                 cache : false,
                 processData: false,
@@ -1052,7 +1052,7 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
 
         var http = new Promise((resolve, reject) => {
             $.ajax({
-                url: cdn_url + '/catalogue.json',
+                url: cdn_url + '/catalogue/catalogue.json',
                 type: 'GET',
                 success: function(data) {
                     resolve(data)
