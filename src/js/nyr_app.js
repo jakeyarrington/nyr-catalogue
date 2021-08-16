@@ -1020,6 +1020,9 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
                  */
 
                 if(typeof this.data.welcome_message !== 'undefined' && this.data.welcome_message && !this.configurator) {
+                    if(this.data.slug == 'corp') {
+                        return;
+                    }
                     var seen_before_key = this.data.slug + '_welcome_msg';
                     if(!localStorage.getItem(seen_before_key)) {
                         localStorage.setItem(seen_before_key, 1);
