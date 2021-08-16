@@ -347,7 +347,7 @@
       <div class="modal-content center-align">
         <h4>This Smart Catalogue is not Setup.</h4>
         <p>It looks like this consultant has not setup their Smart Catalogue.</p>
-        <p class="uk-text-small uk-text-muted">If you are <span ng-bind="consultant_query.first_name" class="uk-text-capitalize"></span> <span ng-bind="consultant_query.last_name" class="uk-text-capitalize"></span>, you can setup your Smart Catalogue by clicking <a href="https://configure.nyrcatalogue.com/{{consultant_query.slug}}?region={{consultant_query.region}}">here</a>.</p>
+        <p><small>If you own <span ng-bind="_consultant.url_slug"></span>, you can setup your Smart Catalogue by clicking <a href="https://configure.nyrcatalogue.com/{{_consultant.url_slug}}?region={{get_consultant_region()}}">here</a>.</small></p>
       </div>
     </div>
 

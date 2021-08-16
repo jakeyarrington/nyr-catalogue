@@ -51,6 +51,8 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
         window.catalogues = catalogues;
         window.consultant = consultant;
 
+        $scope._consultant = consultant;
+
         $scope.install_app = function() {
             install_app();
         };
