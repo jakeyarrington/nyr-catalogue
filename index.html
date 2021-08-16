@@ -82,14 +82,14 @@
             <div class="col s12">
               <h4 class="center-align">Setup Smart Catalogue</h4>
               <p>Let's get started on setting up your Smart Catalogue, we first need to know is your current NYR Organic shop URL, it should look something like this.</p>
-              <p><pre>https://uk.nyrorganic.com/shop/ellie_smith</pre></p>
+              <p><pre>https://<span ng-bind="consultant_query.region ? consultant_query.region : 'uk'"></span>.nyrorganic.com/shop/ellie_smith</pre></p>
               <p>When you've found your NYR Organic shop URL, please paste it in the text box below.</p>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <input ng-model="my_shop_url" ng-change="validate_my_shop_url()" placeholder="https://uk.nyrorganic.com/shop/ellie_smith" type="url" class="validate">
+            <input ng-model="my_shop_url" ng-change="validate_my_shop_url()" placeholder="https://{{consultant_query.region ? consultant_query.region : 'uk'}}.nyrorganic.com/shop/ellie_smith" type="url" class="validate">
             <label for="first_name">NYR Organic Shop URL</label>
           </div>
           <div class="col s12">
