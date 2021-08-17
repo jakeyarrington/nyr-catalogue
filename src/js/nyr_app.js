@@ -1,8 +1,21 @@
 
+const is_ios_safari = (() => {
+var userAgent = window.navigator.userAgent.toLowerCase();
+return /iphone|ipad|ipod|macintosh/.test(userAgent) && navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
+    navigator.userAgent &&
+    navigator.userAgent.indexOf('CriOS') === -1 &&
+    navigator.userAgent.indexOf('FxiOS') === -1;
+})();
+
 window.deferredPrompt;
 function install_app() {
-    window.deferredPrompt.prompt();
-    outcome= deferredPrompt.userChoice;
+    if(is_ios_safari) {
+        M.Modal.getInstance($('#install_app_ios')).open();
+    } else {
+        window.deferredPrompt.prompt();
+        outcome= deferredPrompt.userChoice;  
+    }
+    
 }
 
 if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
@@ -30,16 +43,6 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
     const basket_sidebar = document.getElementById('basket_sidebar');
     const favourites_sidebar = document.getElementById('favourites_sidebar');
     const options_modal = document.getElementById('options');
-
-    const is_iphone = (() => {
-        var userAgent = window.navigator.userAgent.toLowerCase();
-        return /iphone|ipad|ipod|macintosh/.test(userAgent) && navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
-            navigator.userAgent &&
-            navigator.userAgent.indexOf('CriOS') === -1 &&
-            navigator.userAgent.indexOf('FxiOS') === -1;
-    })();
-
-    console.log('is iphone', is_iphone);
                                     
 
     const params = new URLSearchParams(location.search);
@@ -810,6 +813,11 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
                     // $scope.favourite.get_all();
 
                     $scope.can_install_app = window.can_install_app;
+
+                    if(is_ios_safari) {
+                        $scope.can_install_app = true;
+                    }
+
                     if(window.can_install_app && !window.matchMedia('(display-mode: standalone)').matches && $scope.catalogue.party == null && $scope.consultant.data.slug !== 'corp') {
                         M.toast({
                             html: ('Install ' + $scope.consultant.data.name.first_name + '\'s App? <button class="btn-flat toast-action" onclick="install_app()">Install</button>'),
