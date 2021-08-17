@@ -53,17 +53,17 @@
         <h4>Welcome to the NYR Smart Catalogue</h4>
         <p>Please choose an option below.</p>
         <div class="row">
-          <div class="col s4 center-align">
+          <div class="col m4 center-align" style="margin-bottom: 15px; margin-top: 15px;">
             <img src="assets/img/Tutorial@dark.png" width="80" alt="Tutorial">
             <p>I'm new to the Smart Catalogue and want to view a tutorial.</p>
             <a ng-click="start_tutorial()"class="waves-effect waves-light btn">Start Tutorial</a>
           </div>
-          <div class="col s4 center-align">
+          <div class="col m4 center-align" style="margin-bottom: 15px; margin-top: 15px;">
             <img src="assets/img/Create@dark.png" width="80" alt="Create">
             <p>As a Consultant I would like to set up my Smart Catalogue.</p>
             <a target="_blank" ng-click="guide('#setup_smart_catalogue')" class="waves-effect waves-light btn">Setup Smart Catalogue</a>
           </div>
-          <div class="col s4 center-align">
+          <div class="col m4 center-align" style="margin-bottom: 15px; margin-top: 15px;">
             <img src="assets/img/Read@dark.png" width="80" alt="Book">
             <p>I would like to read this Smart Catalogue.</p>
             <a ng-click="close_modal('#root_setup')" class="waves-effect waves-light btn">Read Catalogue</a>
@@ -339,7 +339,16 @@
     <div id="install_app_ios" class="modal">
       <div class="modal-content center-align">
         <h5><strong>Install App.</strong></h5>
-        <p>To install <span ng-bind="consultant.data.name.full ? consultant.data.name.full + '\'s' : 'this'"></span> App on your device, please click <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg> at the bottom of this window and click "Add to Homescreen".</p>
+        <p>To install <span ng-bind="consultant.data.name.full ? consultant.data.name.full + '\'s' : 'this'"></span> App on your device, please click <svg width="18px" height="22px" viewBox="0 0 18 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Artboard Copy</title>
+    <g id="Artboard-Copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="share-(2)" transform="translate(5.000000, 1.000000)" stroke="#4F89C7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+            <polyline id="Path" points="8 4 4 0 0 4"></polyline>
+            <line x1="4" y1="0" x2="4" y2="13" id="Path"></line>
+        </g>
+        <path d="M11.4202804,8 L15.2222222,8 C16.2040618,8 17,8.64669981 17,9.44444444 L17,19.5555556 C17,20.3533002 16.2040618,21 15.2222222,21 L2.77777778,21 C1.79593822,21 1,20.3533002 1,19.5555556 L1,9.44444444 C1,8.64669981 1.79593822,8 2.77777778,8 L6.41218675,8 L6.41218675,8" id="Path" stroke="#4F89C7" stroke-width="2"></path>
+    </g>
+</svg> at the bottom of this window and click "Add to Homescreen".</p>
         <img style="width:50%" src="assets/video/add-to-homescreen.gif" alt="Add to Homescreen">
       </div>
     </div>
