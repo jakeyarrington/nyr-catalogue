@@ -9,6 +9,7 @@ return /iphone|ipad|ipod|macintosh/.test(userAgent) && navigator.vendor && navig
 
 window.deferredPrompt;
 function install_app() {
+    M.Toast.dismissAll();
     if(is_ios_safari) {
         M.Modal.getInstance($('#install_app_ios')).open();
     } else {
