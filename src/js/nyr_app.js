@@ -815,7 +815,7 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
                     $scope.can_install_app = window.can_install_app;
 
                     if(is_ios_safari) {
-                        $scope.can_install_app = true;
+                        $scope.can_install_app = window.can_install_app = true;
                     }
 
                     if(window.can_install_app && !window.matchMedia('(display-mode: standalone)').matches && $scope.catalogue.party == null && $scope.consultant.data.slug !== 'corp') {
