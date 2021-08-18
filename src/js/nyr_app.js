@@ -488,6 +488,8 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
                     displayLength: 1000,
                 });
 
+                $scope.consultant_query.welcome_message = $scope.consultant_query.welcome_message.replace(/\n/g, '<br/>');
+
                 $.ajax({
                     url: api_url + 'configurator',
                     type: 'POST',
