@@ -24,9 +24,15 @@ body {
 		}
 	}
 
+	.b-inline {
+		margin-top: 15px;
+		margin-bottom: 15px;
+	}
+
 	.collection a.collection-item {
 		color: #333;
 	}
+
 
 	@media screen and (min-width: 901px) {
 
@@ -59,6 +65,34 @@ body {
 						}
 					}
 				}
+			}
+
+			#root_setup {
+				div.col > img {
+					max-width: 50px;
+					margin-top: 15px;
+				}
+			}
+
+			#share {
+				div.modal-content {
+					p a {
+						display: block;
+						margin-bottom: 10px;
+					}
+				}
+			}
+
+			#contact {
+
+				img.qr {
+					width: 100%;
+				}
+
+				a.cat-url {
+					word-break: break-word;
+				}
+
 			}
 		}
 	}

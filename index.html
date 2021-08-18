@@ -53,19 +53,33 @@
         <h4>Welcome to the NYR Smart Catalogue</h4>
         <p>Please choose an option below.</p>
         <div class="row">
-          <div class="col m4 center-align" style="margin-bottom: 15px; margin-top: 15px;">
+          <div class="col s12 m4 center-align">
             <img src="assets/img/Tutorial@dark.png" width="80" alt="Tutorial">
             <p>I'm new to the Smart Catalogue and want to view a tutorial.</p>
-            <a ng-click="start_tutorial()"class="waves-effect waves-light btn">Start Tutorial</a>
+            <a ng-click="start_tutorial()"class="b-inline hide-on-med-and-up waves-effect waves-light btn">Start Tutorial</a>
+            
           </div>
-          <div class="col m4 center-align" style="margin-bottom: 15px; margin-top: 15px;">
+          <div class="col s12 m4 center-align">
             <img src="assets/img/Create@dark.png" width="80" alt="Create">
             <p>As a Consultant I would like to set up my Smart Catalogue.</p>
-            <a target="_blank" ng-click="guide('#setup_smart_catalogue')" class="waves-effect waves-light btn">Setup Smart Catalogue</a>
+            <a target="_blank" ng-click="guide('#setup_smart_catalogue')" class="b-inline hide-on-med-and-up waves-effect waves-light btn">Setup Smart Catalogue</a>
+            
           </div>
-          <div class="col m4 center-align" style="margin-bottom: 15px; margin-top: 15px;">
+          <div class="col s12 m4 center-align">
             <img src="assets/img/Read@dark.png" width="80" alt="Book">
             <p>I would like to read this Smart Catalogue.</p>
+            <a ng-click="close_modal('#root_setup')" class="b-inline hide-on-med-and-up waves-effect waves-light btn">Read Catalogue</a>
+            
+          </div>
+        </div>
+        <div class="row hide-on-small-only">
+          <div class="col m4 center-align">
+            <a ng-click="start_tutorial()"class="waves-effect waves-light btn">Start Tutorial</a>
+          </div>
+          <div class="col m4 center-align">
+            <a target="_blank" ng-click="guide('#setup_smart_catalogue')" class="waves-effect waves-light btn">Setup Smart Catalogue</a>
+          </div>
+          <div class="col m4 center-align">
             <a ng-click="close_modal('#root_setup')" class="waves-effect waves-light btn">Read Catalogue</a>
           </div>
         </div>
@@ -388,12 +402,12 @@
     <div id="contact" class="modal">
       <div class="modal-content center-align">
         <div class="row">
-          <div class="col">
-            <img width="150" ng-src="{{'https://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=' + catalogue_url}}">
+          <div class="col s12 m4">
+            <img width="150" class="qr" ng-src="{{'https://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=' + catalogue_url}}">
           </div>
-          <div class="col s8 left-align">
+          <div class="col s12 m8 center-align">
             <h5 ng-bind="consultant.data.name.full"></h5>
-            <a style="color:#aaa" ng-href="{{'https://nyrcatalogue.com/' + consultant.data.slug}}" ng-bind="'https://nyrcatalogue.com/' + consultant.data.slug"></a>
+            <a class="cat-url" style="color:#aaa" ng-href="{{'https://' + consultant.data.region + '.nyrcatalogue.com/' + consultant.data.slug}}" ng-bind="'https://' + consultant.data.region + '.nyrcatalogue.com/' + consultant.data.slug"></a>
             <p>
               <a target="_blank" ng-show="consultant.data.email" ng-href="{{'mailto:' + consultant.data.email}}" class="waves-effect waves-light btn">Email</a>
               <a target="_blank" ng-show="consultant.data.phone" ng-href="{{'tel:' + consultant.data.phone}}" class="waves-effect waves-light btn">Telephone</a>

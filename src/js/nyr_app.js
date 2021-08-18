@@ -35,7 +35,7 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
     var app = angular.module('nyr', ['ngSanitize']);
     var seen_exit_intent = false;
 
-    const is_local = location.href.indexOf('192.168') > -1 || location.href.indexOf('localhost') > -1;
+    const is_local = false;//location.href.indexOf('192.168') > -1 || location.href.indexOf('localhost') > -1;
     const api_url = 'https://nyr-catalogue-wp.yarrington.app/wp-json/app/v1/';
     const cdn_url = is_local ? 'http://192.168.0.88:8080/mockdata/' : 'https://app.nyrcatalogue.com/data';
     const base_url = location.protocol + '//' + location.host;
