@@ -609,6 +609,11 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
                             for (var i = named_keys.length - 1; i >= 0; i--) {
                                 var key = named_keys[i];
                                 if(typeof $scope.consultant.data[key] !== 'object') {
+
+                                    if(key == 'welcome_message') {
+                                        $scope.consultant.data[key] = $scope.consultant.data[key].replace(/<\s*\/?br\s*[\/]?>/gim, "\n");
+                                    }
+
                                     $scope.consultant_query[key] = $scope.consultant.data[key];
                                 }
                             }
