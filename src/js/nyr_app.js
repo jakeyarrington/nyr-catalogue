@@ -595,7 +595,7 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
                             instagram: '',
                             linkedin: '',
                             pinterest: '',
-                            welcome_message: (typeof data.data.welcome_message !== 'undefined' ? data.data.welcome_message.replace(/<br\s*[\/]?>/gim, "\n") : default_welcome_message)
+                            welcome_message: (typeof data.data.welcome_message !== 'undefined' ? data.data.welcome_message : default_welcome_message)
                         };
 
 
@@ -1046,6 +1046,8 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
                  */
                 if(typeof this.data.welcome_message !== 'undefined' && !this.data.welcome_message) {
                     this.data.welcome_message = default_welcome_message;
+                } else {
+                    this.data.welcome_message = this.data.welcome_message.replace(/<\s*\/?br\s*[\/]?>/gi, "\n");
                 }
 
                 /*
