@@ -759,7 +759,7 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
 
                 $scope.mail_favourites = function() {
                     var link = 'mailto:' + $scope.consultant.data.email;
-                    link += '?subject=My%20Favourites%20List&cc=&bcc=&body=';
+                    link += '?subject=My%20Favourites%20List&body=';
                     var body = 'Hi ' + $scope.consultant.data.name.first_name + ', I am interested in purchasing the following products.';
                     body += "\n\n";
                     var favourite_keys = Object.keys($scope.favourite.$data);
