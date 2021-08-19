@@ -766,7 +766,7 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
                     for (var i = favourite_keys.length - 1; i >= 0; i--) {
                         var key = favourite_keys[i];
                         var product = $scope.catalogue.pages.data.items[key];
-                        body += '- ' + escape(product.item.name).replace(/\%20/g, ' ').replace(/\%A3/g, '').replace(/\%26/g, 'and') + ' (' + (product.price) + ') ' + '[PLU: ' + product.plu + ']';
+                        body += '- ' + escape(product.item.name).replace(/\%20/g, ' ').replace(/\%A3/g, '').replace(/\%26/g, 'and') + ' (' + (product.price) + ') ' + '[' + product.plu + ']';
                         body += "\n";
                     }
 
