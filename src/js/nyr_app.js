@@ -362,6 +362,20 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
                 M.toast({
                     html: (e.msg),
                     displayLength: 6000,
+                    completeCallback: function() {
+                        $timeout(() => {
+                            $scope.saving_party_codes = false;
+                            $scope.$apply();
+                        });
+                        M.Modal.getInstance($('#configurator')).close();
+                        M.toast({
+                            html: 'Exiting Configurator',
+                            displayLength: 3000,
+                            completeCallback: function() {
+                                $scope.goto_consultant_home();
+                            }
+                        });
+                    }
                 });
             })
             .fail(function() {
