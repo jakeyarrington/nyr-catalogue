@@ -775,8 +775,13 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
                             startFlip: 'dist/js/3d-flip-book/sounds/flip.mp3'
                         }
                     },
-                    pageCallback: function() {
-                        console.log('111');
+                    propertiesCallback: function(props) {
+                        props.cover.color = 0x000000;
+                        props.cssLayersLoader = function(n, clb) {
+                            console.log(n);
+                        }
+
+                        return props;
                     },
                     ready: function(scene) {
                         var height = window.innerHeight;
@@ -853,6 +858,9 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
                     $scope.page_move_handler = null;
 
                     $scope.this_page_index = ($scope.flipbook.ctrl.state.singlePage ? $scope.flipbook.ctrl.getPage() : $scope.flipbook.book.getPage()) + 1;
+                    if($scope.flipbook.book.isProcessing()) {
+                        return;
+                    }
                     if ($scope.this_page_index !== $scope.page_index) {
                         $scope.page_index = $scope.this_page_index;
 
@@ -889,7 +897,6 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
                                 console.log('concat', $scope.active_items);
                             }
 
-                            console.log($scope.this_page_index);
 
                             $scope.$apply();
 
