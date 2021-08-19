@@ -775,6 +775,9 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
                             startFlip: 'dist/js/3d-flip-book/sounds/flip.mp3'
                         }
                     },
+                    pageCallback: function() {
+                        console.log('111');
+                    },
                     ready: function(scene) {
                         var height = window.innerHeight;
                         var m_top = 0;
@@ -787,6 +790,12 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
                             'height': height,
                             'margin-top': m_top
                         });
+
+                        // window.ctrl = (scene.ctrl);
+
+                        // scene.ctrl.addEventListener('endFlip', function(e) { 
+                        //     console.log(scene.ctrl.getPageForGUI());
+                        //   });
                     }
                 });
 
@@ -841,7 +850,9 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
                         $('.loading-page').remove();
                     }
 
-                    $scope.this_page_index = $scope.flipbook.book.getPage() + 1;
+                    $scope.page_move_handler = null;
+
+                    $scope.this_page_index = ($scope.flipbook.ctrl.state.singlePage ? $scope.flipbook.ctrl.getPage() : $scope.flipbook.book.getPage()) + 1;
                     if ($scope.this_page_index !== $scope.page_index) {
                         $scope.page_index = $scope.this_page_index;
 
@@ -865,14 +876,20 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
 
                         }
 
-                        $timeout(function() {
+                        $timeout.cancel($scope.page_move_handler);
+                        $scope.page_move_handler = $timeout(function() {
 
                             /* is sequence of 2 */
-                            if($scope.page_index % 2 == 0 && typeof catalogues.pages.data.order[$scope.page_index+1] !== 'undefined' && !$scope.flipbook.ctrl.state.singlePage) {
-                                $scope.active_items = $scope.active_items.concat($.map($scope.catalogue.pages.data.order[$scope.page_index+1], function(item, index) {
+                            if($scope.this_page_index % 2 == 0 && typeof catalogues.pages.data.order[$scope.this_page_index] !== 'undefined' && !$scope.flipbook.ctrl.state.singlePage) {
+
+                                $scope.active_items = $scope.active_items.concat($.map($scope.catalogue.pages.data.order[parseInt($scope.this_page_index)+1], function(item, index) {
                                   return $scope.catalogue.pages.data.items[item];
                                 }));
+
+                                console.log('concat', $scope.active_items);
                             }
+
+                            console.log($scope.this_page_index);
 
                             $scope.$apply();
 
@@ -891,7 +908,7 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
 
                     }
 
-                }, 100);
+                }, 600);
 
             }, (e) => {
                 console.warn('error loading catalogue', e);

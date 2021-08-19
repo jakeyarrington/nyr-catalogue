@@ -208,6 +208,19 @@ a.disabled, .cmd.disabled {
   background-color: #222;
 }
 
+.buttons>li i {
+  vertical-align: middle;
+}
+
+.buttons>li i.fa {
+  padding:  0;
+}
+
+.buttons>li i.fa svg {
+  min-width: 13px;
+  min-height:  13px;
+}
+
 .dropdown, .dropup {
   position: relative;
 }
