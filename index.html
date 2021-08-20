@@ -387,11 +387,11 @@
         <h4>Share <span ng-bind="consultant.data.name.full ? consultant.data.name.full + '\'s' : 'this'"></span> Smart Catalogue</h4>
         <p>Select a social media platform below to share to.</p>
         <p>
-          <a target="_blank" ng-href="{{'https://www.facebook.com/sharer/sharer.php?u=https://vibrant-edison-0f2684.netlify.app/' + consultant.data.slug}}" class="waves-effect waves-light btn">Facebook</a>
-          <a target="_blank" ng-href="{{'https://twitter.com/intent/tweet?url=https://vibrant-edison-0f2684.netlify.app/'+consultant.data.slug+'&text=Check%20out%20'+consultant.data.name.full+'\'s%20NYR%20smart%20catalogue'}}" class="waves-effect waves-light btn">Twitter</a>
-          <a target="_blank" ng-href="{{'https://pinterest.com/pin/create/button/?url=https://vibrant-edison-0f2684.netlify.app/'+consultant.data.slug+'&media=&description=Check%20out%20'+consultant.data.name.full+'\'s%20NYR%20smart%20catalogue'}}" class="waves-effect waves-light btn">Pinterest</a>
-          <a target="_blank" ng-href="{{'https://www.linkedin.com/shareArticle?mini=true&url=https://vibrant-edison-0f2684.netlify.app/'+consultant.data.slug}}" class="waves-effect waves-light btn">LinkedIn</a>
-          <a target="_blank" ng-href="{{'mailto:info@example.com?&subject=&cc=&bcc=&body=https://vibrant-edison-0f2684.netlify.app/'+consultant.data.slug+'%0ACheck%20out%'+consultant.data.name.full+'\'s%20NYR%20smart%20catalogue'}}" class="waves-effect waves-light btn">Email</a>
+          <a target="_blank" ng-href="{{'https://www.facebook.com/sharer/sharer.php?u=' + get_consultant_url()}}" class="waves-effect waves-light btn">Facebook</a>
+          <a target="_blank" ng-href="{{'https://twitter.com/intent/tweet?url='+get_consultant_url()+'&text=Check%20out%20'+consultant.data.name.full+'\'s%20NYR%20smart%20catalogue'}}" class="waves-effect waves-light btn">Twitter</a>
+          <a target="_blank" ng-href="{{'https://pinterest.com/pin/create/button/?url='+get_consultant_url()+'&media=&description=Check%20out%20'+consultant.data.name.full+'\'s%20NYR%20smart%20catalogue'}}" class="waves-effect waves-light btn">Pinterest</a>
+          <a target="_blank" ng-href="{{'https://www.linkedin.com/shareArticle?mini=true&url='+get_consultant_url()}}" class="waves-effect waves-light btn">LinkedIn</a>
+          <a target="_blank" ng-href="{{'mailto:info@example.com?&subject=&cc=&bcc=&body='+get_consultant_url()+'%0ACheck%20out%'+consultant.data.name.full+'\'s%20NYR%20smart%20catalogue'}}" class="waves-effect waves-light btn">Email</a>
         </p>
       </div>
       <div class="modal-footer">
@@ -493,20 +493,22 @@
             <div class="col s12">
               <div class="card">
                 <div class="card-image" ng-class="item.type">
-                  <img style="width:50%;margin:0 auto;" ng-src="{{item.item.cover}}">
+                  <a ng-href="{{prep_product_url(item.item.link)}}" target="_blank">
+                    <img style="width:50%;margin:0 auto;" ng-src="{{item.item.cover}}">
+                  </a>
                   
                 </div>
                 <div class="card-content">
-                  <h6><strong><span ng-bind="item.item.name">Card Title</span></strong></h6>
+                  <h6><strong><a style="color:#000" ng-href="{{prep_product_url(item.item.link)}}" target="_blank"><span ng-bind="item.item.name">Card Title</span></a></strong></h6>
                   <p ng-if="item.type == 'product'" ng-bind="item.price"></p>
-                  <p class="trim-info" ng-bind-html="item.item.summary | safeHtml"></p>
+                  <!-- <p class="trim-info" ng-bind-html="item.item.summary | safeHtml"></p> -->
                 </div>
                 <div class="card-action center-align" ng-if="item.item.categories && 0">
                     <p><em>View similar products under</em></p>
                     <div class="chip" ng-repeat="cat in item.item.categories" ng-bind="cat.name"></div>
                   </div>
                 <div class="card-action product" ng-if="item.type == 'product'">
-                  <a ng-href="{{prep_product_url(item.item.link)}}" target="_blank" ng-if="item.item.link">Purchase</a>
+                  <a ng-href="{{prep_product_url(item.item.link)}}" target="_blank" ng-if="item.item.link">View</a>
                   <a ng-bind="favourite.$data[item.id] ? 'Unfavourite' : 'Favourite'" ng-if="item.item.favourite" ng-click="favourite.set(item.id, (favourite.$data[item.id] ? 0 : 1))" href="#">Favourite</a>
                 </div>
                 <div class="card-action video" ng-if="item.type == 'video'">
