@@ -219,6 +219,8 @@ a.disabled, .cmd.disabled {
 .buttons>li i.fa svg {
   min-width: 13px;
   min-height:  13px;
+  max-width:  13px;
+  max-height: 13px;
 }
 
 .dropdown, .dropup {
