@@ -35,9 +35,9 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
     var app = angular.module('nyr', ['ngSanitize']);
     var seen_exit_intent = false;
 
-    const is_local = false;//location.href.indexOf('192.168') > -1 || location.href.indexOf('localhost') > -1;
+    const is_local = location.href.indexOf('192.168') > -1 || location.href.indexOf('localhost') > -1;
     const api_url = 'https://nyr-catalogue-wp.yarrington.app/wp-json/app/v1/';
-    const cdn_url = is_local ? 'http://192.168.0.88:8080/mockdata/' : 'https://app.nyrcatalogue.com/data';
+    const cdn_url = 'https://app.nyrcatalogue.com/data';
     const base_url = location.protocol + '//' + location.host;
     const default_welcome_message = 'Hello. Welcome to my catalogue. I hope you enjoy viewing our range of amazing products. Please do let me know if you need any help or advice. I\'d be happy to make any recommendations. Feel free to contact me using any of the options available in the contact panel.';
 
@@ -79,7 +79,12 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
         }
 
         $scope.get_consultant_region = function($add_dot) {
+
             var prefix_region = location.host.substring(0,2).toLowerCase();
+
+            if(is_local) {
+                prefix_region = 'uk';
+            }
 
             if(prefix_region == 'uk' || prefix_region == 'us') {
                 return prefix_region + ($add_dot ? '.' : '');
@@ -813,8 +818,14 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
                             'margin-top': m_top
                         });
 
-                        // window.ctrl = (scene.ctrl);
+                        window.scene = (scene);
 
+                        window.onresize = function(event) {
+                            $('.solid-container iframe').css({
+                                'height': height,
+                                'margin-top': m_top
+                            });
+                        };
                         // scene.ctrl.addEventListener('endFlip', function(e) { 
                         //     console.log(scene.ctrl.getPageForGUI());
                         //   });
