@@ -555,7 +555,7 @@
                   <p class="trim-info" ng-bind-html="catalogue.pages.data.items[item].item.summary | safeHtml"></p>
                 </div>
                 <div class="card-action" ng-if="catalogue.pages.data.items[item].type == 'product'">
-                  <a ng-href="{{prep_product_url(catalogue.pages.data.items[item].item.link)}}" target="_blank" ng-if="catalogue.pages.data.items[item].item.link">Purchase</a>
+                  <a ng-href="{{prep_product_url(catalogue.pages.data.items[item].item.link)}}" target="_blank" ng-if="catalogue.pages.data.items[item].item.link">View</a>
                   <a ng-bind="favourite.$data[catalogue.pages.data.items[item].id] ? 'Unfavourite' : 'Favourite'" ng-if="catalogue.pages.data.items[item].item.favourite" ng-click="favourite.set(catalogue.pages.data.items[item].id, (favourite.$data[catalogue.pages.data.items[item].id] ? 0 : 1))" href="#">Favourite</a>
                 </div>
                 <div class="card-action" ng-if="catalogue.pages.data.items[item].type == 'video'">
