@@ -37,7 +37,7 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
 
     const is_local = location.href.indexOf('192.168') > -1 || location.href.indexOf('localhost') > -1;
     const api_url = 'https://app.nyrcatalogue.com/wp-json/app/v1/';
-    const cdn_url = 'https://app.nyrcatalogue.com/data';
+    const cdn_url = is_local ? 'https://app.nyrcatalogue.com/data' : '/app/data';
     const base_url = location.protocol + '//' + location.host;
     const default_welcome_message = 'Hello. Welcome to my catalogue. I hope you enjoy viewing our range of amazing products. Please do let me know if you need any help or advice. I\'d be happy to make any recommendations. Feel free to contact me using any of the options available in the contact panel.';
 
