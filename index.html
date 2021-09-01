@@ -448,7 +448,7 @@
         <div class="nav-wrapper">
         <ul id="nav-mobile">
           <li>
-            <a ng-href="{{'https://uk.nyrorganic.com/shop/' + consultant.data.slug}}" target="_blank" data-position="right" class="tooltipped" data-tooltip="{{'Go to '+ (consultant.data.name.first_name ? consultant.data.name.first_name + '\'s ' : '') +'NYR Organic Shop'}}">
+            <a ng-href="{{'https://'+get_consultant_region()+'.nyrorganic.com/shop/' + consultant.data.slug}}" target="_blank" data-position="right" class="tooltipped" data-tooltip="{{'Go to '+ (consultant.data.name.first_name ? consultant.data.name.first_name + '\'s ' : '') +'NYR Organic Shop'}}">
               <img src="/assets/img/Logo.svg" alt="NYR Organic">
             </a>
           </li>
