@@ -772,6 +772,10 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
                             var shop_bid = localStorage.getItem($scope.consultant.url_slug + '_shop_bid');
 
                             if(shop_bid) {
+                                if(glue == '&') {
+                                    $url = $url.split('?')[0];
+                                    glue = '?';
+                                }
                                 $url = $url + glue + 'bid=' + shop_bid;
                             }
                         }
