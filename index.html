@@ -544,7 +544,7 @@
                   <a href="#" ng-click="mail_favourites()" style="width:100%">Send</a>
                 </div>
               </div>
-              <div class="card" ng-repeat="(item, state) in favourite.$data" ng-if="state">
+              <div class="card" ng-repeat="(item, state) in favourite.$data" ng-if="state && catalogue.pages.data.items[item]">
                 <div class="card-image" ng-class="catalogue.pages.data.items[item].type">
                   <img style="width:50%;margin:0 auto;" ng-src="{{catalogue.pages.data.items[item].item.cover}}">
                   

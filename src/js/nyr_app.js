@@ -444,8 +444,13 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
                 for (var i = ls_keys.length - 1; i >= 0; i--) {
                     var key = ls_keys[i];
                     if(key.substring(0, 4) == 'nyr_') {
-                        that.$data[key] = parseInt(localStorage.getItem(key));
-                        that.$count++;
+                        if($scope.catalogue.pages.data.items[key]) {
+                            that.$data[key] = parseInt(localStorage.getItem(key));
+                            that.$count++;
+                        } else {
+                            localStorage.removeItem(key);
+                        }
+                        
                     }
                 }
 
@@ -753,13 +758,23 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
                 };
 
                 $scope.prep_product_url = function($url) {
+                    var glue = '?';
+                    if($url.indexOf(glue) > -1) {
+                        glue = '&';
+                    }
+
                     if(typeof $scope.catalogue == 'object' && $scope.catalogue.party !== null && typeof $scope.catalogue.party.bid !== 'undefined') {
-                        var glue = '?';
-                        if($url.indexOf(glue) > -1) {
-                            glue = '&';
-                        }
 
                         $url = $url + glue + 'bid=' + $scope.catalogue.party.bid + '&po=' + $scope.catalogue.party.id; 
+                    } else {
+
+                        if(typeof $scope.consultant.url_slug !== 'undefined') {
+                            var shop_bid = localStorage.getItem($scope.consultant.url_slug + '_shop_bid');
+
+                            if(shop_bid) {
+                                $url = $url + glue + 'bid=' + shop_bid;
+                            }
+                        }
                     }
 
                     return $url;
@@ -968,7 +983,7 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
 
     appController.factory('consultant', function() {
 
-        var ct_slug = is_local ? '/corp' : location.pathname.toLowerCase();
+        var ct_slug = is_local ? '/shropshireorganic' : location.pathname.toLowerCase();
         var ct_config = false;
 
         if(ct_slug.indexOf('#') > -1) {
@@ -1286,7 +1301,37 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
 
                             }
                         }
+                    } else {
+                        /* Get Shop BID if no party */
+                        if(typeof consultant.data == 'object') {
+                            var shop_bid = localStorage.getItem(consultant.data.slug + '_shop_bid');
+                            if(shop_bid) {
+                                $this.shop_bid = shop_bid;
+                            } else {
+                                $.ajax({
+                                    url: api_url + 'get_shop_bid',
+                                    type: 'POST',
+                                    data: {
+                                        slug: consultant.data.slug,
+                                    },
+                                })
+                                .done(function(e) {
+                                    if(e.success && e.data.bid !== null) {
+                                        localStorage.setItem(consultant.data.slug + '_shop_bid', e.data.bid);
+                                        $this.shop_bid = e.data.bid;
+                                    }
+                                })
+                                .fail(function(e) {
+                                    console.warn('An error occured getting shop BID');
+                                });
+                            }
+                        }
+                        
+                    
                     }
+
+                    
+
                 }
 
                 this.data = JSON.parse(data);
