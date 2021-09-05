@@ -1164,7 +1164,7 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
 
         var http = new Promise((resolve, reject) => {
             $.ajax({
-                url: cdn_url + '/catalogue/catalogue.json',
+                url: cdn_url + '/catalogue/catalogue.json?cache_buster=true',
                 type: 'GET',
                 success: function(data) {
                     resolve(data)
