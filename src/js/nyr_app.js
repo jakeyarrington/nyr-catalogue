@@ -184,11 +184,11 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
               },
               {
                 element: $('#basket_sidebar > li:nth-child(2)')[0],
-                intro: "Each item is displayed as a card, showing the product image, title, description price and links to either favourite or purchase."
+                intro: "Each item is displayed as a card, showing the product image, title, description price and links to either favourite or view."
               },
               {
                 element: $('#basket_sidebar > li:nth-child(2)')[0],
-                intro: "Clicking Purchase on an item will take your customers directly to the product page on your NYR Organic shop."
+                intro: "Clicking View on an item will take your customers directly to the product page on your NYR Organic shop."
               },
               {
                 element: $('#basket_sidebar > li:nth-child(2)')[0],
@@ -212,7 +212,7 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
               },
               {
                 element: $('#favourites_sidebar li:nth-child(2) div.col.s12')[0],
-                intro: "Your customers can purchase an item directly from within the Favourites list or remove them."
+                intro: "Your customers can view an item directly from within the Favourites list or remove them."
               },
               {
                 element: $('a[data-tooltip="Share Catalogue"]')[0],
@@ -793,7 +793,7 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
                     for (var i = favourite_keys.length - 1; i >= 0; i--) {
                         var key = favourite_keys[i];
                         var product = $scope.catalogue.pages.data.items[key];
-                        body += '- ' + escape(product.item.name).replace(/\%20/g, ' ').replace(/\%A3/g, '').replace(/\%26/g, 'and') + ' (' + (product.price) + ') ' + '[' + product.plu + ']';
+                        body += '- ' + escape(product.item.name).replace(/\%20/g, ' ').replace(/\%A3/g, '').replace(/\<BR\>/g, '%0A').replace(/\%26/g, 'and') + ' (' + (product.price) + ') ' + '[' + product.plu + ']';
                         body += "\n";
                     }
 
