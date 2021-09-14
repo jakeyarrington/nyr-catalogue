@@ -175,6 +175,25 @@
       </div>
     </div>
 
+    <div id="moreinfo" class="modal">
+      <div class="modal-content">
+        <div class="row">
+          <div class="col s12 m4">
+            <img style="width:100%;" ng-src="{{active_product.item.cover}}" alt="{{active_product.name}}">
+            <a class="waves-effect waves-light btn" style="width:100%;margin-top:10px;" ng-bind="favourite.$data[active_product.id] ? 'Unfavourite' : 'Favourite'"  ng-click="favourite.set(active_product.id, (favourite.$data[active_product.id] ? 0 : 1))"></a>
+          </div>
+          <div class="col s12 m8">
+            <h5 ng-bind="active_product.item.name"></h5>
+            <p><small><span ng-bind="active_product.price"></span> &bullet; <span ng-bind="active_product.plu"></span></small></p>
+            <p ng-bind-html="active_product.item.description | safeHtml"></p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+      </div>
+    </div>
+
     <div id="configurator" class="modal non-dismiss">
 
       <div class="row">
@@ -357,6 +376,13 @@
       <div class="modal-content center-align">
         <h4><span ng-bind="consultant.data.name.full"></span>'s Smart Catalogue</h4>
         <p ng-bind-html="consultant.data.welcome_message | safeHtml"></p>
+        <hr>
+        <div class="left-align">
+          <p>Please take some time to browse my Smart Catalogue using the arrow buttons below or your cursor to flip through the pages.</p>
+          <p>You will see on some pages there are ‘Items to View’. Using the <img src="/assets/img/Book@dark.png" width="20" alt="Items to View"> button allows you to take a closer look at the products on each page and read more about them.  You can also add them to your Favourites <img src="/assets/img/Favourites@dark.png" style="position:relative;top:5px" width="15" alt="Favourites"> to create a wish list all of your own which you can share.</p>
+          <p><img src="/assets/img/Contact@dark.png" width="20" alt="Contact"> will give you all my contact details if you have any queries or questions and when you are ready to shop just click on the <img src="/assets/img/Logo@Dark.svg" style="position: relative; top: 4px;" width="20" alt="NYR Organic"></p>
+        </div>
+
       </div>
       <div class="modal-footer">
         <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
@@ -521,7 +547,7 @@
                     <div class="chip" ng-repeat="cat in item.item.categories" ng-bind="cat.name"></div>
                   </div>
                 <div class="card-action product" ng-if="item.type == 'product'">
-                  <a ng-href="{{prep_product_url(item.item.link)}}" target="_blank" ng-if="item.item.link">View</a>
+                  <a href ng-click="view_product(item)" ng-if="item.item.link">More Info</a>
                   <a ng-bind="favourite.$data[item.id] ? 'Unfavourite' : 'Favourite'" ng-if="item.item.favourite" ng-click="favourite.set(item.id, (favourite.$data[item.id] ? 0 : 1))" href="#">Favourite</a>
                 </div>
                 <div class="card-action video" ng-if="item.type == 'video'">
@@ -563,7 +589,7 @@
                   <p class="trim-info" ng-bind-html="catalogue.pages.data.items[item].item.summary | safeHtml"></p>
                 </div>
                 <div class="card-action" ng-if="catalogue.pages.data.items[item].type == 'product'">
-                  <a ng-href="{{prep_product_url(catalogue.pages.data.items[item].item.link)}}" target="_blank" ng-if="catalogue.pages.data.items[item].item.link">View</a>
+                  <a ng-click="view_product(catalogue.pages.data.items[item])" href ng-if="catalogue.pages.data.items[item].item.link">More Info</a>
                   <a ng-bind="favourite.$data[catalogue.pages.data.items[item].id] ? 'Unfavourite' : 'Favourite'" ng-if="catalogue.pages.data.items[item].item.favourite" ng-click="favourite.set(catalogue.pages.data.items[item].id, (favourite.$data[catalogue.pages.data.items[item].id] ? 0 : 1))" href="#">Favourite</a>
                 </div>
                 <div class="card-action" ng-if="catalogue.pages.data.items[item].type == 'video'">
