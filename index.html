@@ -183,9 +183,9 @@
             <a class="waves-effect waves-light btn" style="width:100%;margin-top:10px;" ng-bind="favourite.$data[active_product.id] ? 'Unfavourite' : 'Favourite'"  ng-click="favourite.set(active_product.id, (favourite.$data[active_product.id] ? 0 : 1))"></a>
           </div>
           <div class="col s12 m8">
-            <h5 ng-bind="active_product.item.name"></h5>
+            <h5 ng-bind="(get_consultant_region() == 'us' && active_product.alt.name ? active_product.alt.name : active_product.item.name)"></h5>
             <p><small><span ng-bind="active_product.price"></span> &bullet; <span ng-bind="active_product.plu"></span></small></p>
-            <p ng-bind-html="active_product.item.description | safeHtml"></p>
+            <p ng-bind-html="(get_consultant_region() == 'us' && active_product.alt.description ? active_product.alt.description : active_product.item.description) | safeHtml"></p>
           </div>
         </div>
       </div>
