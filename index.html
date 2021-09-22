@@ -378,9 +378,13 @@
         <p ng-bind-html="consultant.data.welcome_message | safeHtml"></p>
         <hr>
         <div class="left-align">
-          <p>Please take some time to browse my Smart Catalogue using the arrow buttons below or your cursor to flip through the pages.</p>
-          <p>You will see on some pages there are ‘Items to View’. Using the <img src="/assets/img/Book@dark.png" width="20" alt="Items to View"> button allows you to take a closer look at the products on each page and read more about them.  You can also add them to your Favourites <img src="/assets/img/Favourites@dark.png" style="position:relative;top:5px" width="15" alt="Favourites"> to create a wish list all of your own which you can share.</p>
-          <p><img src="/assets/img/Contact@dark.png" width="20" alt="Contact"> will give you all my contact details if you have any queries or questions and when you are ready to shop just click on the <img src="/assets/img/Logo@Dark.svg" style="position: relative; top: 4px;" width="20" alt="NYR Organic"></p>
+          <p>Please take some time to browse my Smart Catalogue using the arrow buttons below or your cursor to flip through the pages.</p> 
+          <p>How to use:</p>
+          <p><img src="/assets/img/Book@dark.png" width="20" alt="Items to View"> Viewing more product details, & adding favourites: Some pages will have an ‘Items to View’ pop up. Click this, or the <img src="/assets/img/Book@dark.png" width="20" alt="Items to View"> button in the left-hand column to reveal a slide out feature. This allows you to take a closer look at the individual products & details on the page. Read more about them by clicking the ‘More Info’ button under each product image. Or add them to your favourites wish list by clicking the ‘Favourites’ button alongside each one.</p>
+          <p><img src="/assets/img/Share@Dark.png" style="position:relative;top:5px" width="15" alt="Sharw"> Sharing the Catalogue: Allows you to share the catalogue to Facebook, Twitter, Pinterest, Linkedin or email it to a friend.</p>
+          <p><img src="/assets/img/Favourites@dark.png" style="position:relative;top:5px;margin-right:5px;" width="15" alt="Favourites">Favourites List: By clicking the Favourites you can view the list of favourites you have bookmarked so far. You can also send me your favourites list by clicking the ‘Send’ button at the top of this slide out.</p>
+          <p><img src="/assets/img/Contact@dark.png" width="20" alt="Contact"> My contact details: Clicking this will give you all my contact details if you have any queries or questions and when you are ready to shop just click on the <img src="/assets/img/Logo@Dark.svg" style="position: relative; top: 4px;" width="20" alt="NYR Organic"> </p>
+
         </div>
 
       </div>
@@ -532,13 +536,13 @@
             <div class="col s12">
               <div class="card">
                 <div class="card-image" ng-class="item.type">
-                  <a ng-href="{{prep_product_url(item.item.link)}}" target="_blank">
+                  <a target="_blank">
                     <img style="width:50%;margin:0 auto;" ng-src="{{item.item.cover}}">
                   </a>
                   
                 </div>
                 <div class="card-content">
-                  <h6><strong><a style="color:#000" ng-href="{{prep_product_url(item.item.link)}}" target="_blank"><span ng-bind="item.item.name">Card Title</span></a></strong></h6>
+                  <h6><strong><a style="color:#000" target="_blank"><span ng-bind="item.item.name">Card Title</span></a></strong></h6>
                   <p ng-if="item.type == 'product'" ng-bind="item.price"></p>
                   <!-- <p class="trim-info" ng-bind-html="item.item.summary | safeHtml"></p> -->
                 </div>
