@@ -339,32 +339,8 @@
           <div class="modal-content center-align">
             <div class="row">
               <div class="col s12">
-                <h4>Configure Party Links</h4>
-                <p>You can configure Party Links to automatically associate products to a Consultants party on check-out.</p>
-                <div class="row">
-                  <form class="col s12">
-                    <div class="row">
-                      <div class="input-field col s12" ng-repeat="(i, code) in consultant_party_codes">
-                        <input required="required" ng-model="consultant_party_codes[i].code" placeholder="W001923564" type="text" class="validate">
-                        <label for="phone active">Party Code</label>
-                        <p class="left-align"><small>Enter your unique Party Code, please ensure the party is active and has not expired.</small></p>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <div class="row" ng-show="!consultant_query.loading">
-                <div class="col s12 right-align">
-                  <button class="btn waves-effect waves-light" ng-click="add_party_code()" type="button">Add Another Party Code</button>
-                  <button class="btn waves-effect waves-light" ng-click="save_party_codes()" type="button">Save</button>
-                </div>
-                <div class="col s12 center-align" ng-show='saving_party_codes'>
-                  <div class="progress">
-                      <div class="indeterminate"></div>
-                  </div>
-                </div>
+                <h4>Party Links</h4>
+                <p>On-line party links functionality currently unavailable and will return when phase 2 launches.</p>
               </div>
             </div>
           </div>
