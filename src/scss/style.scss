@@ -171,6 +171,10 @@ body {
 							&[alt="Contact Consultant"] {
 								max-width: 31px;
 							}
+
+							&[alt="Basket"] {
+								max-width: 35px;
+							}
 						}
 					}
 				}
@@ -225,10 +229,32 @@ body {
 
 					a {
 						text-align: center;
-						width: 49%;
+						width: 32%;
 					    display: inline-block;
 					    margin-right: 0 !important;
 					    color: #1f376c !important;
+
+					    &.uk-disabled {
+					    	pointer-events: none;
+					    	color: #CCC !important;
+					    }
+
+					    &.w-1-2 {
+					    	width: 49%;
+					    }
+
+					    img[alt="Remove from Basket"] {
+							width: 22px;
+							top: 2px;
+						    position: relative;
+						}
+
+					    img[alt="Unfavourite"],
+					    img[alt="Favourite"] {
+					    	width: 20px;
+					    	position: relative;
+					    	top: 1px
+					    }
 					}
 				}
 			}

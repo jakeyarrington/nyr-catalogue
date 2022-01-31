@@ -1,0 +1,96 @@
+<div id="root_setup" class="modal">
+  <div class="modal-content center-align">
+    <h4>Welcome to the NYR Smart Catalogue</h4>
+    <p>Please choose an option below.</p>
+    <div class="row">
+      <div class="col s12 m4 center-align">
+        <img src="assets/img/Tutorial@dark.png" width="80" alt="Tutorial">
+        <p>I'm new to the Smart Catalogue and want to view a tutorial.</p>
+        <a ng-click="start_tutorial()"class="b-inline hide-on-med-and-up waves-effect waves-light btn">Start Tutorial</a>
+        
+      </div>
+      <div class="col s12 m4 center-align">
+        <img src="assets/img/Create@dark.png" width="80" alt="Create">
+        <p>As a Consultant I would like to set up my Smart Catalogue.</p>
+        <a target="_blank" ng-click="guide('#setup_smart_catalogue')" class="b-inline hide-on-med-and-up waves-effect waves-light btn">Setup Smart Catalogue</a>
+        
+      </div>
+      <div class="col s12 m4 center-align">
+        <img src="assets/img/Read@dark.png" width="80" alt="Book">
+        <p>I would like to read this Smart Catalogue.</p>
+        <a ng-click="close_modal('#root_setup')" class="b-inline hide-on-med-and-up waves-effect waves-light btn">Read Catalogue</a>
+        
+      </div>
+    </div>
+    <div class="row hide-on-small-only">
+      <div class="col m4 center-align">
+        <a ng-click="start_tutorial()"class="waves-effect waves-light btn">Start Tutorial</a>
+      </div>
+      <div class="col m4 center-align">
+        <a target="_blank" ng-click="guide('#setup_smart_catalogue')" class="waves-effect waves-light btn">Setup Smart Catalogue</a>
+      </div>
+      <div class="col m4 center-align">
+        <a ng-click="close_modal('#root_setup')" class="waves-effect waves-light btn">Read Catalogue</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <p><strong>Already setup your Smart Catalogue?</strong> If you need a copy of your Welcome email, click <a href="https://app.nyrcatalogue.com/request-welcome-email/">here</a>.</p>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+  </div>
+</div>
+
+<div id="setup_smart_catalogue" class="modal">
+  <div class="modal-content center-align">
+    <div class="container">
+      <div class="row">
+        <div class="col s12">
+          <h4 class="center-align">Setup Smart Catalogue</h4>
+          <p>Let's get started on setting up your Smart Catalogue, we first need to know is your current NYR Organic shop URL, it should look something like this.</p>
+          <p><pre>https://<span ng-bind="consultant_query.region ? consultant_query.region : 'uk'"></span>.nyrorganic.com/shop/ellie_smith</pre></p>
+          <p>When you've found your NYR Organic shop URL, please paste it in the text box below.</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <input ng-model="my_shop_url" ng-change="validate_my_shop_url()" placeholder="https://{{consultant_query.region ? consultant_query.region : 'uk'}}.nyrorganic.com/shop/ellie_smith" type="url" class="validate">
+        <label for="first_name">NYR Organic Shop URL</label>
+      </div>
+      <div class="col s12">
+        <div class="progress" ng-show="my_shop_is_valid == -1">
+            <div class="indeterminate"></div>
+        </div>
+        <p ng-show="my_shop_is_valid == -2">The shop URL you provided is invalid, please try again.</p>
+        <p ng-show="my_shop_is_valid.fname">Great! The shop URL is correct.</p>
+        <a ng-click="guide('#root_setup')"class="waves-effect waves-light btn">Go Back</a>
+        <a disabled="disabled" ng-disabled="!my_shop_is_valid || my_shop_is_valid < 0" ng-click="guide('#setup_smart_catalogue_confirm')" class="continue waves-effect waves-light btn">Continue</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="setup_smart_catalogue_confirm" class="modal">
+  <div class="modal-content center-align">
+    <div class="container">
+      <div class="row">
+        <div class="col s12">
+          <h4 class="center-align">Great! Let's Configure</h4>
+          <p>Based on the NYR Organic shop URL you provided it looks like your shop name is <strong ng-bind="my_shop_slug"></strong> and you're based in the <strong ng-bind="my_shop_region == 'uk' ? 'UK/IE' : 'US'"></strong>. If this is incorrect please select "Go Back" below.</p>
+          <p>Next, we need to launch the configurator which will allow you to update your personal details and add any extra information you wish your customers to see.</p>
+          <p>Click the button below to launch <span ng-bind="my_shop_slug"></span>'s configurator.</p>
+          <div class="row">
+          <div class="col s12">
+            <a ng-click="guide('#setup_smart_catalogue')" class="waves-effect waves-light btn">Go Back</a>
+            <a ng-href="{{'https://configure.nyrcatalogue.com/' + my_shop_slug + '?region=' + my_shop_is_valid.region}}" class="continue waves-effect waves-light btn">Launch Configurator</a>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

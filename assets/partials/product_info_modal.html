@@ -1,0 +1,35 @@
+<div id="moreinfo" class="modal">
+  <div class="modal-content">
+    <div class="row">
+      <div class="col s12 m4">
+        <img style="width:100%;" ng-src="{{active_product.item.cover}}" alt="{{active_product.name}}">
+        <a class="waves-effect waves-light btn" style="width:100%;margin-top:10px;" ng-bind="favourite.$data[active_product.id] ? 'Unfavourite' : 'Favourite'"  ng-click="favourite.set(active_product.id, (favourite.$data[active_product.id] ? 0 : 1))"></a>
+        <a ng-click="api_basket.basket[active_product.plu] ? api_basket.remove_from_basket(active_product.plu) : api_basket.add_to_basket(active_product.plu)" class="waves-effect waves-light btn" style="width:100%;margin-top:10px;" ng-if="api_basket.price_list[active_product.plu] && !api_basket.price_list[active_product.plu].error">
+          
+          <span ng-show="api_basket.basket[active_product.plu]" class="tooltipped" data-position="right" data-tooltip="Remove from Basket">Remove from Basket</span>
+          <span ng-show="!api_basket.basket[active_product.plu]">Buy</span>
+
+        </a>
+      </div>
+      <div class="col s12 m8">
+        <h5 ng-bind="(get_consultant_region() == 'us' && active_product.alt.name ? active_product.alt.name : active_product.item.name)"></h5>
+        <p>
+          <small>
+
+            <!-- Price -->
+            <span ng-if="api_basket.price_list[active_product.plu] && !api_basket.price_list[active_product.plu].error">{{api_basket.price_list[active_product.plu].price | currency:api_basket.price_list[active_product.plu].currency}}</span>
+            <!-- : Price -->
+            <!-- No Price -->
+            <span ng-if="api_basket.price_list[active_product.plu] && api_basket.price_list[active_product.plu].error">No Price Available</span>
+            <!-- : No Price -->  
+            &bullet; <span ng-bind="active_product.plu"></span>
+          </small>
+        </p>
+        <p ng-bind-html="(get_consultant_region() == 'us' && active_product.alt.description ? active_product.alt.description : active_product.item.description) | safeHtml"></p>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+  </div>
+</div>

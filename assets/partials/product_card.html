@@ -1,0 +1,71 @@
+<div class="card">
+    <!-- Product Image -->
+    <div class="card-image" ng-class="item.type">
+        <a target="_blank">
+            <img style="width:50%;margin:0 auto;" ng-src="{{item.item.cover}}">
+        </a>
+    </div>
+    <div class="card-content">
+        
+        <!-- Product Title -->
+        <h6>
+            <strong>
+                <a style="color:#000" target="_blank"><span ng-bind="item.item.name">Card Title</span></a>
+            </strong>
+        </h6>
+        <!-- : Product Title -->
+        <!-- Product Price -->
+        <p ng-if="item.type == 'product'">
+            <!-- Price -->
+            <span ng-if="api_basket.price_list[item.plu] && !api_basket.price_list[item.plu].error">{{api_basket.price_list[item.plu].price | currency:api_basket.price_list[item.plu].currency}}</span>
+            <!-- : Price -->
+            <!-- No Price -->
+            <span ng-if="api_basket.price_list[item.plu] && api_basket.price_list[item.plu].error">No Price Available</span>
+            <!-- : No Price -->
+            <!-- Load Price Placeholder -->
+            <span style="color:#CCC" ng-if="!api_basket.price_list[item.plu]" ng-init="api_basket.get_price(item.plu)">Getting Price...</span>
+            <!-- : Load Price Placeholder -->
+        </p>
+        <!-- : Product Price -->
+
+    </div>
+
+    <!-- Similar Products -->
+    <div class="card-action center-align" ng-if="item.item.categories && 0">
+        <p><em>View similar products under</em></p>
+        <div class="chip" ng-repeat="cat in item.item.categories" ng-bind="cat.name"></div>
+    </div>
+    <!-- : Similar Products -->
+
+    <!-- Product Links -->
+    <div class="card-action product" ng-if="item.type == 'product'">
+        
+        <!-- Buy -->
+        <a href ng-click="api_basket.basket[item.plu] ? api_basket.remove_from_basket(item.plu) : api_basket.add_to_basket(item.plu)" ng-disabled="!api_basket.price_list[item.plu] || api_basket.price_list[item.plu] && api_basket.price_list[item.plu].error" ng-class="!api_basket.price_list[item.plu] || api_basket.price_list[item.plu] && api_basket.price_list[item.plu].error ? 'uk-disabled' : ''">
+          <span ng-show="api_basket.basket[item.plu]" class="tooltipped" data-position="right" data-tooltip="Remove from Basket">
+            <img src="/assets/img/Trash@theme.png" alt="Remove from Basket">
+          </span>
+          <span ng-show="!api_basket.basket[item.plu]">Buy</span>
+        </a>
+        <!-- : Buy -->
+
+        <!-- Info -->
+        <a href ng-click="view_product(item)" ng-if="item.item.link">Info</a>
+        <!-- : Info -->
+
+        <!-- Favourite -->
+        <a ng-if="item.item.favourite" ng-click="favourite.set(item.id, (favourite.$data[item.id] ? 0 : 1)); open_sidebar('#basket_sidebar')">
+            <img ng-show="favourite.$data[item.id]" src="/assets/img/Heart@fill.png" alt="Unfavourite">
+            <img ng-show="!favourite.$data[item.id]" src="/assets/img/Heart@theme.png" alt="Favourite">
+        </a>
+        <!-- : Favourite -->
+
+    </div>
+    <!-- : Product Links -->
+
+    <!-- Video Links -->
+    <div class="card-action video" ng-if="item.type == 'video'">
+        <a class="modal-trigger" href="#video_modal" ng-if="item.item.video" ng-click="open_video_modal(item)">Watch</a>
+    </div>
+    <!-- : Video Links -->
+</div>

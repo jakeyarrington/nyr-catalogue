@@ -25,7 +25,6 @@
     <meta property="og:description" content="Neal's Yard Organic Smart Catalogue" />
     <meta property="og:image" content="assets/favicon/og-fb.png" />
 
-
     <title>NYR Smart Catalogue</title>
     <script>
       if(location.href[location.href.length-1] == '/' && location.pathname !== '/') {
@@ -52,407 +51,43 @@
 
       gtag('config', 'G-2G2VHHXVY0');
     </script>
+    <script>
+      const Module = {
+          modules: [],
+          add: function($callable, $priority) {
+              $priority = $priority || 20;
+
+              if(typeof this.modules[$priority] == 'undefined') {
+                this.modules[$priority] = [];
+              }
+
+              this.modules[$priority].push($callable);
+          }
+      };
+    </script>
   </head>
 
   <body ng-app="nyr" ng-controller="app">
 
-    <div id="root_setup" class="modal">
-      <div class="modal-content center-align">
-        <h4>Welcome to the NYR Smart Catalogue</h4>
-        <p>Please choose an option below.</p>
-        <div class="row">
-          <div class="col s12 m4 center-align">
-            <img src="assets/img/Tutorial@dark.png" width="80" alt="Tutorial">
-            <p>I'm new to the Smart Catalogue and want to view a tutorial.</p>
-            <a ng-click="start_tutorial()"class="b-inline hide-on-med-and-up waves-effect waves-light btn">Start Tutorial</a>
-            
-          </div>
-          <div class="col s12 m4 center-align">
-            <img src="assets/img/Create@dark.png" width="80" alt="Create">
-            <p>As a Consultant I would like to set up my Smart Catalogue.</p>
-            <a target="_blank" ng-click="guide('#setup_smart_catalogue')" class="b-inline hide-on-med-and-up waves-effect waves-light btn">Setup Smart Catalogue</a>
-            
-          </div>
-          <div class="col s12 m4 center-align">
-            <img src="assets/img/Read@dark.png" width="80" alt="Book">
-            <p>I would like to read this Smart Catalogue.</p>
-            <a ng-click="close_modal('#root_setup')" class="b-inline hide-on-med-and-up waves-effect waves-light btn">Read Catalogue</a>
-            
-          </div>
-        </div>
-        <div class="row hide-on-small-only">
-          <div class="col m4 center-align">
-            <a ng-click="start_tutorial()"class="waves-effect waves-light btn">Start Tutorial</a>
-          </div>
-          <div class="col m4 center-align">
-            <a target="_blank" ng-click="guide('#setup_smart_catalogue')" class="waves-effect waves-light btn">Setup Smart Catalogue</a>
-          </div>
-          <div class="col m4 center-align">
-            <a ng-click="close_modal('#root_setup')" class="waves-effect waves-light btn">Read Catalogue</a>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s12">
-            <p><strong>Already setup your Smart Catalogue?</strong> If you need a copy of your Welcome email, click <a href="https://app.nyrcatalogue.com/request-welcome-email/">here</a>.</p>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
-      </div>
-    </div>
+    <div ng-include="'assets/partials/consultant_step_setup_modals.html'"></div>
 
-    <div id="setup_smart_catalogue" class="modal">
-      <div class="modal-content center-align">
-        <div class="container">
-          <div class="row">
-            <div class="col s12">
-              <h4 class="center-align">Setup Smart Catalogue</h4>
-              <p>Let's get started on setting up your Smart Catalogue, we first need to know is your current NYR Organic shop URL, it should look something like this.</p>
-              <p><pre>https://<span ng-bind="consultant_query.region ? consultant_query.region : 'uk'"></span>.nyrorganic.com/shop/ellie_smith</pre></p>
-              <p>When you've found your NYR Organic shop URL, please paste it in the text box below.</p>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input ng-model="my_shop_url" ng-change="validate_my_shop_url()" placeholder="https://{{consultant_query.region ? consultant_query.region : 'uk'}}.nyrorganic.com/shop/ellie_smith" type="url" class="validate">
-            <label for="first_name">NYR Organic Shop URL</label>
-          </div>
-          <div class="col s12">
-            <div class="progress" ng-show="my_shop_is_valid == -1">
-                <div class="indeterminate"></div>
-            </div>
-            <p ng-show="my_shop_is_valid == -2">The shop URL you provided is invalid, please try again.</p>
-            <p ng-show="my_shop_is_valid.fname">Great! The shop URL is correct.</p>
-            <a ng-click="guide('#root_setup')"class="waves-effect waves-light btn">Go Back</a>
-            <a disabled="disabled" ng-disabled="!my_shop_is_valid || my_shop_is_valid < 0" ng-click="guide('#setup_smart_catalogue_confirm')" class="continue waves-effect waves-light btn">Continue</a>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div ng-include="'assets/partials/exit_intent_modal.html'"></div>
 
-    <div id="setup_smart_catalogue_confirm" class="modal">
-      <div class="modal-content center-align">
-        <div class="container">
-          <div class="row">
-            <div class="col s12">
-              <h4 class="center-align">Great! Let's Configure</h4>
-              <p>Based on the NYR Organic shop URL you provided it looks like your shop name is <strong ng-bind="my_shop_slug"></strong> and you're based in the <strong ng-bind="my_shop_region == 'uk' ? 'UK/IE' : 'US'"></strong>. If this is incorrect please select "Go Back" below.</p>
-              <p>Next, we need to launch the configurator which will allow you to update your personal details and add any extra information you wish your customers to see.</p>
-              <p>Click the button below to launch <span ng-bind="my_shop_slug"></span>'s configurator.</p>
-              <div class="row">
-              <div class="col s12">
-                <a ng-click="guide('#setup_smart_catalogue')" class="waves-effect waves-light btn">Go Back</a>
-                <a ng-href="{{'https://configure.nyrcatalogue.com/' + my_shop_slug + '?region=' + my_shop_is_valid.region}}" class="continue waves-effect waves-light btn">Launch Configurator</a>
-              </div>
-            </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div ng-include="'assets/partials/product_info_modal.html'"></div>    
 
-    <div id="options" class="modal">
-      <div class="modal-content center-align">
-        <h4>Thanks for Reading!</h4>
-        <p>Before you go, here are some additional options to choose from.</p>
-        <p>
-          <div class="collection">
-            <a ng-show="favourite.$count" href="#" ng-click="mail_favourites()" class="collection-item">Email my Favourites to <span ng-bind="consultant.data.name.first_name"></span></a>
-            <a href="#!" ng-show="can_install_app" ng-click="install_app()" class="collection-item">Install <span ng-bind="consultant.data.name.first_name"></span>'s App</a>
-             <a ng-href="{{'https://'+get_consultant_region()+'.nyrorganic.com/shop/' + consultant.data.slug}}" class="collection-item">View <span ng-bind="consultant.data.name.first_name"></span>'s NYR Organic Shop</a>
-             <a target="_blank" ng-show="consultant.data.social.whatsapp" class="collection-item" ng-href="{{consultant.data.social.whatsapp}}">Join <span ng-bind="consultant.data.name.first_name"></span>'s WhatsApp Group</a>
-              <a target="_blank" ng-show="consultant.data.social.newsletter" class="collection-item hide" ng-href="{{consultant.data.social.newsletter}}">Subscribe to <span ng-bind="consultant.data.name.first_name"></span>'s Newsletter</a>
-            <a target="_blank" ng-href="{{pdf_url}}" class="hide collection-item">Download this Smart Catalogue</a>
-            <a target="_blank" ng-href="{{'https://'+get_consultant_region()+'.nyrorganic.com/shop/'+consultant.data.slug+'/area/become-a-consultant/'}}" class="collection-item">Become a Consultant</a>
-            <a target="_blank" ng-href="{{'https://'+get_consultant_region()+'.nyrorganic.com/shop/'+consultant.data.slug+'/area/have-a-party/'}}" class="collection-item">Host an Event</a>
-          </div>
-        </p>
-      </div>
-      <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
-      </div>
-    </div>
+    <div ng-include="'assets/partials/configurator_modal.html'"></div>
 
-    <div id="moreinfo" class="modal">
-      <div class="modal-content">
-        <div class="row">
-          <div class="col s12 m4">
-            <img style="width:100%;" ng-src="{{active_product.item.cover}}" alt="{{active_product.name}}">
-            <a class="waves-effect waves-light btn" style="width:100%;margin-top:10px;" ng-bind="favourite.$data[active_product.id] ? 'Unfavourite' : 'Favourite'"  ng-click="favourite.set(active_product.id, (favourite.$data[active_product.id] ? 0 : 1))"></a>
-          </div>
-          <div class="col s12 m8">
-            <h5 ng-bind="(get_consultant_region() == 'us' && active_product.alt.name ? active_product.alt.name : active_product.item.name)"></h5>
-            <p><small><span ng-bind="active_product.price"></span> &bullet; <span ng-bind="active_product.plu"></span></small></p>
-            <p ng-bind-html="(get_consultant_region() == 'us' && active_product.alt.description ? active_product.alt.description : active_product.item.description) | safeHtml"></p>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
-      </div>
-    </div>
+    <div ng-include="'assets/partials/welcome_modal.html'"></div>
 
-    <div id="configurator" class="modal non-dismiss">
+    <div ng-include="'assets/partials/install_app_ios_modal.html'"></div>
 
-      <div class="row">
-        <div>
-          <ul class="tabs">
-            <li class="tab col s6" ng-class="hide_party_links ? 's12' : 's6'"><a class="active" href="#config">Configure Profile</a></li>
-            <li class="tab col s6" ng-show="!hide_party_links"><a href="#party">Configure Party Links</a></li>
-          </ul>
-        </div>
-        <div id="config" class="col s12">
-          <div class="modal-content center-align">
-            <div class="row">
-              <div class="col s12">
-                <h4>Configure Catalogue</h4>
-                <p>Configure your NYR Organic Smart Catalogue by entering your information below. This information is used to link customers to your shop, social media accounts and to contact you.</p>
-              </div>
-            </div>
-            <div>
-              <div class="progress" ng-show="consultant_query.loading">
-                  <div class="indeterminate"></div>
-              </div>
-              <div class="row" ng-show="!consultant_query.loading">
-                <form class="col s12">
-                  <div class="row">
-                    <div class="input-field col s6">
-                      <input ng-model="consultant_query.first_name" placeholder="Ellie" id="first_name" type="text" class="validate">
-                      <label for="first_name">First Name</label>
-                    </div>
-                    <div class="input-field col s6">
-                      <input ng-model="consultant_query.last_name" placeholder="Smith" id="last_name" type="text" class="validate">
-                      <label for="last_name">Last Name</label>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <textarea style="min-height:100px" ng-model="consultant_query.welcome_message" class="materialize-textarea"></textarea>
-                      <label for="email">Welcome Message</label>
-                      <p class="left-align"><small>Add a Welcome message to be displayed to your customers when they first launch your NYR Organic Smart Catalogue.</small></p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <input ng-model="consultant_query.email" id="email" placeholder="ellie.smith@gmail.com" type="email" class="validate">
-                      <label for="email">Email</label>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <input ng-model="consultant_query.url" id="url" placeholder="https://uk.nyrorganic.com/shop/elliesmith" type="url" class="validate">
-                      <label for="url">Your NYR Organic URL</label>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <input ng-model="consultant_query.phone" id="phone" placeholder="{{consultant_query.region == 'uk' ? '+447957931543' : '+1 (123) 456–7890'}}" type="text" class="validate">
-                      <label for="phone">Your Telephone Number</label>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <select ng-model="consultant_query.region">
-                        <option value="uk">UK/IE</option>
-                        <option value="us">US</option>
-                      </select>
-                      <label>Country</label>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <select ng-model="consultant_query.app_launch">
-                        <option value="catalogue">My NYR Catalogue</option>
-                        <option value="shop">My NYR Shop</option>
-                      </select>
-                      <label>App Launch</label>
-                      <p class="left-align"><small>When a customer downloads and open your app on desktop and mobile, where would you like them to be taken to?</small></p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <input ng-model="consultant_query.twitter" id="twitter" placeholder="https://twitter.com/elliesmith" type="url" class="validate">
-                      <label for="phone">Your Twitter URL</label>
-                      <p class="left-align"><small>Enter your Twitter full URL, leave blank if you don't have one.</small></p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <input ng-model="consultant_query.facebook" id="facebook" placeholder="https://facebook.com/elliesmith" type="url" class="validate">
-                      <label for="phone">Your Facebook URL</label>
-                      <p class="left-align"><small>Enter your Facebook URL, leave blank if you don't have one.</small></p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <input ng-model="consultant_query.instagram" id="instagram" placeholder="https://instagram.com/elliesmith" type="url" class="validate">
-                      <label for="phone">Your Instagram URL</label>
-                      <p class="left-align"><small>Enter your Instagram URL, leave blank if you don't have one.</small></p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <input ng-model="consultant_query.whatsapp" id="whatsapp" placeholder="https://chat.whatsapp.com/GA3els9w0eE9fwl" type="url" class="validate">
-                      <label for="phone">Your WhatsApp Group Link</label>
-                      <p class="left-align"><small>Enter your WhatsApp Group Link by opening the Group in WhatsApp, clicking the 3 dots at the top right, selecting Group Info, then under Participants select "Invite via link" and copy the link and paste it above. Leave blank if you don't have one.</small></p>
-                    </div>
-                  </div>
-                  <div class="row hide">
-                    <div class="input-field col s12">
-                      <input ng-model="consultant_query.newsletter" id="newsletter" placeholder="https://elliesmith.mynewsletter.com/signup" type="url" class="validate">
-                      <label for="phone">Your Newsletter Signup Link</label>
-                      <p class="left-align"><small>Enter your Newsletter sign up link or leave blank if you don't have one.</small></p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <input ng-model="consultant_query.linkedin" id="linkedin" placeholder="https://linkedin.com/in/elliesmith" type="url" class="validate">
-                      <label for="phone">Your LinkedIn URL</label>
-                      <p class="left-align"><small>Enter your LinkedIn URL, leave blank if you don't have one.</small></p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <input ng-model="consultant_query.pinterest" id="pinterest" placeholder="https://pinterest.com/elliesmith" type="url" class="validate">
-                      <label for="phone">Your Pinterest URL</label>
-                      <p class="left-align"><small>Enter your Pinterest URL, leave blank if you don't have one.</small></p>
-                    </div>
-                  </div>
-                </form>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <div class="row" ng-show="!consultant_query.loading">
-              <div class="col s12 right-align">
-                <button class="btn waves-effect waves-light" ng-click="save_configurator()" type="button">Save
-                  <i class="material-icons right">save</i>
-                </button>
-                <button ng-click="close_modal('#configurator'); goto_consultant_home()" class="btn waves-effect waves-light" type="button">Cancel</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        </div>
-        <div id="party" class="col s12">
-          <div class="modal-content center-align">
-            <div class="row">
-              <div class="col s12">
-                <h4>Party Links</h4>
-                <p>On-line party links functionality currently unavailable and will return when phase 2 launches.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div ng-include="'assets/partials/error_consultant_not_exists_modal.html'"></div>
+    
+    <div ng-include="'assets/partials/error_consultant_not_setup_modal.html'"></div>
 
-    <div id="welcome" class="modal">
-      <div class="modal-content center-align">
-        <h4><span ng-bind="consultant.data.name.full"></span>'s Smart Catalogue</h4>
-        <p ng-bind-html="consultant.data.welcome_message | safeHtml"></p>
-        <hr>
-        <div class="left-align">
-          <p>Please take some time to browse my Smart Catalogue using the arrow buttons below or your cursor to flip through the pages.</p> 
-          <p>How to use:</p>
-          <p><img src="/assets/img/Book@dark.png" width="20" alt="Items to View"> Viewing more product details, & adding favourites: Some pages will have an ‘Items to View’ pop up. Click this, or the <img src="/assets/img/Book@dark.png" width="20" alt="Items to View"> button in the left-hand column to reveal a slide out feature. This allows you to take a closer look at the individual products & details on the page. Read more about them by clicking the ‘More Info’ button under each product image. Or add them to your favourites wish list by clicking the ‘Favourites’ button alongside each one.</p>
-          <p><img src="/assets/img/Share@Dark.png" style="position:relative;top:5px" width="15" alt="Sharw"> Sharing the Catalogue: Allows you to share the catalogue to Facebook, Twitter, Pinterest, Linkedin or email it to a friend.</p>
-          <p><img src="/assets/img/Favourites@dark.png" style="position:relative;top:5px;margin-right:5px;" width="15" alt="Favourites">Favourites List: By clicking the Favourites you can view the list of favourites you have bookmarked so far. You can also send me your favourites list by clicking the ‘Send’ button at the top of this slide out.</p>
-          <p><img src="/assets/img/Contact@dark.png" width="20" alt="Contact"> My contact details: Clicking this will give you all my contact details if you have any queries or questions and when you are ready to shop just click on the <img src="/assets/img/Logo@Dark.svg" style="position: relative; top: 4px;" width="20" alt="NYR Organic"> </p>
+    <div ng-include="'assets/partials/share_modal.html'"></div>
 
-        </div>
-
-      </div>
-      <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
-      </div>
-    </div>
-
-    <div id="install_app_ios" class="modal">
-      <div class="modal-content center-align">
-        <h5><strong>Install App.</strong></h5>
-        <p>To install <span ng-bind="consultant.data.name.full ? consultant.data.name.full + '\'s' : 'this'"></span> App on your device, please click <svg width="18px" height="22px" viewBox="0 0 18 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>Artboard Copy</title>
-    <g id="Artboard-Copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="share-(2)" transform="translate(5.000000, 1.000000)" stroke="#4F89C7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-            <polyline id="Path" points="8 4 4 0 0 4"></polyline>
-            <line x1="4" y1="0" x2="4" y2="13" id="Path"></line>
-        </g>
-        <path d="M11.4202804,8 L15.2222222,8 C16.2040618,8 17,8.64669981 17,9.44444444 L17,19.5555556 C17,20.3533002 16.2040618,21 15.2222222,21 L2.77777778,21 C1.79593822,21 1,20.3533002 1,19.5555556 L1,9.44444444 C1,8.64669981 1.79593822,8 2.77777778,8 L6.41218675,8 L6.41218675,8" id="Path" stroke="#4F89C7" stroke-width="2"></path>
-    </g>
-</svg> at the bottom of this window and click "Add to Homescreen".</p>
-        <img style="width:50%" src="assets/video/add-to-homescreen.gif" alt="Add to Homescreen">
-      </div>
-    </div>
-
-    <div id="consultant_not_exists" class="modal">
-      <div class="modal-content center-align">
-        <h4>This Consultant does not exist.</h4>
-        <p>It looks like this consultant does not exist on NYR Organic and we cannot find them in the Smart Catalogue. If you believe this to be an error, please contact your consultant for support.</p>
-      </div>
-    </div>
-
-    <div id="consultant_not_setup" class="modal">
-      <div class="modal-content center-align">
-        <h4>This Smart Catalogue is not Setup.</h4>
-        <p>It looks like this consultant has not setup their Smart Catalogue.</p>
-        <p><small>If you own the shop name "<em ng-bind="_consultant.url_slug"></em>", you can setup your Smart Catalogue by clicking <a href="https://configure.nyrcatalogue.com/{{_consultant.url_slug}}?region={{get_consultant_region()}}">here</a>.</small></p>
-      </div>
-    </div>
-
-    <div id="share" class="modal">
-      <div class="modal-content center-align">
-        <h4>Share <span ng-bind="consultant.data.name.full ? consultant.data.name.full + '\'s' : 'this'"></span> Smart Catalogue</h4>
-        <p>Select a social media platform below to share to.</p>
-        <p>
-          <a target="_blank" ng-href="{{'https://www.facebook.com/sharer/sharer.php?u=' + get_consultant_url()}}" class="waves-effect waves-light btn">Facebook</a>
-          <a target="_blank" ng-href="{{'https://twitter.com/intent/tweet?url='+get_consultant_url()+'&text=Check%20out%20'+consultant.data.name.full+'\'s%20NYR%20smart%20catalogue'}}" class="waves-effect waves-light btn">Twitter</a>
-          <a target="_blank" ng-href="{{'https://pinterest.com/pin/create/button/?url='+get_consultant_url()+'&media=&description=Check%20out%20'+consultant.data.name.full+'\'s%20NYR%20smart%20catalogue'}}" class="waves-effect waves-light btn">Pinterest</a>
-          <a target="_blank" ng-href="{{'https://www.linkedin.com/shareArticle?mini=true&url='+get_consultant_url()}}" class="waves-effect waves-light btn">LinkedIn</a>
-          <a target="_blank" ng-href="{{'mailto:?&body='+get_consultant_url()+'%0ACheck%20out%20'+consultant.data.name.full+'\'s%20NYR%20smart%20catalogue'}}" class="waves-effect waves-light btn">Email</a>
-        </p>
-      </div>
-      <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
-      </div>
-    </div>
-
-    <div id="contact" class="modal">
-      <div class="modal-content center-align">
-        <div class="row">
-          <div class="col s12 m4">
-            <img width="150" class="qr" ng-src="{{'https://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=' + catalogue_url}}">
-          </div>
-          <div class="col s12 m8 center-align">
-            <h5 ng-bind="consultant.data.name.full"></h5>
-            <a class="cat-url" style="color:#aaa" ng-href="{{'https://' + consultant.data.region + '.nyrcatalogue.com/' + consultant.data.slug}}" ng-bind="'https://' + consultant.data.region + '.nyrcatalogue.com/' + consultant.data.slug"></a>
-            <p>
-              <a target="_blank" ng-show="consultant.data.email" ng-href="{{'mailto:' + consultant.data.email}}" class="waves-effect waves-light btn">Email</a>
-              <a target="_blank" ng-show="consultant.data.phone" ng-href="{{'tel:' + consultant.data.phone}}" class="waves-effect waves-light btn">Telephone</a>
-              <a target="_blank" ng-show="consultant.data.social.facebook" ng-href="{{consultant.data.social.facebook}}" class="waves-effect waves-light btn">Facebook</a>
-              <a target="_blank" ng-show="consultant.data.social.instagram" ng-href="{{consultant.data.social.instagram}}" class="waves-effect waves-light btn">Instagram</a>
-              <a target="_blank" ng-show="consultant.data.social.linkedin" ng-href="{{consultant.data.social.linkedin}}" class="waves-effect waves-light btn">LinkedIn</a>
-              <a target="_blank" ng-show="consultant.data.social.pinterest" ng-href="{{consultant.data.social.pinterest}}" class="waves-effect waves-light btn">Pinterest</a>
-              <a target="_blank" ng-show="consultant.data.social.twitter" ng-href="{{consultant.data.social.twitter}}" class="waves-effect waves-light btn">Twitter</a>
-            </p>
-          </div>
-        </div>
-          <div class="collection">
-            <a ng-show="favourite.$count" href="#" ng-click="mail_favourites()" class="collection-item">Email my Favourites to <span ng-bind="consultant.data.name.first_name"></span></a>
-            <a href="#!" ng-show="can_install_app" ng-click="install_app()" class="collection-item">Install <span ng-bind="consultant.data.name.first_name"></span>'s App</a>
-             <a ng-href="{{'https://'+get_consultant_region()+'.nyrorganic.com/shop/' + consultant.data.slug}}" class="collection-item">View <span ng-bind="consultant.data.name.first_name"></span>'s NYR Organic Shop</a>
-             <a target="_blank" ng-show="consultant.data.social.whatsapp" class="collection-item" ng-href="{{consultant.data.social.whatsapp}}">Join <span ng-bind="consultant.data.name.first_name"></span>'s WhatsApp Group</a>
-              <a target="_blank" ng-show="consultant.data.social.newsletter" class="collection-item hide" ng-href="{{consultant.data.social.newsletter}}">Subscribe to <span ng-bind="consultant.data.name.first_name"></span>'s Newsletter</a>
-            <a ng-href="{{pdf_url}}" class="collection-item hide">Download this Smart Catalogue</a>
-            <a ng-href="{{'https://'+get_consultant_region()+'.nyrorganic.com/shop/'+consultant.data.slug+'/area/become-a-consultant/'}}" class="collection-item">Become a Consultant</a>
-            <a ng-href="{{'https://'+get_consultant_region()+'.nyrorganic.com/shop/'+consultant.data.slug+'/area/have-a-party/'}}" class="collection-item">Host an Event</a>
-          </div>
-      </div>
-      <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
-      </div>
-    </div>
+    <div ng-include="'assets/partials/contact_modal.html'"></div>
 
     <div class="progress loading-page">
         <div class="indeterminate"></div>
@@ -488,6 +123,12 @@
               <img src="/assets/img/Contact.png" alt="Contact Consultant">
             </a>
           </li>
+          <li>
+            <a href data-target="cart_sidebar" class="sidenav-trigger tooltipped" data-position="right" data-tooltip="Basket">
+              <span ng-if="api_basket.$count" class="tooltip" ng-bind="api_basket.$count"></span>
+              <img src="/assets/img/Cart.png" alt="Basket">
+            </a>
+          </li>
         </ul>
       </div>
       </nav>
@@ -510,30 +151,23 @@
         <li>
            <div class="row" ng-id="{{item.id}}" ng-repeat="(key, item) in active_items track by $index">
             <div class="col s12">
-              <div class="card">
-                <div class="card-image" ng-class="item.type">
-                  <a target="_blank">
-                    <img style="width:50%;margin:0 auto;" ng-src="{{item.item.cover}}">
-                  </a>
-                  
-                </div>
-                <div class="card-content">
-                  <h6><strong><a style="color:#000" target="_blank"><span ng-bind="item.item.name">Card Title</span></a></strong></h6>
-                  <p ng-if="item.type == 'product'" ng-bind="item.price"></p>
-                  <!-- <p class="trim-info" ng-bind-html="item.item.summary | safeHtml"></p> -->
-                </div>
-                <div class="card-action center-align" ng-if="item.item.categories && 0">
-                    <p><em>View similar products under</em></p>
-                    <div class="chip" ng-repeat="cat in item.item.categories" ng-bind="cat.name"></div>
-                  </div>
-                <div class="card-action product" ng-if="item.type == 'product'">
-                  <a href ng-click="view_product(item)" ng-if="item.item.link">More Info</a>
-                  <a ng-bind="favourite.$data[item.id] ? 'Unfavourite' : 'Favourite'" ng-if="item.item.favourite" ng-click="favourite.set(item.id, (favourite.$data[item.id] ? 0 : 1))" href="#">Favourite</a>
-                </div>
-                <div class="card-action video" ng-if="item.type == 'video'">
-                  <a class="modal-trigger" href="#video_modal" ng-if="item.item.video" ng-click="open_video_modal(item)">Watch</a>
-                </div>
-              </div>
+              <div ng-include="'assets/partials/product_card.html'"></div>
+            </div>
+        </div>
+        </li>
+      </ul>
+
+      <ul id="cart_sidebar" class="sidenav">
+        <li>
+          <header>
+            (<span ng-bind="api_basket.$count"></span>) in Basket</span>
+          </header>
+          <p class="center-align" ng-show="!api_basket.$count">There are no items to display.</p>
+        </li>
+        <li>
+           <div class="row" ng-id="{{item.id}}" ng-repeat="(key, item) in api_basket.basket track by $index">
+            <div class="col s12">
+              <div ng-include="'assets/partials/product_card.html'"></div>
             </div>
         </div>
         </li>
@@ -558,25 +192,11 @@
                   <a href="#" ng-click="mail_favourites()" style="width:100%">Send</a>
                 </div>
               </div>
-              <div class="card" ng-repeat="(item, state) in favourite.$data" ng-if="state && catalogue.pages.data.items[item]">
-                <div class="card-image" ng-class="catalogue.pages.data.items[item].type">
-                  <img style="width:50%;margin:0 auto;" ng-src="{{catalogue.pages.data.items[item].item.cover}}">
-                  
-                </div>
-                <div class="card-content">
-                  <h6><strong><span ng-bind="get_consultant_region() == 'us' && catalogue.pages.data.items[item].alt.name ? catalogue.pages.data.items[item].alt.name : catalogue.pages.data.items[item].item.name">Card Title</span></strong></h6>
-                  <p ng-bind="catalogue.pages.data.items[item].price"></p>
-                  <p class="trim-info" ng-bind-html="catalogue.pages.data.items[item].item.summary | safeHtml"></p>
-                </div>
-                <div class="card-action" ng-if="catalogue.pages.data.items[item].type == 'product'">
-                  <a ng-click="view_product(catalogue.pages.data.items[item])" href ng-if="catalogue.pages.data.items[item].item.link">More Info</a>
-                  <a ng-bind="favourite.$data[catalogue.pages.data.items[item].id] ? 'Unfavourite' : 'Favourite'" ng-if="catalogue.pages.data.items[item].item.favourite" ng-click="favourite.set(catalogue.pages.data.items[item].id, (favourite.$data[catalogue.pages.data.items[item].id] ? 0 : 1))" href="#">Favourite</a>
-                </div>
-                <div class="card-action" ng-if="catalogue.pages.data.items[item].type == 'video'">
-                  <a ng-href="{{catalogue.pages.data.items[item].item.link}}" target="_blank" ng-if="catalogue.pages.data.items[item].item.link">Visit</a>
-                  <a class="modal-trigger" href="#video_modal" ng-if="catalogue.pages.data.items[item].item.video" ng-click="open_video_modal(catalogue.pages.data.items[item])">Watch</a>
-                </div>
+
+              <div ng-repeat="(id, state) in favourite.$data" ng-if="state && catalogue.pages.data.items[id]">
+                <div ng-init="item = catalogue.pages.data.items[id]" ng-include="'assets/partials/product_card.html'"></div>
               </div>
+
             </div>
         </div>
         </li>
