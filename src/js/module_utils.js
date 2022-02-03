@@ -15,6 +15,19 @@
             });
         };
 
+        $scope.range = function(min, max, step) {
+            step = step || 1;
+            var input = [];
+            for (var i = min; i <= max; i += step) {
+                input.push(i);
+            }
+            return input;
+        };
+
+        $scope.init_select = function() {
+            $('select').formSelect();
+        };
+
         $scope.open_sidebar = function($el) {
         	M.Sidenav.getInstance($($el)[0]).open();
         };
