@@ -34,7 +34,7 @@
     <div class="card-action center-align" ng-if="cart_item && api_basket.price_list[item.plu] && !api_basket.price_list[item.plu].error">
         <p><em>Select a Quantity</em></p>
         <div class="input-field">
-            <select ng-init="init_select()" ng-model="api_basket.basket[item.plu].quantity" ng-change="api_basket.set_quantity(item.plu); api_basket.update_basket_price()">
+            <select ng-model="api_basket.basket[item.plu].quantity" ng-change="api_basket.set_quantity(item.plu); api_basket.update_basket_price()">
               <option ng-repeat="n in range(1,50)" ng-value="n">{{n}} Item(s)</option>
             </select>
           </div>

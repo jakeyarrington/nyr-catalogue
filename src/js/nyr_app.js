@@ -86,6 +86,7 @@
                     closeOnClick: false,
                     onOpenStart: function() {
                         $('.sidenav')[0].scrollTop = 0;
+                        $scope.init_select();
                     }
                 });
                 
