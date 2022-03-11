@@ -1,6 +1,7 @@
 appController.factory('consultant', function() {
 
-    var ct_slug = is_local ? '/shropshireorganic' : location.pathname.toLowerCase();
+    var ct_slug = is_local ? '/joannbrewer' : location.pathname.toLowerCase();
+    var ct_region = ($.inArray(location.host.substring(0,2), ['uk','us']) > -1 ? location.host.substring(0,2) : 'us')
     var ct_config = false;
 
     if(ct_slug.indexOf('#') > -1) {
@@ -40,7 +41,7 @@ appController.factory('consultant', function() {
         ct_slug = 'corp';
     }
 
-    var region = params.get('region') ? params.get('region') : ($.inArray(location.host.substring(0,2), ['uk','us']) > -1 ? location.host.substring(0,2) : 'uk');
+    var region = params.get('region') ? params.get('region') : ct_region;
 
     var http = new Promise((resolve, reject) => {
         $.ajax({

@@ -117,6 +117,9 @@
 		    	 						$('div#checkout-post form input[name="bid"]').val(e.parameters.bid);
 		    	 						$('div#checkout-post form input[name="cky"]').val(e.parameters.cky);
 
+		    	 						// Empty basket on checkout
+		    	 						localStorage.removeItem('basket_content');
+
 		    	 						$('div#checkout-post form').submit();
 
 		    	 					} else {
@@ -361,9 +364,17 @@
 		            if(e.ok) {
 		                that.session = e.api;
 		                localStorage.setItem('basket_session', JSON.stringify(e.api));
-		                if($callback) {
+		                if($callback && e.api !== null) {
 		                	that.init($callback);
 		                }
+
+		                if(e.api == null) {
+		                	 M.toast({
+			                    html: ('An error occured setting up basket!'),
+			                        displayLength: 3000,
+			                });
+		                }
+
 		            } else {
 		                M.toast({
 		                    html: ('An error occured setting up basket!'),

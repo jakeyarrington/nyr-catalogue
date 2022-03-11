@@ -323,6 +323,7 @@
                 });
 
                 $timeout(function() {
+                    localStorage.removeItem('basket_session');
                     $scope.api_basket.init();
                     $scope.favourite.get_all();
                     $scope.$apply();

@@ -10,6 +10,10 @@ var notify = require("gulp-notify");
 var connect = require('gulp-connect');
 var inline = require('gulp-inline');
 var autoprefixer = require('gulp-autoprefixer');
+var server_opts = {
+  port: 8081,
+  livereload: true
+};
 
 //js files
 gulp.task('scripts', function() {
@@ -57,14 +61,14 @@ gulp.task('clean', function() {
 
 // web server
 gulp.task('webserver', function() {
-  connect.server();
+  connect.server(server_opts);
 });
 
 // Default task - clean the build dir
 // Then rebuild the js and css files
 
 gulp.task('watch', function(){
-    connect.server();
+    connect.server(server_opts);
   gulp.watch(['src/scss/*.scss'], gulp.series('css')); // Watch and run sass on changes
   gulp.watch('src/js/*.js', gulp.series('scripts')); // Watch and run javascripts on changes
   gulp.src('assets/*')
