@@ -1,7 +1,7 @@
 appController.factory('consultant', function() {
 
-    var ct_slug = is_local ? '/joannbrewer' : location.pathname.toLowerCase();
-    var ct_region = ($.inArray(location.host.substring(0,2), ['uk','us']) > -1 ? location.host.substring(0,2) : 'us')
+    var ct_slug = is_local ? '/shropshireorganic' : location.pathname.toLowerCase();
+    var ct_region = ($.inArray(location.host.substring(0,2), ['uk','us']) > -1 ? location.host.substring(0,2) : 'uk')
     var ct_config = false;
 
     if(ct_slug.indexOf('#') > -1) {
