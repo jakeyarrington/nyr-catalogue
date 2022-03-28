@@ -37,7 +37,9 @@
         $scope.my_shop_is_valid = false;
         $scope.validate_my_shop_url = function() {
 
-            console.log('validating', $scope.my_shop_url);
+            if($scope.my_shop_url.length < 1) {
+                $scope.my_shop_url = $('input[ng-model="my_shop_url"]').val();
+            }
 
             $('#setup_smart_catalogue a.continue').attr('disabled', 'disabled');
 
