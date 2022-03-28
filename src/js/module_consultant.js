@@ -17,7 +17,15 @@
                 return prefix_region + ($add_dot ? '.' : '');
             }
 
-            var region = (params.get('region') ? (params.get('region').toLowerCase()) : ($scope.consultant !== undefined ? $scope.consultant.data.region : $scope.consultant_query.region));
+            if(typeof params.get == 'function') {
+                if(params.get('region') !== null) {
+                    var region = (params.get('region').toLowerCase());
+                }
+            }
+
+            if(typeof region == 'undefined') {
+                var region = ($scope.consultant !== undefined ? $scope.consultant.data.region : $scope.consultant_query.region);
+            }
 
             return region ? ($add_dot ? (region + '.') : region) : '';
         };
