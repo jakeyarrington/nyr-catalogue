@@ -24,6 +24,7 @@
             }
 
             if(typeof region == 'undefined') {
+                console.log($scope.consultant);
                 var region = ($scope.consultant !== undefined ? $scope.consultant.data.region : $scope.consultant_query.region);
             }
 
