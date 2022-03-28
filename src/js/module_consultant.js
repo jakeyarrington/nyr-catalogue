@@ -37,6 +37,8 @@
         $scope.my_shop_is_valid = false;
         $scope.validate_my_shop_url = function() {
 
+            console.log('validating', $scope.my_shop_url);
+
             $('#setup_smart_catalogue a.continue').attr('disabled', 'disabled');
 
             var url = $.trim($scope.my_shop_url.toLowerCase());
