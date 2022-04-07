@@ -16,7 +16,7 @@
     });
 
 
-    appController = app.controller('app', ['$scope', 'catalogues', 'consultant', '$timeout', function($scope, catalogues, consultant, $timeout) {
+    appController = app.controller('app', ['$scope', 'catalogues', 'consultant', '$timeout', '$interval', function($scope, catalogues, consultant, $timeout, $interval) {
 
         $scope.page_index = 0;
         window.scope = $scope;
@@ -76,7 +76,7 @@
             if(!$scope.loaded_materialize) {
 
                 M.AutoInit();
-                
+
                 basket_sidebar = document.getElementById('basket_sidebar');
                 favourites_sidebar = document.getElementById('favourites_sidebar');
                 options_modal = document.getElementById('options');
@@ -165,11 +165,15 @@
             $scope.consultant = consultant.get();
 
             if(consultant.data.slug == 'corp') {
-                $timeout(() => {
-                    $scope.seen_exit_intent = true;
-                    M.Modal.getInstance($('#root_setup')).open();
-                    $scope.$apply();
-                });
+
+                var launch_setup_modal = $interval(() => {
+                    if($scope.loaded_materialize) {
+                        $scope.seen_exit_intent = true;
+                        M.Modal.getInstance($('#root_setup')).open();
+                        $interval.cancel(launch_setup_modal);
+                    }
+
+                }, 400);
             }   
                 
             /**

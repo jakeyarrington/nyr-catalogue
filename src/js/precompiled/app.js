@@ -1,4 +1,4 @@
-/* Compiled 2022-04-07T13:02:31+00:00 */
+/* Compiled 2022-04-07T13:08:21+00:00 */
 
 
  /* > /Users/groot/Documents/GitHub/nyr-catalogue/src/js/angular.js */
@@ -403,7 +403,7 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
     });
 
 
-    appController = app.controller('app', ['$scope', 'catalogues', 'consultant', '$timeout', function($scope, catalogues, consultant, $timeout) {
+    appController = app.controller('app', ['$scope', 'catalogues', 'consultant', '$timeout', '$interval', function($scope, catalogues, consultant, $timeout, $interval) {
 
         $scope.page_index = 0;
         window.scope = $scope;
@@ -1477,7 +1477,7 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
             if(!$scope.loaded_materialize) {
 
                 M.AutoInit();
-                
+
                 basket_sidebar = document.getElementById('basket_sidebar');
                 favourites_sidebar = document.getElementById('favourites_sidebar');
                 options_modal = document.getElementById('options');
@@ -1566,11 +1566,15 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
             $scope.consultant = consultant.get();
 
             if(consultant.data.slug == 'corp') {
-                $timeout(() => {
-                    $scope.seen_exit_intent = true;
-                    M.Modal.getInstance($('#root_setup')).open();
-                    $scope.$apply();
-                });
+
+                var launch_setup_modal = $interval(() => {
+                    if($scope.loaded_materialize) {
+                        $scope.seen_exit_intent = true;
+                        M.Modal.getInstance($('#root_setup')).open();
+                        $interval.cancel(launch_setup_modal);
+                    }
+
+                }, 400);
             }   
                 
             /**
