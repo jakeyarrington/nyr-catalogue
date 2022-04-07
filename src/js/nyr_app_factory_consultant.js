@@ -1,6 +1,6 @@
 appController.factory('consultant', function() {
 
-    var ct_slug = is_local ? '/shropshireorganic' : location.pathname.toLowerCase();
+    var ct_slug = is_local ? '/corp' : location.pathname.toLowerCase();
     var ct_region = ($.inArray(location.host.substring(0,2), ['uk','us']) > -1 ? location.host.substring(0,2) : 'uk')
     var ct_config = false;
 

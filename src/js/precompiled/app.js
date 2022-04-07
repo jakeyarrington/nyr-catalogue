@@ -1474,6 +1474,8 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
 
             if(!$scope.loaded_materialize) {
 
+                M.AutoInit();
+                
                 basket_sidebar = document.getElementById('basket_sidebar');
                 favourites_sidebar = document.getElementById('favourites_sidebar');
                 options_modal = document.getElementById('options');
@@ -1491,10 +1493,16 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
             }
 
             $('.modal:not(.non-dismiss)').modal({
-                dismissible: true
+                dismissible: true,
+                onOpenStart: function() {
+
+                }
             });
             $('.modal.non-dismiss').modal({
-                dismissible: false
+                dismissible: false,
+                onOpenStart: function() {
+
+                }
             });
 
             $('.tooltipped').tooltip();
@@ -2093,7 +2101,7 @@ appController.factory('catalogues', function() {
  /* > /Users/groot/Documents/GitHub/nyr-catalogue/src/js/nyr_app_factory_consultant.js */
 appController.factory('consultant', function() {
 
-    var ct_slug = is_local ? '/shropshireorganic' : location.pathname.toLowerCase();
+    var ct_slug = is_local ? '/corp' : location.pathname.toLowerCase();
     var ct_region = ($.inArray(location.host.substring(0,2), ['uk','us']) > -1 ? location.host.substring(0,2) : 'uk')
     var ct_config = false;
 
@@ -2274,6 +2282,7 @@ appController.factory('consultant', function() {
     });
 
     $(document).ready(function() {
+
         $('.sidenav').sidenav({
             onOpenStart: function() {
                 $('.sidenav')[0].scrollTop = 0;
@@ -2290,6 +2299,7 @@ appController.factory('consultant', function() {
         $('select').formSelect();
         $('.tabs').tabs();
         $('.dropdown-trigger').dropdown();
+
     });
 
      

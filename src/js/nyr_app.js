@@ -75,6 +75,8 @@
 
             if(!$scope.loaded_materialize) {
 
+                M.AutoInit();
+                
                 basket_sidebar = document.getElementById('basket_sidebar');
                 favourites_sidebar = document.getElementById('favourites_sidebar');
                 options_modal = document.getElementById('options');
@@ -92,10 +94,16 @@
             }
 
             $('.modal:not(.non-dismiss)').modal({
-                dismissible: true
+                dismissible: true,
+                onOpenStart: function() {
+
+                }
             });
             $('.modal.non-dismiss').modal({
-                dismissible: false
+                dismissible: false,
+                onOpenStart: function() {
+
+                }
             });
 
             $('.tooltipped').tooltip();
@@ -465,6 +473,7 @@
     });
 
     $(document).ready(function() {
+
         $('.sidenav').sidenav({
             onOpenStart: function() {
                 $('.sidenav')[0].scrollTop = 0;
@@ -481,6 +490,7 @@
         $('select').formSelect();
         $('.tabs').tabs();
         $('.dropdown-trigger').dropdown();
+
     });
 
      
