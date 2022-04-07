@@ -1,4 +1,4 @@
-/* Compiled 2022-04-07T13:09:41+00:00 */
+/* Compiled 2022-04-07T13:26:06+00:00 */
 
 
  /* > /Users/groot/Documents/GitHub/nyr-catalogue/src/js/angular.js */

@@ -4,94 +4,111 @@
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <link rel="stylesheet" href="dist/css/app.min.css">
+    <link rel="stylesheet" href="/dist/css/app.min.css?version=VERNUM">
+    <!-- Import driver.css -->
+    <link rel="stylesheet" href="/dist/js/driver/driver.min.css">
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Neal's Yard Catalogue</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+    <link rel="mask-icon" href="/assets/favicon/safari-pinned-tab.svg" color="#20376c">
+    <link rel="shortcut icon" href="/assets/favicon/favicon.ico">
+    <link rel="manifest" id="manifest">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="/assets/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#20376c">
+    <!-- Facebook -->
+    <!-- Facebook OG URL -->
+    <meta property="og:title" content="NYR Organic Smart Catalogue" />
+    <meta property="og:type" content="article" />
+    <meta property="og:description" content="Neal's Yard Organic Smart Catalogue" />
+    <meta property="og:image" content="assets/favicon/og-fb.png" />
+
+    <title>NYR Smart Catalogue</title>
+    <script>
+      if(location.href[location.href.length-1] == '/' && location.pathname !== '/') {
+        location.href = location.href.substring(0, location.href.length-1);
+      }
+      if ('serviceWorker' in navigator) {
+        // Register a service worker hosted at the root of the
+        // site using the default scope.
+        navigator.serviceWorker.register('/pwa-sw.js').then(function(registration) {
+          console.log('Service worker registration succeeded:', registration);
+        }, /*catch*/ function(error) {
+          console.log('Service worker registration failed:', error);
+        });
+      } else {
+        console.log('Service workers are not supported.');
+      }
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2G2VHHXVY0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-2G2VHHXVY0');
+    </script>
+    <script>
+      const Module = {
+          modules: [],
+          add: function($callable, $priority) {
+              $priority = $priority || 20;
+
+              if(typeof this.modules[$priority] == 'undefined') {
+                this.modules[$priority] = [];
+              }
+
+              this.modules[$priority].push($callable);
+          }
+      };
+    </script>
   </head>
 
   <body ng-app="nyr" ng-controller="app">
 
-    <div id="options" class="modal">
-      <div class="modal-content center-align">
-        <h4>Thanks for Reading!</h4>
-        <p>Before you go, here are some additional options to choose from.</p>
-        <p>
-          <div class="collection">
-            <a ng-show="favourite.$count" href="#" ng-click="mail_favourites()" class="collection-item">Email my Favourites to <span ng-bind="consultant.data.name.first_name"></span></a>
-            <a href="#!" class="collection-item">Install <span ng-bind="consultant.data.name.first_name"></span>'s App</a>
-             <a ng-href="{{'https://uk.nyrorganic.com/shop/' + consultant.data.slug}}" class="collection-item">View <span ng-bind="consultant.data.name.first_name"></span>'s NYR Organic Shop</a>
-            <a ng-href="{{pdf_url}}" class="collection-item">Download this Smart Catalogue</a>
-            <a ng-href="{{'https://uk.nyrorganic.com/shop/'+consultant.data.slug+'/area/become-a-consultant/'}}" class="collection-item">Become a Consultant</a>
-            <a ng-href="{{'https://uk.nyrorganic.com/shop/'+consultant.data.slug+'/area/have-a-party/'}}" class="collection-item">Host an Event</a>
-          </div>
-      </div>
-      <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
-      </div>
-    </div>
-
-    <div id="share" class="modal">
-      <div class="modal-content center-align">
-        <h4>Share <span ng-bind="consultant.data.name.full ? consultant.data.name.full + '\'s' : 'this'"></span> Smart Catalogue</h4>
-        <p>Select a social media platform below to share to.</p>
-        <p>
-          <a target="_blank" ng-href="{{'https://www.facebook.com/sharer/sharer.php?u=https://vibrant-edison-0f2684.netlify.app/' + consultant.data.slug}}" class="waves-effect waves-light btn">Facebook</a>
-          <a target="_blank" ng-href="{{'https://twitter.com/intent/tweet?url=https://vibrant-edison-0f2684.netlify.app/'+consultant.data.slug+'&text=Check%20out%20'+consultant.data.name.full+'\'s%20NYR%20smart%20catalogue'}}" class="waves-effect waves-light btn">Twitter</a>
-          <a target="_blank" ng-href="{{'https://pinterest.com/pin/create/button/?url=https://vibrant-edison-0f2684.netlify.app/'+consultant.data.slug+'&media=&description=Check%20out%20'+consultant.data.name.full+'\'s%20NYR%20smart%20catalogue'}}" class="waves-effect waves-light btn">Pinterest</a>
-          <a target="_blank" ng-href="{{'https://www.linkedin.com/shareArticle?mini=true&url=https://vibrant-edison-0f2684.netlify.app/'+consultant.data.slug}}" class="waves-effect waves-light btn">LinkedIn</a>
-          <a target="_blank" ng-href="{{'mailto:info@example.com?&subject=&cc=&bcc=&body=https://vibrant-edison-0f2684.netlify.app/'+consultant.data.slug+'%0ACheck%20out%'+consultant.data.name.full+'\'s%20NYR%20smart%20catalogue'}}" class="waves-effect waves-light btn">Email</a>
-        </p>
-      </div>
-      <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
-      </div>
-    </div>
-
-    <div id="contact" class="modal">
-      <div class="modal-content center-align">
-        <h4>Contact <span ng-bind="consultant.data.name.full"></span></h4>
-        <p>Here are the ways you can get in touch with <span ng-bind="consultant.data.name.first_name"></span> directly.</p>
-        <p>
-          <a target="_blank" ng-show="consultant.data.email" ng-href="{{'mailto:' + consultant.data.email}}" class="waves-effect waves-light btn">Email</a>
-          <a target="_blank" ng-show="consultant.data.phone" ng-href="{{'tel:' + consultant.data.phone}}" class="waves-effect waves-light btn">Telephone</a>
-          <a target="_blank" ng-show="consultant.data.social.facebook" ng-href="{{consultant.data.social.facebook}}" class="waves-effect waves-light btn">Facebook</a>
-          <a target="_blank" ng-show="consultant.data.social.instagram" ng-href="{{consultant.data.social.instagram}}" class="waves-effect waves-light btn">Instagram</a>
-          <a target="_blank" ng-show="consultant.data.social.linkedin" ng-href="{{consultant.data.social.linkedin}}" class="waves-effect waves-light btn">LinkedIn</a>
-          <a target="_blank" ng-show="consultant.data.social.pinterest" ng-href="{{consultant.data.social.pinterest}}" class="waves-effect waves-light btn">Pinterest</a>
-          <a target="_blank" ng-show="consultant.data.social.twitter" ng-href="{{consultant.data.social.twitter}}" class="waves-effect waves-light btn">Twitter</a>
-        </p>
-      </div>
-      <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
-      </div>
-    </div>
+    <!-- HTMLLOADER Do NOT Delete  -->
 
     <div class="progress loading-page">
         <div class="indeterminate"></div>
     </div>
 
-      <nav>
+      <nav class="main-nav">
         <div class="nav-wrapper">
         <ul id="nav-mobile">
           <li>
-            <a href="#" data-target="basket_sidebar" class="sidenav-trigger tooltipped" data-position="right" data-tooltip="Available Items">
-              <i class="material-icons">shopping_basket</i>
+            <a ng-href="{{'https://'+get_consultant_region()+'.nyrorganic.com/shop/' + consultant.data.slug}}" target="_blank" data-position="right" class="tooltipped" data-tooltip="{{'Go to '+ (consultant.data.name.first_name ? consultant.data.name.first_name + '\'s ' : '') +'NYR Organic Shop'}}">
+              <img src="/assets/img/Logo.svg" alt="NYR Organic">
+            </a>
+          </li>
+          <li>
+            <a href="#" data-target="basket_sidebar" class="sidenav-trigger tooltipped" data-position="right" data-tooltip="View Items">
+              <span ng-if="active_items.length" class="tooltip" ng-bind="active_items.length"></span>
+              <img src="/assets/img/Book.png" alt="View Items">
             </a>
           </li>
           <li>
             <a href="#share" class="modal-trigger tooltipped" data-position="right" data-tooltip="Share Catalogue">
-              <span class="material-icons">share</span>
+              <img src="/assets/img/Share.png" alt="Share Catalogue">
             </a>
           </li>
           <li>
             <a href="#" data-target="favourites_sidebar" class="sidenav-trigger tooltipped" data-position="right" data-tooltip="Your Favourites">
-              <span class="material-icons">star</span>
+              <span ng-if="favourite.$count" class="tooltip" ng-bind="favourite.$count"></span>
+              <img src="/assets/img/Favourites.png" alt="Your Favourites">
             </a>
           </li>
           <li>
             <a href="#contact" class="modal-trigger tooltipped" data-position="right" data-tooltip="Contact Consultant">
-              <span class="material-icons">contact_phone</span>
+              <img src="/assets/img/Contact.png" alt="Contact Consultant">
+            </a>
+          </li>
+          <li ng-if="consultant_query.region !== 'us'">
+            <a href data-target="cart_sidebar" class="sidenav-trigger tooltipped" data-position="right" data-tooltip="Basket ({{api_basket.basket_price | currency:api_basket.currency_format}})">
+              <span ng-if="api_basket.$count" class="tooltip" ng-bind="api_basket.$count"></span>
+              <img src="/assets/img/Cart.png" alt="Basket">
             </a>
           </li>
         </ul>
@@ -100,37 +117,67 @@
 
       <ul id="basket_sidebar" class="sidenav">
         <li>
-          <header ng-hide="!catalogue.pages.data.order[catalogue.active_page]">
-            <span ng-bind="catalogue.pages.data.order[catalogue.active_page].length"></span> Item(s) on Page <span ng-bind="catalogue.active_page"></span>
+          <header ng-hide="!active_items">
+            <span ng-bind="active_items.length"></span> Item(s) on Page <span ng-bind="catalogue.active_page"></span> 
+            <div ng-show="active_items.length">
+              <a class='dropdown-trigger btn btn-small' href='#' data-target='filters'>Sort Items</a>
+              <!-- Dropdown Structure -->
+              <ul id='filters' class='dropdown-content'>
+                <li><a ng-click="sort_items('az')" href="#!">A-Z</a></li>
+                <li><a ng-click="sort_items('za')" href="#!">Z-A</a></li>
+              </ul>
+            </div>
           </header>
-          <p class="center-align" ng-show="!catalogue.pages.data.order[catalogue.active_page]">There are no items to display.</p>
+          <p class="center-align" ng-show="!active_items">There are no items to display.</p>
         </li>
         <li>
-           <div class="row" ng-id="{{catalogue.pages.data.items[item].id}}" ng-repeat="(key, item) in catalogue.pages.data.order[catalogue.active_page]">
+           <div class="row" ng-id="{{item.id}}" ng-repeat="(key, item) in active_items track by $index">
             <div class="col s12">
-              <div class="card">
-                <div class="card-image">
-                  <img style="width:50%;margin:0 auto;" ng-src="{{catalogue.pages.data.items[item].item.cover}}">
-                  
+              <div ng-include="'assets/partials/product_card.html'"></div>
+            </div>
+        </div>
+        </li>
+      </ul>
+
+      <ul id="cart_sidebar" class="sidenav">
+        <li>
+          <header>
+            (<span ng-bind="api_basket.$count"></span>) in Basket
+          </header>
+        </li>
+        <li>
+            <div class="row">
+            <div class="col s12">
+              <div ng-show="api_basket.$count" class="card">
+                <div class="card-content center-align">
+                  <span class="card-title" style="margin-bottom:0"><strong><span>{{api_basket.basket_price | currency:api_basket.currency_format}} total</span></strong></span>
                 </div>
-                <div class="card-content">
-                  <h6><strong><span ng-bind="catalogue.pages.data.items[item].item.name">Card Title</span></strong></h6>
-                  <p ng-bind="catalogue.pages.data.items[item].price"></p>
-                  <p class="trim-info" ng-bind-html="catalogue.pages.data.items[item].item.summary | safeHtml"></p>
-                </div>
-                <div class="card-action center-align" ng-if="catalogue.pages.data.items[item].item.categories">
-                    <p><em>View similar products under</em></p>
-                    <div class="chip" ng-repeat="cat in catalogue.pages.data.items[item].item.categories" ng-bind="cat.name"></div>
-                  </div>
-                <div class="card-action" ng-if="catalogue.pages.data.items[item].type == 'product'">
-                  <a ng-href="{{catalogue.pages.data.items[item].item.link}}" target="_blank" ng-if="catalogue.pages.data.items[item].item.link">Purchase</a>
-                  <a ng-bind="favourite.$data[catalogue.pages.data.items[item].id] ? 'Unfavourite' : 'Favourite'" ng-if="catalogue.pages.data.items[item].item.favourite" ng-click="favourite.set(catalogue.pages.data.items[item].id, (favourite.$data[catalogue.pages.data.items[item].id] ? 0 : 1))" href="#">Favourite</a>
-                </div>
-                <div class="card-action" ng-if="catalogue.pages.data.items[item].type == 'video'">
-                  <a ng-href="{{catalogue.pages.data.items[item].item.link}}" target="_blank" ng-if="catalogue.pages.data.items[item].item.link">Visit</a>
-                  <a class="modal-trigger" href="#video_modal" ng-if="catalogue.pages.data.items[item].item.video" ng-click="open_video_modal(catalogue.pages.data.items[item])">Watch</a>
+                <div class="card-action">
+                  <a href="#" ng-click="api_basket.checkout()" style="width:100%">
+                    <span ng-if="!api_basket.checking_out">Go to Checkout</span>
+                    <div ng-if="api_basket.checking_out" class="preloader-wrapper small active">
+                      <div class="spinner-layer spinner-green-only">
+                        <div class="circle-clipper left">
+                          <div class="circle"></div>
+                        </div><div class="gap-patch">
+                          <div class="circle"></div>
+                        </div><div class="circle-clipper right">
+                          <div class="circle"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
                 </div>
               </div>
+            </div>
+          </div>
+          <div class="col s12">
+            <header ng-show="api_basket.$count">Items in Basket</header>
+            <p class="center-align" ng-show="!api_basket.$count">There are no items to display.</p>
+          </div>
+          <div class="row" ng-id="{{item.id}}" ng-repeat="(key, item) in api_basket.basket track by $index">
+            <div class="col s12">
+              <div ng-init="cart_item = true" ng-include="'assets/partials/product_card.html'"></div>
             </div>
         </div>
         </li>
@@ -139,7 +186,7 @@
       <ul id="favourites_sidebar" class="sidenav">
         <li>
           <header>
-            (<span ng-bind="favourite.$count"></span>) Favourites</span>
+            (<span ng-bind="favourite.$count"></span>) Favourites
           </header>
           <p class="center-align" ng-show="!favourite.$count">There are no items to display.</p>
         </li>
@@ -149,31 +196,17 @@
                <div ng-show="favourite.$count" class="card">
                 <div class="card-content center-align">
                   <span class="card-title"><strong>Send Your Favourites</strong></span>
-                  <p>You can email this list of your favourite products to <span ng-bind="consultant.data.name.first_name"></span> who can process them as an order.</p>
+                  <p>You can email your favourites list to your Consultant so they can keep a record for you for future purchases, gifts from others or as Host rewards.</p>
                 </div>
                 <div class="card-action">
                   <a href="#" ng-click="mail_favourites()" style="width:100%">Send</a>
                 </div>
               </div>
-              <div class="card" ng-repeat="(item, state) in favourite.$data" ng-if="state">
-                <div class="card-image">
-                  <img style="width:50%;margin:0 auto;" ng-src="{{catalogue.pages.data.items[item].item.cover}}">
-                  
-                </div>
-                <div class="card-content">
-                  <h6><strong><span ng-bind="catalogue.pages.data.items[item].item.name">Card Title</span></strong></h6>
-                  <p ng-bind="catalogue.pages.data.items[item].price"></p>
-                  <p class="trim-info" ng-bind-html="catalogue.pages.data.items[item].item.summary | safeHtml"></p>
-                </div>
-                <div class="card-action" ng-if="catalogue.pages.data.items[item].type == 'product'">
-                  <a ng-href="{{catalogue.pages.data.items[item].item.link}}" target="_blank" ng-if="catalogue.pages.data.items[item].item.link">Purchase</a>
-                  <a ng-bind="favourite.$data[catalogue.pages.data.items[item].id] ? 'Unfavourite' : 'Favourite'" ng-if="catalogue.pages.data.items[item].item.favourite" ng-click="favourite.set(catalogue.pages.data.items[item].id, (favourite.$data[catalogue.pages.data.items[item].id] ? 0 : 1))" href="#">Favourite</a>
-                </div>
-                <div class="card-action" ng-if="catalogue.pages.data.items[item].type == 'video'">
-                  <a ng-href="{{catalogue.pages.data.items[item].item.link}}" target="_blank" ng-if="catalogue.pages.data.items[item].item.link">Visit</a>
-                  <a class="modal-trigger" href="#video_modal" ng-if="catalogue.pages.data.items[item].item.video" ng-click="open_video_modal(catalogue.pages.data.items[item])">Watch</a>
-                </div>
+
+              <div ng-repeat="(id, state) in favourite.$data" ng-if="state && catalogue.pages.data.items[id]">
+                <div ng-init="item = catalogue.pages.data.items[id]" ng-include="'assets/partials/product_card.html'"></div>
               </div>
+
             </div>
         </div>
         </li>
@@ -186,7 +219,7 @@
             <div class="modal-content">
               <!-- <h4 ng-bind="catalogue.modal.name">Modal Header</h4> -->
               <!-- <p ng-bind="catalogue.modal.description">A bunch of text</p> -->
-              <div ng-bind-html="catalogue.modal.video | safeHtml"></div>
+              <div ng-bind-html="catalogue.modal.item.video | safeHtml"></div>
             </div>
             <div class="modal-footer">
               <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
@@ -194,16 +227,23 @@
           </div>
       </div>
       
+      <div id="checkout-post" style="position: fixed; bottom: 0; left: 0; width: 1px; height: 1px; overflow: hidden; pointer-events: none;">
+        <form method="post">
+          <input type="hidden" name="bid">
+          <input type="hidden" name="cky">
+        </form>
+      </div>
           
 
     <!--JavaScript at end of body for optimized loading-->
 
-    <script src="dist/js/app.min.js"></script>
+    <script src="/dist/js/app.min.js?version=VERNUM"></script>
     <script src="https://code.angularjs.org/1.2.20/angular-sanitize.min.js"></script>
-    <script src="dist/js/3d-flip-book/js/libs/html2canvas.min.js"></script>
-    <script src="dist/js/3d-flip-book/js/libs/three.min.js"></script>
-    <script src="dist/js/3d-flip-book/js/libs/pdf.min.js"></script>
-    <script src="dist/js/3d-flip-book/js/dist/3dflipbook.js"></script>
+    <script src="/dist/js/driver/driver.min.js"></script>
+    <script src="/dist/js/3d-flip-book/js/libs/html2canvas.min.js"></script>
+    <script src="/dist/js/3d-flip-book/js/libs/three.min.js"></script>
+    <script src="/dist/js/3d-flip-book/js/libs/pdf.min.js"></script>
+    <script src="/dist/js/3d-flip-book/js/dist/3dflipbook.js"></script>
     
 
   </body>
