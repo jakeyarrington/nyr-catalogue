@@ -75,7 +75,7 @@
 
             if(!$scope.loaded_materialize) {
 
-                M.AutoInit();
+                // M.AutoInit();
 
                 basket_sidebar = document.getElementById('basket_sidebar');
                 favourites_sidebar = document.getElementById('favourites_sidebar');

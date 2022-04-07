@@ -1,4 +1,4 @@
-/* Compiled 2022-04-07T13:08:21+00:00 */
+/* Compiled 2022-04-07T13:09:41+00:00 */
 
 
  /* > /Users/groot/Documents/GitHub/nyr-catalogue/src/js/angular.js */
@@ -1476,7 +1476,7 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
 
             if(!$scope.loaded_materialize) {
 
-                M.AutoInit();
+                // M.AutoInit();
 
                 basket_sidebar = document.getElementById('basket_sidebar');
                 favourites_sidebar = document.getElementById('favourites_sidebar');
