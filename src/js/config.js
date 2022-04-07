@@ -1,3 +1,7 @@
+/*
+ * NYR@ 4
+ */
+
 const is_ios_safari = (() => {
 var userAgent = window.navigator.userAgent.toLowerCase();
 return /iphone|ipad|ipod|macintosh/.test(userAgent) && navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&

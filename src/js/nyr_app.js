@@ -1,3 +1,5 @@
+/* CONFIGLOADER Do NOT Delete */
+
 (function($) {
 
     var pages = [];
@@ -31,15 +33,10 @@
                  code pertaining the scope which is assigned when
                  the controller is executed.
          */
-        $.each(Module.modules, function(index, list) {
-            if(typeof list !== 'undefined') {
-                for (var i = list.length - 1; i >= 0; i--) {
-                    if(typeof list[i] == 'function') {
-                        list[i]($scope);
-                    }
-                }
-            }
-        });
+
+         /* MODULELOADER Do NOT Delete */
+
+        
 
         $scope.install_app = function() {
             install_app();
@@ -459,12 +456,33 @@
 
     }]);
 
+    /* FACTORYLOADER Do NOT Delete */
+
     app.filter('safeHtml', function($sce) {
         return function(val) {
             return $sce.trustAsHtml(val);
         };
     });
 
+    $(document).ready(function() {
+        $('.sidenav').sidenav({
+            onOpenStart: function() {
+                $('.sidenav')[0].scrollTop = 0;
+            }
+        });
+        $('.tooltipped').tooltip();
+        $('.modal:not(.non-dismiss)').modal({
+            dismissible: true
+        });
+        $('.modal.non-dismiss').modal({
+            dismissible: false
+        });
+        $('.chips').chips();
+        $('select').formSelect();
+        $('.tabs').tabs();
+        $('.dropdown-trigger').dropdown();
+    });
 
+     
 
 })(jQuery);

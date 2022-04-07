@@ -10,22 +10,35 @@ var notify = require("gulp-notify");
 var connect = require('gulp-connect');
 var inline = require('gulp-inline');
 var autoprefixer = require('gulp-autoprefixer');
+var exec = require('child_process').exec
 var server_opts = {
   port: 8081,
   livereload: true
 };
 
 //js files
-gulp.task('scripts', function() {
-  var js_src = ['src/js/*.js', 'node_modules/materialize-css/dist/js/materialize.js']; 
-  var js_dest = 'dist/js';
-  // pipe the js through concat, console log stripping, uglification and then store
-  return gulp.src(js_src)
-      .pipe(concat('app.min.js')) // concat all files in the src
-      // .pipe(striplog())
-      // .pipe(uglify())
-      .pipe(gulp.dest(js_dest)) // save the file
-      .on('error', gutil.log); 
+gulp.task('scripts', async function() {
+
+  exec('php src/js/loader.php', function(err, phpResponse, stderr) {
+    if(err) {
+      console.log(err);
+    } else {
+      console.log(phpResponse);
+      var js_src = ['src/js/precompiled/*.js', 'node_modules/materialize-css/dist/js/materialize.js']; 
+      var js_dest = 'dist/js';
+      // pipe the js through concat, console log stripping, uglification and then store
+      return gulp.src(js_src)
+          .pipe(concat('app.min.js')) // concat all files in the src
+          // .pipe(striplog())
+          // .pipe(uglify())
+          .pipe(gulp.dest(js_dest)) // save the file
+          .on('error', gutil.log); 
+    }
+    
+  });
+
+  //var js_src = ['src/js/*.js', 'node_modules/materialize-css/dist/js/materialize.js'];
+  
 });
 
 gulp.task('inline', function() {
