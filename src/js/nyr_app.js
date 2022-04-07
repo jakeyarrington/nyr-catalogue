@@ -354,9 +354,15 @@
 
                 $('body').on('mousemove', function(e) {
                     if(e.clientY <= 15 && (e.clientX < (window.innerWidth/3)) && !$scope.seen_exit_intent) {
-                        console.log(options_modal);
-                        M.Modal.getInstance(options_modal).open();
-                        $scope.seen_exit_intent = true;
+                        var launch_setup_modal = $interval(() => {
+                            if($scope.loaded_materialize) {
+                                M.Modal.getInstance(options_modal).open();
+                                $scope.seen_exit_intent = true;
+                                $interval.cancel(launch_setup_modal);
+                            }
+
+                        }, 400);
+                        
                     }
                 });
 

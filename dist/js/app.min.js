@@ -1,4 +1,4 @@
-/* Compiled 2022-04-07T13:26:06+00:00 */
+/* Compiled 2022-04-07T13:32:25+00:00 */
 
 
  /* > /Users/groot/Documents/GitHub/nyr-catalogue/src/js/angular.js */
@@ -1755,9 +1755,15 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
 
                 $('body').on('mousemove', function(e) {
                     if(e.clientY <= 15 && (e.clientX < (window.innerWidth/3)) && !$scope.seen_exit_intent) {
-                        console.log(options_modal);
-                        M.Modal.getInstance(options_modal).open();
-                        $scope.seen_exit_intent = true;
+                        var launch_setup_modal = $interval(() => {
+                            if($scope.loaded_materialize) {
+                                M.Modal.getInstance(options_modal).open();
+                                $scope.seen_exit_intent = true;
+                                $interval.cancel(launch_setup_modal);
+                            }
+
+                        }, 400);
+                        
                     }
                 });
 
