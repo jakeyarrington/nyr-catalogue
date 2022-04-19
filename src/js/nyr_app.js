@@ -69,7 +69,7 @@
         ];
 
         $scope.saving_party_codes = false;
-        $scope.loaded_materialize = false;
+        $scope.loaded_materialize = true;
 
         $scope.$on('$includeContentLoaded', function(event, target){
 

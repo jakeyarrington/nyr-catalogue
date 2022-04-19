@@ -1,4 +1,4 @@
-/* Compiled 2022-04-07T13:32:25+00:00 */
+/* Compiled 2022-04-19T11:49:24+00:00 */
 
 
  /* > /Users/groot/Documents/GitHub/nyr-catalogue/src/js/angular.js */
@@ -1470,7 +1470,7 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
         ];
 
         $scope.saving_party_codes = false;
-        $scope.loaded_materialize = false;
+        $scope.loaded_materialize = true;
 
         $scope.$on('$includeContentLoaded', function(event, target){
 
