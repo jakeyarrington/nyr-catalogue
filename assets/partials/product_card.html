@@ -69,10 +69,6 @@
             <img ng-show="favourite.$data[item.id]" src="/assets/img/Heart@fill.png" alt="Unfavourite">
             <img ng-show="!favourite.$data[item.id]" src="/assets/img/Heart@theme.png" alt="Favourite">
         </a>
-        <a ng-if="item.item.favourite" ng-click="favourite.set(item.id, (favourite.$data[item.id] ? 0 : 1)); open_sidebar('#basket_sidebar')">
-            <span ng-show="!favourite.$data[item.id]">Favourite</span>
-            <span ng-show="favourite.$data[item.id]">Unfavourite</span>
-        </a>
         <!-- : Favourite -->
 
     </div>
