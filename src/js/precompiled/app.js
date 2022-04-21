@@ -1,4 +1,4 @@
-/* Compiled 2022-04-21T15:17:05+00:00 */
+/* Compiled 2022-04-21T15:31:38+00:00 */
 
 
  /* > /Users/groot/Documents/GitHub/nyr-catalogue/src/js/angular.js */
@@ -1125,7 +1125,7 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
         },
         set: function($key, $value) {
             M.toast({
-                html: ('You have ' + ($value == 1 ? 'favourited' : 'unfavourited') + ' ' + catalogues.pages.data.items[$key].item.name + ' <button class="btn-flat toast-action" onclick="M.Sidenav.getInstance(favourites_sidebar).open()">View</button>').replace('%', length),
+                html: ('You have ' + ($value == 1 ? 'favourited' : 'unfavourited') + ' ' + catalogues.pages.data.items[$key].item.name + ' <button class="btn-flat toast-action" onclick="M.Sidenav.getInstance(document.getElementById(\'favourites_sidebar\')).open()">View</button>').replace('%', length),
                 displayLength: 5000,
             });
             return this.update($key, $value);
@@ -1846,7 +1846,7 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
 
                             M.Toast.dismissAll();
                             M.toast({
-                                html: ('There ' + (length == 1 ? 'is' : 'are') + ' % item' + (length == 1 ? '' : 's') + ' to view <button class="btn-flat toast-action" onclick="M.Sidenav.getInstance(basket_sidebar).open()">View</button>').replace('%', length),
+                                html: ('There ' + (length == 1 ? 'is' : 'are') + ' % item' + (length == 1 ? '' : 's') + ' to view <button class="btn-flat toast-action" onclick="M.Sidenav.getInstance(document.getElementById(\'basket_sidebar\')).open()">View</button>').replace('%', length),
                                 displayLength: 5000,
                             });
                         });

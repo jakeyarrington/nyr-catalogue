@@ -51,7 +51,7 @@
         },
         set: function($key, $value) {
             M.toast({
-                html: ('You have ' + ($value == 1 ? 'favourited' : 'unfavourited') + ' ' + catalogues.pages.data.items[$key].item.name + ' <button class="btn-flat toast-action" onclick="M.Sidenav.getInstance(favourites_sidebar).open()">View</button>').replace('%', length),
+                html: ('You have ' + ($value == 1 ? 'favourited' : 'unfavourited') + ' ' + catalogues.pages.data.items[$key].item.name + ' <button class="btn-flat toast-action" onclick="M.Sidenav.getInstance(document.getElementById(\'favourites_sidebar\')).open()">View</button>').replace('%', length),
                 displayLength: 5000,
             });
             return this.update($key, $value);

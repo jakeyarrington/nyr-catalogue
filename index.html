@@ -520,7 +520,7 @@
               <img src="/assets/img/Contact.png" alt="Contact Consultant">
             </a>
           </li>
-          <li ng-if="consultant_query.region !== 'us'">
+          <li>
             <a href data-target="cart_sidebar" class="sidenav-trigger tooltipped" data-position="right" data-tooltip="Basket ({{api_basket.basket_price | currency:api_basket.currency_format}})">
               <span ng-if="api_basket.$count" class="tooltip" ng-bind="api_basket.$count"></span>
               <img src="/assets/img/Cart.png" alt="Basket">
