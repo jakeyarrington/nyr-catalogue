@@ -228,7 +228,7 @@
 	        var that = this;
 
 	        if($scope.consultant_query.region == 'us') {
-	        	return;
+	        	//return;
 	        }
 
 	        var content = localStorage.getItem('basket_content');

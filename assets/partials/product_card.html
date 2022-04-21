@@ -15,7 +15,7 @@
         </h6>
         <!-- : Product Title -->
         <!-- Product Price -->
-        <p ng-if="item.type == 'product' && consultant_query.region !== 'us'">
+        <p ng-if="item.type == 'product'">
             <!-- Price -->
             <span ng-if="api_basket.price_list[item.plu] && !api_basket.price_list[item.plu].error">{{api_basket.price_list[item.plu].price | currency:api_basket.price_list[item.plu].currency}}</span>
             <!-- : Price -->
@@ -31,7 +31,7 @@
     </div>
 
     <!-- Cart Quantity -->
-    <div class="card-action center-align" ng-if="consultant_query.region !== 'us' && cart_item && api_basket.price_list[item.plu] && !api_basket.price_list[item.plu].error">
+    <div class="card-action center-align" ng-if="cart_item && api_basket.price_list[item.plu] && !api_basket.price_list[item.plu].error">
         <p><em>Select a Quantity</em></p>
         <div class="input-field">
             <select ng-model="api_basket.basket[item.plu].quantity" ng-change="api_basket.set_quantity(item.plu); api_basket.update_basket_price()">
@@ -52,7 +52,7 @@
     <div class="card-action product" ng-if="item.type == 'product'">
         
         <!-- Buy -->
-        <a href ng-if="consultant_query.region !== 'us'" ng-click="api_basket.basket[item.plu] ? api_basket.remove_from_basket(item.plu) : api_basket.add_to_basket(item.plu)" ng-disabled="!api_basket.price_list[item.plu] || api_basket.price_list[item.plu] && api_basket.price_list[item.plu].error" ng-class="!api_basket.price_list[item.plu] || api_basket.price_list[item.plu] && api_basket.price_list[item.plu].error ? 'uk-disabled' : ''">
+        <a href ng-click="api_basket.basket[item.plu] ? api_basket.remove_from_basket(item.plu) : api_basket.add_to_basket(item.plu)" ng-disabled="!api_basket.price_list[item.plu] || api_basket.price_list[item.plu] && api_basket.price_list[item.plu].error" ng-class="!api_basket.price_list[item.plu] || api_basket.price_list[item.plu] && api_basket.price_list[item.plu].error ? 'uk-disabled' : ''">
           <span ng-show="api_basket.basket[item.plu]" class="tooltipped" data-position="right" data-tooltip="Remove from Basket">
             <img src="/assets/img/Trash@theme.png" alt="Remove from Basket">
           </span>
@@ -61,15 +61,15 @@
         <!-- : Buy -->
 
         <!-- Info -->
-        <a href ng-click="view_product(item)" ng-if="item.item.link" ng-style="consultant_query.region == 'us'? {'width':'49%'} : {}" ng-bind="consultant_query.region !== 'us' ? 'Info': 'More Info'">Info</a>
+        <a href ng-click="view_product(item)" ng-if="item.item.link">Info</a>
         <!-- : Info -->
 
         <!-- Favourite -->
-        <a ng-if="item.item.favourite && consultant_query.region !== 'us'" ng-style="consultant_query.region == 'us'? {'width':'49%'} : {}" ng-click="favourite.set(item.id, (favourite.$data[item.id] ? 0 : 1)); open_sidebar('#basket_sidebar')">
+        <a ng-if="item.item.favourite &&" ng-click="favourite.set(item.id, (favourite.$data[item.id] ? 0 : 1)); open_sidebar('#basket_sidebar')">
             <img ng-show="favourite.$data[item.id]" src="/assets/img/Heart@fill.png" alt="Unfavourite">
             <img ng-show="!favourite.$data[item.id]" src="/assets/img/Heart@theme.png" alt="Favourite">
         </a>
-        <a ng-if="item.item.favourite && consultant_query.region == 'us'" ng-click="favourite.set(item.id, (favourite.$data[item.id] ? 0 : 1)); open_sidebar('#basket_sidebar')">
+        <a ng-if="item.item.favourite" ng-click="favourite.set(item.id, (favourite.$data[item.id] ? 0 : 1)); open_sidebar('#basket_sidebar')">
             <span ng-show="!favourite.$data[item.id]">Favourite</span>
             <span ng-show="favourite.$data[item.id]">Unfavourite</span>
         </a>

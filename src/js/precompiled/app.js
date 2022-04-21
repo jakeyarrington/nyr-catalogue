@@ -1,4 +1,4 @@
-/* Compiled 2022-04-19T11:49:24+00:00 */
+/* Compiled 2022-04-21T15:17:05+00:00 */
 
 
  /* > /Users/groot/Documents/GitHub/nyr-catalogue/src/js/angular.js */
@@ -653,7 +653,7 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
 	        var that = this;
 
 	        if($scope.consultant_query.region == 'us') {
-	        	return;
+	        	//return;
 	        }
 
 	        var content = localStorage.getItem('basket_content');
