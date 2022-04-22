@@ -487,6 +487,10 @@
         $('.sidenav').sidenav({
             onOpenStart: function() {
                 $('.sidenav')[0].scrollTop = 0;
+                $('select').formSelect();
+                $('.tabs').tabs();
+                $('.dropdown-trigger').dropdown();
+                $('.tooltipped').tooltip();
             }
         });
         $('.tooltipped').tooltip();

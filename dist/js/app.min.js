@@ -1,4 +1,4 @@
-/* Compiled 2022-04-21T15:31:38+00:00 */
+/* Compiled 2022-04-22T10:31:47+00:00 */
 
 
  /* > /Users/groot/Documents/GitHub/nyr-catalogue/src/js/angular.js */
@@ -2298,6 +2298,10 @@ appController.factory('consultant', function() {
         $('.sidenav').sidenav({
             onOpenStart: function() {
                 $('.sidenav')[0].scrollTop = 0;
+                $('select').formSelect();
+                $('.tabs').tabs();
+                $('.dropdown-trigger').dropdown();
+                $('.tooltipped').tooltip();
             }
         });
         $('.tooltipped').tooltip();
