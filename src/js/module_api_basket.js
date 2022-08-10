@@ -107,6 +107,8 @@
 	    	 						
 	    	 					if(typeof e.url !== 'undefined') {
 
+	    	 						gtag('event', 'basket-checkout', {'method': window.is_pwa ? 'PWA' : 'web', 'agent': window.navigator.userAgent});
+
 	    	 						$('div#checkout-post form').attr('action', e.url);
 	    	 						$('div#checkout-post form input[name="bid"]').val(e.parameters.bid);
 	    	 						$('div#checkout-post form input[name="cky"]').val(e.parameters.cky);

@@ -1,4 +1,4 @@
-/* Compiled 2022-04-22T10:31:47+00:00 */
+/* Compiled 2022-08-10T13:18:47+00:00 */
 
 
  /* > /Users/groot/Documents/GitHub/nyr-catalogue/src/js/angular.js */
@@ -358,6 +358,7 @@ const cdn_url = is_local || location.href.indexOf('vibrant-edison') > -1 ? 'http
 const base_url = location.protocol + '//' + location.host;
 const default_welcome_message = 'Hello. Welcome to my catalogue. I hope you enjoy viewing our range of amazing products. Please do let me know if you need any help or advice. I\'d be happy to make any recommendations. Feel free to contact me using any of the options available in the contact panel.';
 const params = new URLSearchParams(location.search);
+window.is_pwa = false;
 
 window.deferredPrompt;
 function install_app() {
@@ -372,7 +373,13 @@ function install_app() {
 }
 
 if(window.matchMedia('(display-mode: standalone)').matches) {  
+    window.is_pwa = true;
     gtag('event', 'pwa-view', {'method': 'PWA', 'agent': window.navigator.userAgent});
+    if(localStorage.getItem('pwa_installed') == null) {
+        gtag('event', 'pwa-install', {'method': 'PWA', 'agent': window.navigator.userAgent, 'stamp': (new Date()).toString()});
+        localStorage.setItem('pwa_installed', true);
+    }
+
 }
 
 if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
@@ -531,6 +538,8 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
 	    	 				.done(function(e) {
 	    	 						
 	    	 					if(typeof e.url !== 'undefined') {
+
+	    	 						gtag('event', 'basket-checkout', {'method': window.is_pwa ? 'PWA' : 'web', 'agent': window.navigator.userAgent});
 
 	    	 						$('div#checkout-post form').attr('action', e.url);
 	    	 						$('div#checkout-post form input[name="bid"]').val(e.parameters.bid);
