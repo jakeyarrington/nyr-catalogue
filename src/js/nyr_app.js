@@ -288,7 +288,7 @@
 
 
                 /* Init Flipbook */
-                $scope.pdf_url = cdn_url + '/catalogue/' + (catalogues.get()[region + '_pdf_file']);
+                $scope.pdf_url = (catalogues.get()[region + '_pdf_url']);
                 $scope.flipbook = $('.solid-container').FlipBook({
                     pdf: $scope.pdf_url,
                     template: {

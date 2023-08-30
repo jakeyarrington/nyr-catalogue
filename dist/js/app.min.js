@@ -1,4 +1,4 @@
-/* Compiled 2022-08-10T13:23:54+00:00 */
+/* Compiled 2023-08-30T09:43:31+00:00 */
 
 
  /* > /Users/groot/Documents/GitHub/nyr-catalogue/src/js/angular.js */
@@ -1698,7 +1698,7 @@ if(document.referrer.indexOf('configure.nyrcatalogue.com') > -1) {
 
 
                 /* Init Flipbook */
-                $scope.pdf_url = cdn_url + '/catalogue/' + (catalogues.get()[region + '_pdf_file']);
+                $scope.pdf_url = (catalogues.get()[region + '_pdf_url']);
                 $scope.flipbook = $('.solid-container').FlipBook({
                     pdf: $scope.pdf_url,
                     template: {
